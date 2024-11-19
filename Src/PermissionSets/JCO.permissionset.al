@@ -1,0 +1,33 @@
+permissionset 50100 GeneratedPermission
+{
+    Assignable = true;
+    Permissions = codeunit "JCO Subscriptions" = X,
+        codeunit "JCO Genrl Management" = X,
+        tabledata "Consignment Detail ARCJCO" = RIMD,
+        table "Consignment Detail ARCJCO" = X,
+        codeunit "SalesConsignmentMgmt JCOARC" = X,
+        page "Consignments History ARCJOC" = X,
+        page "Consignments Sales ARCJOC" = X,
+        page "Consignments Shipment ARCJOC" = X,
+        page "Ord Consignments Hist ARCJOC" = X,
+        codeunit "InventoryMgmt JCOARC" = X,
+        codeunit "PurchaseConsignmentMgmt JCOARC" = X,
+        tabledata "Purch. Consignment Det ARCJCO" = RIMD,
+        table "Purch. Consignment Det ARCJCO" = X,
+        page "Cons. Shipped By Vendor JCOARC" = X,
+        page "Consignments Receive JCOARC" = X,
+        page "P Consignments History ARCJOC" = X,
+        page "P Ord Consignments Hist ARCJOC" = X,
+        report "Sales - Invoice JCOARC" = X,
+        report "Sales - Memo JCOARC" = X,
+        report "Sales - Pro Forma Inv JCOARC" = X,
+        report "Transfer Order JCO" = X,
+        codeunit "Intercompany Mgmt JCOARC" = X,
+        report "Items By Location ARCJCO" = X,
+        report "Items In Memo JCO" = X,
+        report "Open Sales Quotes ARCJCO" = X,
+        report "Posted Sales Invoices ARCJCO" = X,
+        report "Sales Quote JCOARC" = X,
+        codeunit "ConsignmentReturnMgmt JCOARC" = X,
+        page "Consignments Return ARCJOC" = X;
+}

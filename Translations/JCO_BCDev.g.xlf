@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="en-US" original="JCO_BCDev">
+    <body>
+      <group id="body">
+        <trans-unit id="TableExtension 3308490175 - Field 2851708965 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1994964448">
+          <source>Address 3</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Customer Extn - Field JCO Address 3 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 2702143141 - Field 567439617 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2072992664">
+          <source>JCO Sales Order No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension Jco Purchase Header Ext - Field JCO Sales Order No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 2702143141 - Field 2223456149 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2072992664">
+          <source>JCO Sales Quote No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension Jco Purchase Header Ext - Field JCO Sales Quote No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 2702143141 - Field 1177989207 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2072992664">
+          <source>JCO Sell-to Customer No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension Jco Purchase Header Ext - Field JCO Sell-to Customer No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1644482030 - Field 3832405219 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1519909599">
+          <source>JCO Sales Order Line No</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension Jco Purchase Line Ext - Field JCO Sales Order Line No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1644482030 - Field 3895364249 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1519909599">
+          <source>JCO SalesOrderLine.No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension Jco Purchase Line Ext - Field JCO SalesOrderLine.No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1644482030 - Field 1177989207 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1519909599">
+          <source>JCO Sell-to Customer No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension Jco Purchase Line Ext - Field JCO Sell-to Customer No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 4122362785 - Field 2851708965 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2925931323">
+          <source>Address 3</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension Jco Return Rcpt Header Ext - Field JCO Address 3 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 2445753926 - Field 2851708965 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 552782286">
+          <source>Address 3</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension Jco Sales Cr.memo Head Ext - Field JCO Address 3 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 2753155334 - Field 2851708965 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1948788855">
+          <source>Address 3</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension Jco Sales Header Archive Ext - Field JCO Address 3 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1741537492 - Field 2851708965 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1192395785">
+          <source>Address 3</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension Jco Sales Header Ext - Field JCO Address 3 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1741537492 - Field 1099706024 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1192395785">
+          <source>JCO Purchase Order No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension Jco Sales Header Ext - Field JCO Purchase Order No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1741537492 - Field 352612423 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1192395785">
+          <source>JCO Vendor No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension Jco Sales Header Ext - Field JCO Vendor No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 22469251 - Field 2851708965 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 809936682">
+          <source>Address 3</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension Jco Sales Inv Header Ext - Field JCO Address 3 - Property Caption</note>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
