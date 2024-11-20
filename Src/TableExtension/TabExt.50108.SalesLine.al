@@ -48,6 +48,29 @@ tableextension 50108 "JCO Sales Line" extends "Sales Line"
             CalcFormula = sum("Consignment Detail ARCJCO".Quantity where("Document Type" = field("Document Type"), "Document No." = field("Document No."), "Document Line No." = field("Line No."), "Consignment Status" = const("Consignment Status ARCJCO"::"Sold By Business")));
         }
         //JCO-91<<
+        //JCO112024 >>
+        field(50204; "Currency Code JCO"; Code[20])
+        {
+            Caption = 'Currency Code';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Currency Code" where("Document Type" = field("Document Type"),
+                                                                      "No." = field("Document No.")));
+        }
+        field(50205; "Currency Factor JCO"; Decimal)
+        {
+            Caption = 'Currency Factor';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Currency Factor" where("Document Type" = field("Document Type"),
+                                                                      "No." = field("Document No.")));
+        }
+        field(50206; "Retail Price JCO"; Decimal)
+        {
+            Caption = 'Retail Price';
+            FieldClass = FlowField;
+            CalcFormula = lookup(Item."Unit Price" where("No." = field("No.")));
+        }
+        //JCO112024 <<
+
     }
 
     keys
