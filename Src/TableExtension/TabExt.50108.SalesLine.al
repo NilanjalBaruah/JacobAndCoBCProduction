@@ -70,6 +70,40 @@ tableextension 50108 "JCO Sales Line" extends "Sales Line"
             CalcFormula = lookup(Item."Unit Price" where("No." = field("No.")));
         }
         //JCO112024 <<
+        //JCO112224 >>
+        field(50207; "Ship-to Address JCO"; Text[100])
+        {
+            Caption = 'Ship-to Address';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Ship-to Address" where("Document Type" = field("Document Type"), "No." = field("Document No.")));
+        }
+        field(50208; "Ship-to County JCO"; Text[30])
+        {
+            Caption = 'Ship to State';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Ship-to Country/Region Code" where("Document Type" = field("Document Type"), "No." = field("Document No.")));
+        }
+        field(50209; "Ship-to Post Code JCO"; Text[20])
+        {
+            Caption = 'Ship to Zip Code';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Ship-to Post Code" where("Document Type" = field("Document Type"), "No." = field("Document No.")));
+        }
+        field(50210; "Ship-to Cntry/Region Code JCO"; Code[10])
+        {
+            Caption = 'Ship-to Country Code';
+            TableRelation = "Country/Region";
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Header"."Ship-to Country/Region Code" where("Document Type" = field("Document Type"), "No." = field("Document No.")));
+        }
+        field(50211; "Ship-from Cntry/Regin Code JCO"; Code[10])
+        {
+            Caption = 'Ship-from Country Code';
+            TableRelation = "Country/Region";
+            FieldClass = FlowField;
+            CalcFormula = lookup(Location."Country/Region Code" where(Code = field("Location Code")));
+        }
+        //JCO112224 <<
 
     }
 
