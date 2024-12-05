@@ -1,5 +1,6 @@
 namespace JCO_BCDev_JCO.JCO_BCDev_JCO;
 using Microsoft.Projects.Project.Job;
+using Microsoft.Inventory.Item;
 using JCO.JCO;
 
 page 50204 "Consignments Return ARCJOC"
@@ -190,6 +191,106 @@ page 50204 "Consignments Return ARCJOC"
                     ConsignmentMgmtReturnJCOARC.CreateAndPostItemReclassJournalAndUpdateConsignment(Rec);
                 end;
             }
+            action(UpdateConfirmRetSelected)
+            {
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = Return;
+                Caption = 'Set Selected Lines';
+                ToolTip = 'Updates Confirm Returned By Customer and Date of Return, with Current Date, for the Lines, you selected (only for NON Serialized Lines)';
+                trigger OnAction()
+                var
+                    Item: Record Item;
+                    MarkedCount: Integer;
+                begin
+                    if confirm(StrSubstNo(ConfirmSetLbl, Rec.FieldCaption("Confirm Returned by Custromer")), false) then begin
+                        SetSelectionFilter(Rec);
+                        Rec.MarkedOnly(true);
+                        if Rec.FindSet() then
+                            repeat
+                                Item.Get(Rec."Item No.");
+                                if Item."Item Tracking Code" = '' then
+                                    if Rec."Confirm Returned by Custromer" = false then begin
+                                        Rec."Confirm Returned by Custromer" := true;
+                                        Rec."Date of Return" := TODAY;
+                                        Rec.Modify();
+                                        MarkedCount += 1;
+                                    end;
+                            until Rec.Next() = 0;
+                        if MarkedCount = 0 then
+                            Message('Nothing to Process!');
+                        Rec.MarkedOnly(false);
+                    end;
+                end;
+            }
+            action(UpdateConfirmRetAll)
+            {
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = AllLines;
+                Caption = 'Set All Lines';
+                ToolTip = 'Updates Confirm Returned By Customer and Date of Return, for all Lines (only for NON Serialized Lines)';
+                trigger OnAction()
+                var
+                    SalesConsignmentMgmtJCOARC: Codeunit "SalesConsignmentMgmt JCOARC";
+                begin
+                    SalesConsignmentMgmtJCOARC.SetConfirmReturnedByCustAll(Rec, false);
+                end;
+            }
+            action(ClearSelected)
+            {
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = ClearFilter;
+                Caption = 'Clear Selected';
+                ToolTip = 'Clears Confirm Returned By Customer and Date of Return, for the Lines, you selected (only for NON Serialized Lines)';
+                trigger OnAction()
+                var
+                    Item: Record Item;
+                    MarkedCount: Integer;
+                begin
+                    if confirm(StrSubstNo(ConfirmClearLbl, Rec.FieldCaption("Confirm Returned by Custromer")), false) then begin
+                        SetSelectionFilter(Rec);
+                        Rec.MarkedOnly(true);
+                        if Rec.FindSet() then
+                            repeat
+                                Item.Get(Rec."Item No.");
+                                if Item."Item Tracking Code" = '' then
+                                    if Rec."Confirm Returned by Custromer" = true then begin
+                                        Rec."Confirm Returned by Custromer" := false;
+                                        Rec."Date of Return" := 0D;
+                                        Rec.Modify();
+                                        MarkedCount += 1;
+                                    end;
+                            until Rec.Next() = 0;
+                        if MarkedCount = 0 then
+                            Message('Nothing to Process!');
+                        Rec.MarkedOnly(false);
+                    end;
+                end;
+            }
+            action(ClearAll)
+            {
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = AllLines;
+                Caption = 'Clear All';
+                ToolTip = 'Clears Confirm Returned By Customer and Date of Return, for all Lines (only for NON Serialized Lines)';
+                trigger OnAction()
+                var
+                    SalesConsignmentMgmtJCOARC: Codeunit "SalesConsignmentMgmt JCOARC";
+                begin
+                    SalesConsignmentMgmtJCOARC.SetConfirmReturnedByCustAll(Rec, true);
+                end;
+            }
         }
     }
+    var
+        ConfirmSetLbl: Label 'Do you want to mark %1 to the Selected Non Serialized lines?';
+        ConfirmClearLbl: Label 'Do you want to clear %1 to the Selected Non Serialized lines?';
+
 }

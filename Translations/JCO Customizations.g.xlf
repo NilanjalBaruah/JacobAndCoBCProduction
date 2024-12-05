@@ -63,6 +63,16 @@
           <note from="Developer" annotates="general" priority="2">%1=Count</note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit PurchaseConsignmentMgmt JCOARC - Method CreateAndPostItemJournalAndUpdateConsignment - NamedType ConfReceivedAtLocationLabel</note>
         </trans-unit>
+        <trans-unit id="Codeunit 1110874458 - NamedType 3781130499" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Do you want to clear %1 to all the Non Serialized lines?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit SalesConsignmentMgmt JCOARC - NamedType ConfirmClearLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1110874458 - NamedType 4122353454" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Do you want to mark %1 to all the Non Serialized lines?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit SalesConsignmentMgmt JCOARC - NamedType ConfirmSetLbl</note>
+        </trans-unit>
         <trans-unit id="Codeunit 1110874458 - NamedType 1941572026" size-unit="char" translate="yes" xml:space="preserve">
           <source>Cannot delete the Line as one or more Items has been shipped to Consignee</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -413,6 +423,141 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension VendLedgerEntry Extn ARCJCO - Field Description 2 ARCJCO - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 1876249692 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Detailed Sales Report</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 642903049 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the Collection Attribute</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control AttCollection - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 642903049 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Category</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control AttCollection - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 1717837067 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the Type Attribute</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control AttType - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 1717837067 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control AttType - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 555940972 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the cost of invoiced items.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control Cost Amount (Actual) - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 555940972 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Cost Ampunt</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control Cost Amount (Actual) - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 1881986821 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control CustomerName - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 1881986821 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control CustomerName - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 3461834954 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies a description of the entry.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control Description - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 486908828 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the document number of the entry.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control Document No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 2363328873 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies what type of document was posted to create the value entry.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control Document Type - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 1527563463 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the Customer reference No. of the entry.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control External Document No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 1292185049 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the Quantity.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control Item Ledger Entry Quantity - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 1292185049 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Quantity</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control Item Ledger Entry Quantity - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 568743302 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the number of the item that this value entry is linked to.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control Item No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 2161572060 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the Location Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control Location Code - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 3710982960 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the posting date of this entry.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control Posting Date - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 1643871946 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the Profit Amount</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control ProfitAmt - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 1643871946 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Profit Amount</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control ProfitAmt - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 2980152637 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the price of the item for a sales entry.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control Sales Amount (Actual) - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 2980152637 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sales Amount</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control Sales Amount (Actual) - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 2999175731 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the Serial Number</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control Serial No. JCO - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 2999175731 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Serial No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control Serial No. JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 1882905478 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the Customer number</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control Source No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Control 1882905478 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Control Source No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1876249692 - Action 3602182505 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Print Report</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Detailed Sales Report JCOARC - Action PrintReport - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 3705602511 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Consignments Shipped By Vendor</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -708,6 +853,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Return ARCJOC - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 4115183880 - NamedType 3781130499" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Do you want to clear %1 to the Selected Non Serialized lines?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Return ARCJOC - NamedType ConfirmClearLbl</note>
+        </trans-unit>
+        <trans-unit id="Page 4115183880 - NamedType 4122353454" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Do you want to mark %1 to the Selected Non Serialized lines?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Return ARCJOC - NamedType ConfirmSetLbl</note>
+        </trans-unit>
         <trans-unit id="Page 4115183880 - Control 3244334840 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>The Incoming entry applied to this Shiped Serial Number</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -828,15 +983,65 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Return ARCJOC - Control Unit of Measure Code - Property ToolTip</note>
         </trans-unit>
+        <trans-unit id="Page 4115183880 - Action 371223692 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clears Confirm Returned By Customer and Date of Return, for all Lines (only for NON Serialized Lines)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Return ARCJOC - Action ClearAll - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 4115183880 - Action 371223692 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clear All</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Return ARCJOC - Action ClearAll - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 4115183880 - Action 520437596 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clears Confirm Returned By Customer and Date of Return, for the Lines, you selected (only for NON Serialized Lines)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Return ARCJOC - Action ClearSelected - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 4115183880 - Action 520437596 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clear Selected</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Return ARCJOC - Action ClearSelected - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 4115183880 - Action 4037222777 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Confirm Return by Customer</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Return ARCJOC - Action ConfirmReturnByCustomer - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 4115183880 - Action 1013039931 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Updates Confirm Returned By Customer and Date of Return, for all Lines (only for NON Serialized Lines)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Return ARCJOC - Action UpdateConfirmRetAll - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 4115183880 - Action 1013039931 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set All Lines</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Return ARCJOC - Action UpdateConfirmRetAll - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 4115183880 - Action 3646383555 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Updates Confirm Returned By Customer and Date of Return, with Current Date, for the Lines, you selected (only for NON Serialized Lines)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Return ARCJOC - Action UpdateConfirmRetSelected - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 4115183880 - Action 3646383555 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set Selected Lines</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Return ARCJOC - Action UpdateConfirmRetSelected - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 1641453218 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Consignments Sales</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Sales ARCJOC - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1641453218 - NamedType 3781130499" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Do you want to clear %1 to the Selected Non Serialized lines?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Sales ARCJOC - NamedType ConfirmClearLbl</note>
+        </trans-unit>
+        <trans-unit id="Page 1641453218 - NamedType 4122353454" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Do you want to mark %1 to the Selected Non Serialized lines?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Sales ARCJOC - NamedType ConfirmSetLbl</note>
         </trans-unit>
         <trans-unit id="Page 1641453218 - Control 3244334840 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>The Incoming entry applied to this Shiped Serial Number</source>
@@ -953,15 +1158,65 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Sales ARCJOC - Control Unit of Measure Code - Property ToolTip</note>
         </trans-unit>
+        <trans-unit id="Page 1641453218 - Action 371223692 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clears Confirm Sold By Customer and B2B Sales Date, for all Lines (only for NON Serialized Lines)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Sales ARCJOC - Action ClearAll - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1641453218 - Action 371223692 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clear All</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Sales ARCJOC - Action ClearAll - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1641453218 - Action 520437596 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clears Confirm Sold By Customer and B2B Sales Date, for the Lines, you selected (only for NON Serialized Lines)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Sales ARCJOC - Action ClearSelected - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1641453218 - Action 520437596 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clear Selected</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Sales ARCJOC - Action ClearSelected - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 1641453218 - Action 1827121563 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Confirm Sold by Customer</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Sales ARCJOC - Action ConfirmSoldByCustomer - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 1641453218 - Action 4015497162 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Updates Confirm Sold By Customer and B2B Sales Date, for all Lines (only for NON Serialized Lines)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Sales ARCJOC - Action UpdateConfirmSoldAll - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1641453218 - Action 4015497162 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set All Lines</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Sales ARCJOC - Action UpdateConfirmSoldAll - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1641453218 - Action 2547692138 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Updates Shipment Confirm Sold By Customer and B2B Sales Date with Current Date, for the Lines, you selected (only for NON Serialized Lines)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Sales ARCJOC - Action UpdateConfirmSoldSelected - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1641453218 - Action 2547692138 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set Selected Lines</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Sales ARCJOC - Action UpdateConfirmSoldSelected - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 3617532282 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Consignments Shipment</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Shipment ARCJOC - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3617532282 - NamedType 3781130499" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Do you want to clear %1 to the Selected Non Serialized lines?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Shipment ARCJOC - NamedType ConfirmClearLbl</note>
+        </trans-unit>
+        <trans-unit id="Page 3617532282 - NamedType 4122353454" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Do you want to mark %1 to the Selected Non Serialized lines?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Shipment ARCJOC - NamedType ConfirmSetLbl</note>
         </trans-unit>
         <trans-unit id="Page 3617532282 - Control 3244334840 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>The Incoming entry applied to this Shiped Serial Number</source>
@@ -1063,10 +1318,50 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Shipment ARCJOC - Control Unit of Measure Code - Property ToolTip</note>
         </trans-unit>
+        <trans-unit id="Page 3617532282 - Action 371223692 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clears Shipment Confirmed By and Shipment Date, for all Lines (only for NON Serialized Lines)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Shipment ARCJOC - Action ClearAll - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3617532282 - Action 371223692 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clear All</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Shipment ARCJOC - Action ClearAll - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3617532282 - Action 520437596 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clears Shipment Confirmed By and Shipment Date, for the Lines, you selected (only for NON Serialized Lines)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Shipment ARCJOC - Action ClearSelected - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3617532282 - Action 520437596 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Clear Selected</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Shipment ARCJOC - Action ClearSelected - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 3617532282 - Action 1236958990 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Confirm Shipment information</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Shipment ARCJOC - Action ConfirmShipment - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3617532282 - Action 2677455748 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Updates Shipment Confirmed By and Shipment Date with Current Date, for all Lines (only for NON Serialized Lines)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Shipment ARCJOC - Action UpdateConfirmedByAll - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3617532282 - Action 2677455748 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set All Lines</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Shipment ARCJOC - Action UpdateConfirmedByAll - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3617532282 - Action 3776973572 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Updates Shipment Confirmed By and Shipment Date with Current Date, for the Lines, you selected (only for NON Serialized Lines)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Shipment ARCJOC - Action UpdateConfirmedBySelected - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3617532282 - Action 3776973572 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Set Selected Lines</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Consignments Shipment ARCJOC - Action UpdateConfirmedBySelected - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 175509427 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Order Consignments History</source>
@@ -1333,6 +1628,101 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page P Ord Consignments Hist ARCJOC - Control Unit of Measure Code - Property ToolTip</note>
         </trans-unit>
+        <trans-unit id="Page 2818212599 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Returned Consignment Details</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Control 3967438682 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Date on which Business Sold the Item</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Control B2B Sales Date - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Control 2790486453 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies theComment, if user wants to add to the line</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Control Comment - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Control 2790486453 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipment Comment</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Control Comment - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Control 2757579029 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sales Confirmed By Customer</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Control Confirm Sold by Custromer - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Control 3044695173 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Consignment Location Code the customer in document Line(e.g. Sales Line)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Control Consignment Location Code - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Control 2126169225 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source> Status of Consignment for this Serial No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Control Consignment Status - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Control 3461834954 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Description of the document Line (e.g. Sales Line) </source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Control Description - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Control 2480638018 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Document Line No. of the Consignment (e.g. Sales Order Line No.)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Control Document Line No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Control 486908828 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Document No. of the Consignment</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Control Document No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Control 568743302 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Item No. of the document Line (e.g. Sales Line)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Control Item No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Control 3847101283 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show TRUE or CHECKED, if the Item is shipped to Consignee</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Control Item with Business - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Control 2161572060 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Location Code the document Line (e.g. Sales Line)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Control Location Code - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Control 2704404533 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the Quantity of Serial number</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Control Quantity - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Control 47037625 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Serial No. of the Item</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Control Serial No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Control 2723266372 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the Name of the User who confirm the Shipment.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Control Shipment Confirmed By - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Control 4112852368 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Shipment Date</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Control Shipment Date - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Control 2385270358 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the Unit of Measurement of the Serial</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Control Unit of Measure Code - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2818212599 - Action 3634107699 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Credit Memo</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Returned Consignments ARCJOC - Action ReturnedMemo - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 1335015095 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Items In Memo</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -1427,6 +1817,21 @@
           <source>Specifies the Reason Code for transfer.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension TransferShipmentSubform - Control Reason Code JCOARC - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 4170703468 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Detailed Sales Report</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Detailed Sales Report ARCJCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 4170703468 - Control 776906216 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies if you want the printed report to show Complete Description of the Items from Extended Text.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Detailed Sales Report ARCJCO - Control ShowFullItemDesc - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 4170703468 - Control 776906216 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show Full Item Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Detailed Sales Report ARCJCO - Control ShowFullItemDesc - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 2947634954 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Items By Location</source>
@@ -1762,6 +2167,126 @@
           <source>Unit of Measure Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table Purch. Consignment Det ARCJCO - Field Unit of Measure Code - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Credit Invoice</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 1851005282" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bill-to Contact E-Mail</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType BillToContactEmailLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 2423794985" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bill-to Contact Mobile Phone No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType BillToContactMobilePhoneNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 24137681" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bill-to Contact Phone No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType BillToContactPhoneNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 1464398968" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Country</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType CountryOfManufactuctureLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 2898685577" size-unit="char" translate="yes" xml:space="preserve">
+          <source>CUST. CODE</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType CustomerNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 3878637365" size-unit="char" translate="yes" xml:space="preserve">
+          <source>For customs purposes only.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType DeclartionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 2623093095" size-unit="char" translate="yes" xml:space="preserve">
+          <source>CREDIT INVOICE NO.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType DocumentTitleLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 3539979298" size-unit="char" translate="yes" xml:space="preserve">
+          <source>CUST. RTV. NO.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType ExternalDocNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 2359003977" size-unit="char" translate="yes" xml:space="preserve">
+          <source>STYLE</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType ItemLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 1877187315" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PAGE NO.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType PageLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 2694455927" size-unit="char" translate="yes" xml:space="preserve">
+          <source>TERMS</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType PaymentTermsLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 2518404021" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sell-to Contact E-Mail</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType SellToContactEmailLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 689955230" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sell-to Contact Mobile Phone No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType SellToContactMobilePhoneNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 1096796838" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sell-to Contact Phone No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType SellToContactPhoneNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 1811756935" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ship Via</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType ShipmentMethodLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 3058433994" size-unit="char" translate="yes" xml:space="preserve">
+          <source>For and on behalf of the above named company:</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType SignatureLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 1119192707" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Name (in print) Signature</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType SignatureNameLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 2756798833" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Position in company</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType SignaturePositionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 3182469044" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Total Weight</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType TotalWeightLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - NamedType 3187523764" size-unit="char" translate="yes" xml:space="preserve">
+          <source>OUR PO#</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - NamedType YourReferenceLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - ReportDataItem 907109761 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Credit Invoice</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - ReportDataItem Header - Property RequestFilterHeading</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - ReportLayout 223646069 - Property 2166945456" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The Sales Credit Invoice (RDL) provides a detailed layout.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - ReportLayout SalesCreditInvoice.rdlc - Property Summary</note>
+        </trans-unit>
+        <trans-unit id="Report 626789993 - ReportLayout 223646069 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sales Credit Invoice (RDL)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Credit Invoice JCOARC - ReportLayout SalesCreditInvoice.rdlc - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3428702030 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Invoice</source>
@@ -2188,6 +2713,126 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report Sales - Pro Forma Inv JCOARC - ReportLayout StandardSalesProFormaInv.rdlc - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Report 1245900009 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Credit Invoice (Pre Post)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 1851005282" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bill-to Contact E-Mail</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType BillToContactEmailLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 2423794985" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bill-to Contact Mobile Phone No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType BillToContactMobilePhoneNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 24137681" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bill-to Contact Phone No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType BillToContactPhoneNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 1464398968" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Country</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType CountryOfManufactuctureLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 2898685577" size-unit="char" translate="yes" xml:space="preserve">
+          <source>CUST. CODE</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType CustomerNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 3878637365" size-unit="char" translate="yes" xml:space="preserve">
+          <source>For customs purposes only.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType DeclartionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 2623093095" size-unit="char" translate="yes" xml:space="preserve">
+          <source>CREDIT INVOICE NO.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType DocumentTitleLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 3539979298" size-unit="char" translate="yes" xml:space="preserve">
+          <source>CUST. RTV. NO.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType ExternalDocNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 2359003977" size-unit="char" translate="yes" xml:space="preserve">
+          <source>STYLE</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType ItemLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 1877187315" size-unit="char" translate="yes" xml:space="preserve">
+          <source>PAGE NO.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType PageLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 2694455927" size-unit="char" translate="yes" xml:space="preserve">
+          <source>TERMS</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType PaymentTermsLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 2518404021" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sell-to Contact E-Mail</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType SellToContactEmailLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 689955230" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sell-to Contact Mobile Phone No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType SellToContactMobilePhoneNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 1096796838" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sell-to Contact Phone No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType SellToContactPhoneNoLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 1811756935" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ship Via</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType ShipmentMethodLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 3058433994" size-unit="char" translate="yes" xml:space="preserve">
+          <source>For and on behalf of the above named company:</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType SignatureLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 1119192707" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Name (in print) Signature</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType SignatureNameLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 2756798833" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Position in company</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType SignaturePositionLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 3182469044" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Total Weight</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType TotalWeightLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - NamedType 3187523764" size-unit="char" translate="yes" xml:space="preserve">
+          <source>OUR PO#</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - NamedType YourReferenceLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - ReportDataItem 907109761 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Credit Invoice</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - ReportDataItem Header - Property RequestFilterHeading</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - ReportLayout 889558936 - Property 2166945456" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The Sales Credit Invoice-Pre Post (RDL) provides a detailed layout.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - ReportLayout SalesCreditInvoicePrePost.rdlc - Property Summary</note>
+        </trans-unit>
+        <trans-unit id="Report 1245900009 - ReportLayout 889558936 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sales Credit Invoice (RDL)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Sales Cr. Invoice Pre JCOARC - ReportLayout SalesCreditInvoicePrePost.rdlc - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 2546776544 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Sales Quote</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -2417,6 +3062,86 @@
           <source>This is the Quantity sold by Business (B2B), for Consignment Sales Invoice</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension JCO Posted Sales Inv Line - Control Quantity Sold By Consignee JCO - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1999179483 - Control 3021097344 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2791175237">
+          <source>Specifies the Currency Code of the Invoice</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension JCO PostedSalesCrMLinesExtn - Control Currency Code JCO - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1999179483 - Control 3710982960 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2791175237">
+          <source>Specifies the Posting Date of the Invoice</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension JCO PostedSalesCrMLinesExtn - Control Posting Date - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1999179483 - Control 2650545124 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2791175237">
+          <source>Specifies the Ship from Country</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension JCO PostedSalesCrMLinesExtn - Control Ship-from Cntry/Regin Code JCO - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1999179483 - Control 2844220584 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2791175237">
+          <source>Specifies the Shipping Address of the Customer</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension JCO PostedSalesCrMLinesExtn - Control Ship-to Address JCO - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1999179483 - Control 2478203950 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2791175237">
+          <source>Specifies the Shipping Country of the Customer</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension JCO PostedSalesCrMLinesExtn - Control Ship-to Cntry/Region Code JCO - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1999179483 - Control 568485977 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2791175237">
+          <source>Specifies the Shipping Zip Code of the Customer</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension JCO PostedSalesCrMLinesExtn - Control Ship-to Post Code JCO - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1999179483 - Control 928220663 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2791175237">
+          <source>Specifies the Shipping State of the Customer</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension JCO PostedSalesCrMLinesExtn - Control Ship-to State JCO - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 1999179483 - Control 1287265136 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2791175237">
+          <source>Shows the Retail Price</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension JCO PostedSalesCrMLinesExtn - Control Retail Price JCO - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 582675280 - Control 3021097344 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1298119151">
+          <source>Specifies the Currency Code of the Invoice</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension JCO PostedSalesInvLinesExtn - Control Currency Code JCO - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 582675280 - Control 3710982960 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1298119151">
+          <source>Specifies the Posting Date of the Invoice</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension JCO PostedSalesInvLinesExtn - Control Posting Date - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 582675280 - Control 2650545124 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1298119151">
+          <source>Specifies the Ship from Country</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension JCO PostedSalesInvLinesExtn - Control Ship-from Cntry/Regin Code JCO - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 582675280 - Control 2844220584 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1298119151">
+          <source>Specifies the Shipping Address of the Customer</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension JCO PostedSalesInvLinesExtn - Control Ship-to Address JCO - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 582675280 - Control 2478203950 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1298119151">
+          <source>Specifies the Shipping Country of the Customer</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension JCO PostedSalesInvLinesExtn - Control Ship-to Cntry/Region Code JCO - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 582675280 - Control 568485977 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1298119151">
+          <source>Specifies the Shipping Zip Code of the Customer</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension JCO PostedSalesInvLinesExtn - Control Ship-to Post Code JCO - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 582675280 - Control 928220663 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1298119151">
+          <source>Specifies the Shipping State of the Customer</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension JCO PostedSalesInvLinesExtn - Control Ship-to State JCO - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 582675280 - Control 1287265136 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1298119151">
+          <source>Shows the Retail Price</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension JCO PostedSalesInvLinesExtn - Control Retail Price JCO - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="PageExtension 1761443753 - Action 1897958240 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 387971303">
           <source>Use this button to open the list showing all serial numbers consigned by Vendor</source>
@@ -2768,6 +3493,46 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension Jco Sales Cr.memo Head Ext - Field SWISS VAT ARCJCO - Property Caption</note>
         </trans-unit>
+        <trans-unit id="TableExtension 1984927477 - Field 3021097344 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3059602325">
+          <source>Currency Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales CrMemo Line - Field Currency Code JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1984927477 - Field 2720747720 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3059602325">
+          <source>Currency Factor</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales CrMemo Line - Field Currency Factor JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1984927477 - Field 1287265136 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3059602325">
+          <source>Retail Price</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales CrMemo Line - Field Retail Price JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1984927477 - Field 2650545124 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3059602325">
+          <source>Ship-from Country Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales CrMemo Line - Field Ship-from Cntry/Regin Code JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1984927477 - Field 2844220584 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3059602325">
+          <source>Ship-to Address</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales CrMemo Line - Field Ship-to Address JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1984927477 - Field 2478203950 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3059602325">
+          <source>Ship-to Country Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales CrMemo Line - Field Ship-to Cntry/Region Code JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1984927477 - Field 864432420 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3059602325">
+          <source>Ship to State</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales CrMemo Line - Field Ship-to County JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1984927477 - Field 568485977 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3059602325">
+          <source>Ship to Zip Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales CrMemo Line - Field Ship-to Post Code JCO - Property Caption</note>
+        </trans-unit>
         <trans-unit id="TableExtension 2753155334 - Field 2851708965 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1948788855">
           <source>Address 3</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -2833,6 +3598,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Invoice Line - Field Consignment Location Code ARCJ - Property Caption</note>
         </trans-unit>
+        <trans-unit id="TableExtension 1033013131 - Field 3021097344 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2079186865">
+          <source>Currency Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Invoice Line - Field Currency Code JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1033013131 - Field 2720747720 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2079186865">
+          <source>Currency Factor</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Invoice Line - Field Currency Factor JCO - Property Caption</note>
+        </trans-unit>
         <trans-unit id="TableExtension 1033013131 - Field 3460071026 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2079186865">
           <source>RTV</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -2853,10 +3628,50 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Invoice Line - Field Quantity Sold By Consignee JCO - Property Caption</note>
         </trans-unit>
+        <trans-unit id="TableExtension 1033013131 - Field 1287265136 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2079186865">
+          <source>Retail Price</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Invoice Line - Field Retail Price JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1033013131 - Field 2650545124 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2079186865">
+          <source>Ship-from Country Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Invoice Line - Field Ship-from Cntry/Regin Code JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1033013131 - Field 2844220584 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2079186865">
+          <source>Ship-to Address</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Invoice Line - Field Ship-to Address JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1033013131 - Field 2478203950 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2079186865">
+          <source>Ship-to Country Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Invoice Line - Field Ship-to Cntry/Region Code JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1033013131 - Field 864432420 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2079186865">
+          <source>Ship to State</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Invoice Line - Field Ship-to County JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1033013131 - Field 568485977 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2079186865">
+          <source>Ship to Zip Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Invoice Line - Field Ship-to Post Code JCO - Property Caption</note>
+        </trans-unit>
         <trans-unit id="TableExtension 3428374044 - Field 457194779 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
           <source>Consignment Location Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Line - Field Consignment Location Code ARCJ - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 3428374044 - Field 3021097344 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
+          <source>Currency Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Line - Field Currency Code JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 3428374044 - Field 2720747720 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
+          <source>Currency Factor</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Line - Field Currency Factor JCO - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3428374044 - Field 3460071026 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
           <source>RTV</source>
@@ -2882,6 +3697,36 @@
           <source>Quantity Sold By  Consignee</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Line - Field Quantity Sold By Consignee JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 3428374044 - Field 1287265136 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
+          <source>Retail Price</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Line - Field Retail Price JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 3428374044 - Field 2650545124 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
+          <source>Ship-from Country Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Line - Field Ship-from Cntry/Regin Code JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 3428374044 - Field 2844220584 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
+          <source>Ship-to Address</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Line - Field Ship-to Address JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 3428374044 - Field 2478203950 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
+          <source>Ship-to Country Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Line - Field Ship-to Cntry/Region Code JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 3428374044 - Field 864432420 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
+          <source>Ship to State</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Line - Field Ship-to County JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 3428374044 - Field 568485977 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
+          <source>Ship to Zip Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Sales Line - Field Ship-to Post Code JCO - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3069700121 - Field 1172270381 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3118382297">
           <source>Consignment Order</source>
@@ -2912,6 +3757,11 @@
           <source>Quantity Sold By Customer</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO SalesShipmentLine Ext - Field Quantity Sold By Consignee JCO - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1762267795 - Field 2999175731 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 467645625">
+          <source>Serial No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension JCO Value Entry - Field Serial No. JCO - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 1677478689 - Field 567439617 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2303848727">
           <source>JCO Sales Order No.</source>

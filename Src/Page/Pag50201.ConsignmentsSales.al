@@ -1,5 +1,6 @@
 namespace JCO_BCDev_JCO.JCO_BCDev_JCO;
 using Microsoft.Projects.Project.Job;
+using Microsoft.Inventory.Item;
 using JCO.JCO;
 
 page 50201 "Consignments Sales ARCJOC"
@@ -185,6 +186,105 @@ page 50201 "Consignments Sales ARCJOC"
                     SalesConsignmentMgmtJCOARC.CreateAndPostItemReclassJournalAndUpdateConsignment(Rec, false);
                 end;
             }
+            action(UpdateConfirmSoldSelected)
+            {
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = UpdateShipment;
+                Caption = 'Set Selected Lines';
+                ToolTip = 'Updates Shipment Confirm Sold By Customer and B2B Sales Date with Current Date, for the Lines, you selected (only for NON Serialized Lines)';
+                trigger OnAction()
+                var
+                    Item: Record Item;
+                    MarkedCount: Integer;
+                begin
+                    if confirm(StrSubstNo(ConfirmSetLbl, Rec.FieldCaption("Confirm Sold by Custromer")), false) then begin
+                        SetSelectionFilter(Rec);
+                        Rec.MarkedOnly(true);
+                        if Rec.FindSet() then
+                            repeat
+                                Item.Get(Rec."Item No.");
+                                if Item."Item Tracking Code" = '' then
+                                    if Rec."Confirm Sold by Custromer" = false then begin
+                                        Rec."Confirm Sold by Custromer" := true;
+                                        Rec."B2B Sales Date" := TODAY;
+                                        Rec.Modify();
+                                        MarkedCount += 1;
+                                    end;
+                            until Rec.Next() = 0;
+                        if MarkedCount = 0 then
+                            Message('Nothing to Process!');
+                        Rec.MarkedOnly(false);
+                    end;
+                end;
+            }
+            action(UpdateConfirmSoldAll)
+            {
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = AllLines;
+                Caption = 'Set All Lines';
+                ToolTip = 'Updates Confirm Sold By Customer and B2B Sales Date, for all Lines (only for NON Serialized Lines)';
+                trigger OnAction()
+                var
+                    SalesConsignmentMgmtJCOARC: Codeunit "SalesConsignmentMgmt JCOARC";
+                begin
+                    SalesConsignmentMgmtJCOARC.SetConfirmSoldByCustAll(Rec, false);
+                end;
+            }
+            action(ClearSelected)
+            {
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = UpdateShipment;
+                Caption = 'Clear Selected';
+                ToolTip = 'Clears Confirm Sold By Customer and B2B Sales Date, for the Lines, you selected (only for NON Serialized Lines)';
+                trigger OnAction()
+                var
+                    Item: Record Item;
+                    MarkedCount: Integer;
+                begin
+                    if confirm(StrSubstNo(ConfirmClearLbl, Rec.FieldCaption("Confirm Sold by Custromer")), false) then begin
+                        SetSelectionFilter(Rec);
+                        Rec.MarkedOnly(true);
+                        if Rec.FindSet() then
+                            repeat
+                                Item.Get(Rec."Item No.");
+                                if Item."Item Tracking Code" = '' then
+                                    if Rec."Confirm Sold by Custromer" = true then begin
+                                        Rec."Confirm Sold by Custromer" := false;
+                                        Rec."B2B Sales Date" := 0D;
+                                        Rec.Modify();
+                                        MarkedCount += 1;
+                                    end;
+                            until Rec.Next() = 0;
+                        if MarkedCount = 0 then
+                            Message('Nothing to Process!');
+                        Rec.MarkedOnly(false);
+                    end;
+                end;
+            }
+            action(ClearAll)
+            {
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = AllLines;
+                Caption = 'Clear All';
+                ToolTip = 'Clears Confirm Sold By Customer and B2B Sales Date, for all Lines (only for NON Serialized Lines)';
+                trigger OnAction()
+                var
+                    SalesConsignmentMgmtJCOARC: Codeunit "SalesConsignmentMgmt JCOARC";
+                begin
+                    SalesConsignmentMgmtJCOARC.SetConfirmSoldByCustAll(Rec, true);
+                end;
+            }
         }
     }
+    var
+        ConfirmSetLbl: Label 'Do you want to mark %1 to the Selected Non Serialized lines?';
+        ConfirmClearLbl: Label 'Do you want to clear %1 to the Selected Non Serialized lines?';
 }

@@ -179,6 +179,106 @@ page 50200 "Consignments Shipment ARCJOC"
                     SalesConsignmentMgmtJCOARC.CreateAndPostItemReclassJournalAndUpdateConsignment(Rec, true);
                 end;
             }
+            action(UpdateConfirmedBySelected)
+            {
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = UpdateShipment;
+                Caption = 'Set Selected Lines';
+                ToolTip = 'Updates Shipment Confirmed By and Shipment Date with Current Date, for the Lines, you selected (only for NON Serialized Lines)';
+                trigger OnAction()
+                var
+                    Item: Record Item;
+                    MarkedCount: Integer;
+                begin
+                    if confirm(StrSubstNo(ConfirmSetLbl, Rec.FieldCaption("Shipment Confirmed By")), false) then begin
+                        SetSelectionFilter(Rec);
+                        Rec.MarkedOnly(true);
+                        if Rec.FindSet() then
+                            repeat
+                                Item.Get(Rec."Item No.");
+                                if Item."Item Tracking Code" = '' then
+                                    if Rec."Shipment Confirmed By" = '' then begin
+                                        Rec."Shipment Confirmed By" := UserId;
+                                        Rec."Shipment Date" := TODAY;
+                                        Rec.Modify();
+                                        MarkedCount += 1;
+                                    end;
+                            until Rec.Next() = 0;
+                        if MarkedCount = 0 then
+                            Message('Nothing to Process!');
+                        Rec.MarkedOnly(false);
+                    end;
+                end;
+            }
+            action(UpdateConfirmedByAll)
+            {
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = AllLines;
+                Caption = 'Set All Lines';
+                ToolTip = 'Updates Shipment Confirmed By and Shipment Date with Current Date, for all Lines (only for NON Serialized Lines)';
+                trigger OnAction()
+                var
+                    SalesConsignmentMgmtJCOARC: Codeunit "SalesConsignmentMgmt JCOARC";
+                begin
+                    SalesConsignmentMgmtJCOARC.SetConfirmShipmentAll(Rec, false);
+                end;
+            }
+            action(ClearSelected)
+            {
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = UpdateShipment;
+                Caption = 'Clear Selected';
+                ToolTip = 'Clears Shipment Confirmed By and Shipment Date, for the Lines, you selected (only for NON Serialized Lines)';
+                trigger OnAction()
+                var
+                    Item: Record Item;
+                    MarkedCount: Integer;
+                begin
+                    if confirm(StrSubstNo(ConfirmClearLbl, Rec.FieldCaption("Shipment Confirmed By")), false) then begin
+                        SetSelectionFilter(Rec);
+                        Rec.MarkedOnly(true);
+                        if Rec.FindSet() then
+                            repeat
+                                Item.Get(Rec."Item No.");
+                                if Item."Item Tracking Code" = '' then
+                                    if Rec."Shipment Confirmed By" <> '' then begin
+                                        Rec."Shipment Confirmed By" := '';
+                                        Rec."Shipment Date" := 0D;
+                                        Rec.Modify();
+                                        MarkedCount += 1;
+                                    end;
+                            until Rec.Next() = 0;
+                        if MarkedCount = 0 then
+                            Message('Nothing to Process!');
+                        Rec.MarkedOnly(false);
+                    end;
+                end;
+            }
+            action(ClearAll)
+            {
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = AllLines;
+                Caption = 'Clear All';
+                ToolTip = 'Clears Shipment Confirmed By and Shipment Date, for all Lines (only for NON Serialized Lines)';
+                trigger OnAction()
+                var
+                    SalesConsignmentMgmtJCOARC: Codeunit "SalesConsignmentMgmt JCOARC";
+                begin
+                    SalesConsignmentMgmtJCOARC.SetConfirmShipmentAll(Rec, true);
+                end;
+            }
         }
     }
+    var
+        ConfirmSetLbl: Label 'Do you want to mark %1 to the Selected Non Serialized lines?';
+        ConfirmClearLbl: Label 'Do you want to clear %1 to the Selected Non Serialized lines?';
+
 }

@@ -485,4 +485,123 @@ codeunit 50201 "SalesConsignmentMgmt JCOARC"
         end else
             Error('Nothing to Print!');
     end;
+
+    procedure SetConfirmShipmentAll(ConsignmentDetails: Record "Consignment Detail ARCJCO"; ClearRec: Boolean)
+    var
+        SalesConsignmentForShipment: Record "Consignment Detail ARCJCO";
+        Item: Record Item;
+        ConfirmLblTxt: Text;
+    begin
+        if ClearRec then
+            ConfirmLblTxt := StrSubstNo(ConfirmClearLbl, SalesConsignmentForShipment.FieldCaption("Shipment Confirmed By"))
+        else
+            ConfirmLblTxt := StrSubstNo(ConfirmSetLbl, SalesConsignmentForShipment.FieldCaption("Shipment Confirmed By"));
+
+        SalesConsignmentForShipment.SetRange("Entry Type", ConsignmentDetails."Entry Type");
+        SalesConsignmentForShipment.SetRange("Document Type", ConsignmentDetails."Document Type");
+        SalesConsignmentForShipment.SetRange("Document No.", ConsignmentDetails."Document No.");
+        SalesConsignmentForShipment.SetRange("Consignment Status", SalesConsignmentForShipment."Consignment Status"::" ");
+        if ClearRec then
+            SalesConsignmentForShipment.SetFilter("Shipment Confirmed By", '<>%1', '')
+        else
+            SalesConsignmentForShipment.SetFilter("Shipment Confirmed By", '%1', '');
+        if SalesConsignmentForShipment.FindSet() then begin
+            if Confirm(ConfirmLblTxt, false) then
+                repeat
+                    if Item.Get(SalesConsignmentForShipment."Item No.") then
+                        if Item."Item Tracking Code" = '' then begin
+                            if ClearRec then begin
+                                SalesConsignmentForShipment."Shipment Confirmed By" := '';
+                                SalesConsignmentForShipment."Shipment Date" := 0D;
+                            end else begin
+                                SalesConsignmentForShipment."Shipment Confirmed By" := UserId();
+                                SalesConsignmentForShipment."Shipment Date" := Today();
+                            end;
+                            SalesConsignmentForShipment.Modify();
+                        end;
+                until SalesConsignmentForShipment.Next() = 0;
+        end else
+            Message('Nothing to Process!');
+    end;
+
+    procedure SetConfirmSoldByCustAll(ConsignmentDetails: Record "Consignment Detail ARCJCO"; ClearRec: Boolean)
+    var
+        SalesConsignmentForSales: Record "Consignment Detail ARCJCO";
+        Item: Record Item;
+        ConfirmLblTxt: Text;
+    begin
+        if ClearRec then
+            ConfirmLblTxt := StrSubstNo(ConfirmClearLbl, SalesConsignmentForSales.FieldCaption("Confirm Sold by Custromer"))
+        else
+            ConfirmLblTxt := StrSubstNo(ConfirmSetLbl, SalesConsignmentForSales.FieldCaption("Confirm Sold by Custromer"));
+
+        SalesConsignmentForSales.SetRange("Entry Type", ConsignmentDetails."Entry Type");
+        SalesConsignmentForSales.SetRange("Document Type", ConsignmentDetails."Document Type");
+        SalesConsignmentForSales.SetRange("Document No.", ConsignmentDetails."Document No.");
+        SalesConsignmentForSales.SetRange("Consignment Status", SalesConsignmentForSales."Consignment Status"::"Shipped to Business");
+        if ClearRec then
+            SalesConsignmentForSales.SetRange("Confirm Sold by Custromer", true)
+        else
+            SalesConsignmentForSales.SetRange("Confirm Sold by Custromer", false);
+        if SalesConsignmentForSales.FindSet() then begin
+            if Confirm(ConfirmLblTxt, false) then
+                repeat
+                    if Item.Get(SalesConsignmentForSales."Item No.") then
+                        if Item."Item Tracking Code" = '' then begin
+                            if ClearRec then begin
+                                SalesConsignmentForSales."Confirm Sold by Custromer" := false;
+                                SalesConsignmentForSales."B2B Sales Date" := 0D;
+                            end else begin
+                                SalesConsignmentForSales."Confirm Sold by Custromer" := true;
+                                SalesConsignmentForSales."B2B Sales Date" := Today();
+                            end;
+                            SalesConsignmentForSales.Modify();
+                        end;
+                until SalesConsignmentForSales.Next() = 0;
+        end else
+            Message('Nothing to Process!');
+    end;
+
+    procedure SetConfirmReturnedByCustAll(ConsignmentDetails: Record "Consignment Detail ARCJCO"; ClearRec: Boolean)
+    var
+        SalesConsignmentForReturn: Record "Consignment Detail ARCJCO";
+        Item: Record Item;
+        ConfirmLblTxt: Text;
+    begin
+        if ClearRec then
+            ConfirmLblTxt := StrSubstNo(ConfirmClearLbl, SalesConsignmentForReturn.FieldCaption("Confirm Returned by Custromer"))
+        else
+            ConfirmLblTxt := StrSubstNo(ConfirmSetLbl, SalesConsignmentForReturn.FieldCaption("Confirm Returned by Custromer"));
+
+        SalesConsignmentForReturn.SetRange("Entry Type", ConsignmentDetails."Entry Type");
+        SalesConsignmentForReturn.SetRange("Document Type", ConsignmentDetails."Document Type");
+        SalesConsignmentForReturn.SetRange("Document No.", ConsignmentDetails."Document No.");
+        SalesConsignmentForReturn.SetRange("Consignment Status", SalesConsignmentForReturn."Consignment Status"::"Shipped to Business");
+        if ClearRec then
+            SalesConsignmentForReturn.SetRange("Confirm Returned by Custromer", true)
+        else
+            SalesConsignmentForReturn.SetRange("Confirm Returned by Custromer", false);
+        if SalesConsignmentForReturn.FindSet() then begin
+            if Confirm(ConfirmLblTxt, false) then
+                repeat
+                    if Item.Get(SalesConsignmentForReturn."Item No.") then
+                        if Item."Item Tracking Code" = '' then begin
+                            if ClearRec then begin
+                                SalesConsignmentForReturn."Confirm Returned by Custromer" := false;
+                                SalesConsignmentForReturn."Date of Return" := 0D;
+                            end else begin
+                                SalesConsignmentForReturn."Confirm Returned by Custromer" := true;
+                                SalesConsignmentForReturn."Date of Return" := Today();
+                            end;
+                            SalesConsignmentForReturn.Modify();
+                        end;
+                until SalesConsignmentForReturn.Next() = 0;
+        end else
+            Message('Nothing to Process!');
+    end;
+
+    var
+        ConfirmSetLbl: Label 'Do you want to mark %1 to all the Non Serialized lines?';
+        ConfirmClearLbl: Label 'Do you want to clear %1 to all the Non Serialized lines?';
+
 }

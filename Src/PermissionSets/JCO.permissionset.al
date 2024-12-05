@@ -31,5 +31,8 @@ permissionset 50100 GeneratedPermission
         codeunit "ConsignmentReturnMgmt JCOARC" = X,
         page "Consignments Return ARCJOC" = X,
         report "Sales - Credit Invoice JCOARC" = X,
-        report "Sales Cr. Invoice Pre JCOARC" = X;
+        report "Sales Cr. Invoice Pre JCOARC" = X,
+        report "Detailed Sales Report ARCJCO" = X,
+        page "Detailed Sales Report JCOARC" = X,
+        page "Returned Consignments ARCJOC" = X;
 }

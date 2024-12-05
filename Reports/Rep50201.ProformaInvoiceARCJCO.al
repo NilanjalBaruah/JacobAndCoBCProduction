@@ -444,7 +444,7 @@ report 50201 "Sales - Pro Forma Inv JCOARC"
                     end
                     //11/03/2024>>
                     else if Line."Quantity Shipped" <> 0 then begin
-                        SalesShipmentLine.SetRange("Order No.", Line."No.");
+                        SalesShipmentLine.SetRange("Order No.", Line."Document No.");
                         SalesShipmentLine.SetRange("Order Line No.", Line."Line No.");
                         if SalesShipmentLine.FindSet() then
                             repeat
