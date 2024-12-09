@@ -36,5 +36,10 @@ tableextension 50200 "Location Extn ARCJCO" extends Location
             Caption = 'Damage/Repair Location';
             DataClassification = CustomerContent;
         }
+        field(50105; "Allow Trnsfer Ord ToFro ARCJCO"; Boolean)
+        {
+            Caption = 'Allow Transfer (Order) From and To this location';
+            DataClassification = CustomerContent;
+        }
     }
 }

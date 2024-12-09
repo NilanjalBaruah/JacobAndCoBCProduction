@@ -11,6 +11,11 @@ pageextension 50200 "LocationCard Extn ARCJCO" extends "Location Card"
             Group(JacobLLC)
             {
                 Caption = 'Jacob LLC specific';
+                field("Allow Trnsfer Ord ToFro ARCJCO"; Rec."Allow Trnsfer Ord ToFro ARCJCO")
+                {
+                    ToolTip = 'Specify, if To and From Location Transfer (Transfer Order) is allowed for this location. This will bypass the restriction of using consignment locations in Transfer Orders';
+                    ApplicationArea = All;
+                }
                 field("Consignment Location"; Rec."Consignment Location ARCJCO")
                 {
                     ToolTip = 'Mark True, if the Location belongs to one of your customers and/or Vendor. Sales or Purchase cannot be happened to/from this location';

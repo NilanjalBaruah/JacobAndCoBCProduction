@@ -19,5 +19,13 @@ tableextension 50215 "Item Extn ARCJCO" extends Item
             Editable = false;
             FieldClass = FlowField;
         }
+        field(50202; "Product Environment JCOARC"; code[20])
+        {
+            Caption = 'Product Environment';
+            DataClassification = CustomerContent;
+            Description = 'Created to accomodate Packaging Material management (Source:SA)';
+            TableRelation = Item."No." where("Assembly BOM" = const(true));
+        }
+
     }
 }

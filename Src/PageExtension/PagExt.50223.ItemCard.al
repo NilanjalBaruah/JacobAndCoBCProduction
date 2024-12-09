@@ -38,6 +38,16 @@ pageextension 50223 ItemCardJCO extends "Item Card"
             Visible = true;
         }
         //JCO11122024<<
+
+        addafter(Description)
+        {
+            field(ProductEnvironment; Rec."Product Environment JCOARC")
+            {
+                ToolTip = 'This is used for assigning the Assembly Item linked to the Packaging materials for this Item';
+                ApplicationArea = All;
+                Visible = True;
+            }
+        }
     }
     trigger OnAfterGetRecord()
     begin

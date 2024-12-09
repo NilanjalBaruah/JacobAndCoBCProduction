@@ -19,8 +19,10 @@ codeunit 50202 "InventoryMgmt JCOARC"
     var
         Location: Record Location;
     begin
-        exit; //Fix as per UAT requirement. To allow taking inventory back from Consignee to LLC
+        //exit; //Fix as per UAT requirement. To allow taking inventory back from Consignee to LLC
         Location.Get(Rec."Transfer-from Code");
+        if Location."Allow Trnsfer Ord ToFro ARCJCO" then
+            exit;
         Location.TestField("Consignment Location ARCJCO", false);
     end;
 
@@ -30,6 +32,8 @@ codeunit 50202 "InventoryMgmt JCOARC"
         Location: Record Location;
     begin
         Location.Get(Rec."Transfer-to Code");
+        if Location."Allow Trnsfer Ord ToFro ARCJCO" then
+            exit;
         Location.TestField("Consignment Location ARCJCO", false);
     end;
 

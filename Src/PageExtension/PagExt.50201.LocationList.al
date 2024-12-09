@@ -33,6 +33,11 @@ pageextension 50201 "LocationList Extn ARCJCO" extends "Location List"
                 ToolTip = 'Check, if this location will be Used to keep Damaged/Returned Items. This will be used for reporting and analysis purpose';
                 ApplicationArea = All;
             }
+            field("Allow Trnsfer Ord ToFro ARCJCO"; Rec."Allow Trnsfer Ord ToFro ARCJCO")
+            {
+                ToolTip = 'Specify, if To and From Location Transfer (Transfer Order) is allowed for this location. This will bypass the restriction of using consignment locations in Transfer Orders';
+                ApplicationArea = All;
+            }
         }
     }
 }
