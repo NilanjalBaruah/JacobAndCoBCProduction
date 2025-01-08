@@ -31,5 +31,10 @@ tableextension 50208 "SalesRecSetup Extn ARCJCO" extends "Sales & Receivables Se
                 Rec.TestField("Cons. Template Name JCOARC");
             end;
         }
+        field(50203; "Show Loss as Neg. Prft JCOARC"; Boolean)
+        {
+            Caption = 'Show Loss as Negative Profit';
+            DataClassification = CustomerContent;
+        }
     }
 }

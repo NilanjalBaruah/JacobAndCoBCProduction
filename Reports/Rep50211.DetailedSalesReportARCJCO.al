@@ -2,10 +2,12 @@ namespace JCO_BCDev_JCO_Refined.JCO_BCDev_JCO_Refined;
 
 using Microsoft.Inventory.Ledger;
 using Microsoft.Inventory.Item.Attribute;
+using Microsoft.Inventory.Item;
 using Microsoft.Sales.Customer;
 using Microsoft.Foundation.ExtendedText;
 using Microsoft.Foundation.Company;
 using Microsoft.Foundation.Address;
+using Microsoft.Sales.Setup;
 
 report 50211 "Detailed Sales Report ARCJCO"
 {
@@ -95,6 +97,8 @@ report 50211 "Detailed Sales Report ARCJCO"
                 ItemLedgerEntry: Record "Item Ledger Entry";
                 ItemAttributeValueMapping: Record "Item Attribute Value Mapping";
                 ItemAttributeValue: Record "Item Attribute Value";
+                SalesSetup: Record "Sales & Receivables Setup";
+                Item: Record Item;
             begin
                 Clear(FullItemDescription);
                 Clear(ProfitAmt);
@@ -102,11 +106,13 @@ report 50211 "Detailed Sales Report ARCJCO"
                 Clear(AttCollection);
                 Clear(DocType);
 
+                SalesSetup.Get();
                 if not Customer.Get("Source No.") then
                     Customer.init;
                 ProfitAmt := "Sales Amount (Actual)" + "Cost Amount (Actual)";
                 if ProfitAmt < 0 then
-                    ProfitAmt := 0;
+                    if not SalesSetup."Show Loss as Neg. Prft JCOARC" then
+                        ProfitAmt := 0;
 
                 CalcFields("Serial No. JCO");
                 //Full Description>>
@@ -114,12 +120,22 @@ report 50211 "Detailed Sales Report ARCJCO"
                 if ShowFullItemDesc then begin
                     ExtendedTextLine.Reset();
                     ExtendedTextLine.SetRange("Table Name", ExtendedTextLine."Table Name"::Item);
-                    ExtendedTextLine.SetRange("No.", "No.");
+                    ExtendedTextLine.SetRange("No.", "Item No.");
                     ExtendedTextLine.SetRange("Language Code", '');
                     if ExtendedTextLine.FindSet() then
                         repeat
                             FullItemDescription += ', ' + ExtendedTextLine.Text;
                         until ExtendedTextLine.Next() = 0;
+                    Item.Get("Item No.");
+                    if (StrPos(FullItemDescription, 'HS CODE') = 0) AND (StrPos(FullItemDescription, 'HS_CODE_') = 0) then
+                        if Item."Tariff No." <> '' then
+                            FullItemDescription += ', HS CODE: ' + Item."Tariff No.";
+                    if StrPos(FullItemDescription, 'COUNTRY OF ORIGIN') = 0 then
+                        if Item."Country/Region of Origin Code" <> '' then
+                            FullItemDescription += ', COUNTRY OF ORIGIN: ' + Item."Country/Region of Origin Code";
+                    if StrPos(FullItemDescription, 'NET WEIGHT') = 0 then
+                        if Item."Net Weight" <> 0 then
+                            FullItemDescription += ', NET WEIGHT: ' + format(Item."Net Weight") + ' GR';
                 end;
 
                 //Type>>

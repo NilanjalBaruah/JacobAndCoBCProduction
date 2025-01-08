@@ -20,9 +20,6 @@ report 50204 "Sales - Invoice JCOARC"
             column(CompanyEMail; CompanyInformation."E-Mail")
             {
             }
-            column(CompanyHomePage; CompanyInformation."Home Page")
-            {
-            }
             column(CompanyPhoneNo; CompanyInformation."Phone No.")
             {
             }
@@ -137,13 +134,15 @@ report 50204 "Sales - Invoice JCOARC"
             column(Currency; CurrencyCode)
             {
             }
+            column(CurrencySymbol; CurrencySymbol)
+            {
+            }
             column(CustomerVATRegNo; GetCustomerVATRegistrationNumber())
             {
             }
             column(CustomerVATRegistrationNoLbl; GetCustomerVATRegistrationNumberLbl())
             {
             }
-            //JCO>>
             column(ShipFromAddress1; ShipFromAddress[1])
             {
             }
@@ -195,7 +194,6 @@ report 50204 "Sales - Invoice JCOARC"
             column(CustomerNo; "Sell-to Customer No.")
             {
             }
-            //JOC<<
             column(PageLbl; PageLbl)
             {
             }
@@ -211,14 +209,12 @@ report 50204 "Sales - Invoice JCOARC"
             column(CompanyLegalOfficeLbl; LegalOfficeLbl)
             {
             }
-            //JCO>>
             column(CustomerNoLbl; CustomerNoLbl)
             {
             }
             column(PaymentTermsLbl; PaymentTermsLbl)
             {
             }
-            //JCO<<
             column(SalesPersonLbl; SalesPersonLblText)
             {
             }
@@ -253,9 +249,6 @@ report 50204 "Sales - Invoice JCOARC"
             {
             }
             column(VATPctLbl; Line.FieldCaption("VAT %"))
-            {
-            }
-            column(VATAmountLbl; DummyVATAmountLine.VATAmountText())
             {
             }
             column(TotalWeightLbl; TotalWeightLbl)
@@ -299,7 +292,6 @@ report 50204 "Sales - Invoice JCOARC"
                 DataItemTableView = sorting("Document No.", "Line No.");
                 column(ItemPicture; Item.Picture)
                 {
-
                 }
                 column(No; "No.")
                 {
@@ -332,23 +324,27 @@ report 50204 "Sales - Invoice JCOARC"
                     AutoFormatExpression = Header."Currency Code";
                     AutoFormatType = 1;
                 }
+                column(LineAmountDec; LineAmount)
+                {
+                }
                 column(VATPct; "VAT %")
                 {
                 }
                 column(VATAmount; FormattedVATAmount)
                 {
                 }
-                //JCO>>
-                column(SrNoJCO; SrNoJCO)
+                column(VATAmountDec; VATAmount)
+                {
+                }
+                column(SrNoJCO; SrNoJCOText)
                 {
                 }
                 column(SerialNumberText; SerialNumberText)
                 {
                 }
-                column(FormattedLineDiscountAmount; FormattedLineDiscountAmount)
+                column(ShowSerialNoLine; ShowSerialNoLine)
                 {
                 }
-                //JCO<<
 
                 trigger OnAfterGetRecord()
                 var
@@ -359,26 +355,32 @@ report 50204 "Sales - Invoice JCOARC"
                     AutoFormatType: Enum "Auto Format";
                     SrNoCnt: Integer;
                     BlankSpace: Text;
-                    I: Integer;
+                    i: Integer;
                 begin
-                    //JCO>>
                     Clear(SrNoCnt);
                     Clear(FullItemDescription);
                     Clear(SerialNumberText);
-                    Clear(LineDiscountAmount);
                     Clear(FormattedLineDiscPercent);
-                    //JCO<<
 
-                    GetItemForRec("No.");
-                    OnBeforeLineOnAfterGetRecord(Header, Line);
+                    if Type = Type::Item then begin
+                        GetItemForRec("No.");
+                        if (Item."Replenishment System" = Item."Replenishment System"::Assembly) and (Item."Assembly Policy" = Item."Assembly Policy"::"Assemble-to-Order") then
+                            CurrReport.Skip();
+                    end else
+                        Item.Init();
+                    if Type = Type::" " then begin
+                        SalesLineComment.SetRange("Document No.", "Document No.");
+                        SalesLineComment.SetFilter("Line No.", '<=%1', "Line No.");
+                        SalesLineComment.SetFilter(Type, '<>%1', SalesLineComment.Type::" ");
+                        if SalesLineComment.FindLast() then
+                            if SalesLineComment.Type = SalesLineComment.Type::Item then
+                                CurrReport.Skip();
+                    end;
 
                     if Quantity = 0 then begin
                         LinePrice := "Unit Price";
                         LineAmount := 0;
                         VATAmount := 0;
-                        //JCO>>
-                        LineDiscountAmount := 0;
-                        //JCO<<
                     end else begin
                         if ShowDiscount then
                             LinePrice := "Unit Price"
@@ -395,68 +397,56 @@ report 50204 "Sales - Invoice JCOARC"
                         TotalWeight += Round(Quantity * "Net Weight");
                         TotalVATAmount += VATAmount;
                         TotalAmountInclVAT += Round("Amount Including VAT", Currency."Amount Rounding Precision");
-                        //JCO>>
-                        IF "Line Discount Amount" <> 0 then
-                            LineDiscountAmount := "Line Discount Amount";
-                        //JCO<<                    
                     end;
-
-                    FormattedLinePrice := Format(LinePrice, 0, AutoFormat.ResolveAutoFormat(AutoFormatType::UnitAmountFormat, CurrencyCode));
-                    FormattedLineAmount := Format(LineAmount, 0, AutoFormat.ResolveAutoFormat(AutoFormatType::AmountFormat, CurrencyCode));
-                    FormattedVATAmount := Format(VATAmount, 0, AutoFormat.ResolveAutoFormat(AutoFormatType::AmountFormat, CurrencyCode));
-                    //JCO>>
-                    FormattedLineDiscountAmount := Format(LineDiscountAmount, 0, AutoFormat.ResolveAutoFormat(AutoFormatType::AmountFormat, CurrencyCode));
-                    SrNoJCO += 1;
-                    FormattedLinePrice := CurrencySymbol + FormattedLinePrice;
-                    FormattedLineAmount := CurrencySymbol + FormattedLineAmount;
-                    FormattedVATAmount := CurrencySymbol + FormattedTotalVATAmount;
-                    FormattedLineDiscountAmount := CurrencySymbol + FormattedLineDiscountAmount;
-                    if Line."Line Discount %" <> 0 then
-                        FormattedLineDiscPercent := format(Line."Line Discount %") + '%';
-                    ValueEntry.Reset();
-                    ValueEntry.SetRange("Item Ledger Entry Type", ValueEntry."Item Ledger Entry Type"::Sale);
-                    ValueEntry.SetRange("Entry Type", ValueEntry."Entry Type"::"Direct Cost");
-                    ValueEntry.SetRange("Document Type", ValueEntry."Document Type"::"Sales Invoice");
-                    ValueEntry.SetRange("Document No.", Line."Document No.");
-                    ValueEntry.SetRange("Document Line No.", Line."Line No.");
-                    if ValueEntry.FindSet() then
-                        repeat
-                            ItemLedgerEntry.Get(ValueEntry."Item Ledger Entry No.");
-                            If ItemLedgerEntry."Serial No." <> '' then begin
-                                if SerialNumberText <> '' then
-                                    SerialNumberText := SerialNumberText + ' ,' + ItemLedgerEntry."Serial No."
-                                else
-                                    SerialNumberText := ItemLedgerEntry."Serial No.";
-                                SrNoCnt += 1;
-                            end;
-                        until ValueEntry.Next() = 0;
-                    case SrNoCnt of
-                        1:
-                            SerialNumberText := 'SERIAL NO.: ' + SerialNumberText;
-                        0:
-                            SerialNumberText := '';
-                        else
-                            SerialNumberText := 'SERIAL NOS.: ' + SerialNumberText;
+                    if Type <> Type::" " then begin
+                        FormattedLinePrice := CurrencySymbol + Format(LinePrice, 0, AutoFormat.ResolveAutoFormat(AutoFormatType::UnitAmountFormat, CurrencyCode));
+                        FormattedLineAmount := CurrencySymbol + Format(LineAmount, 0, AutoFormat.ResolveAutoFormat(AutoFormatType::AmountFormat, CurrencyCode));
+                        FormattedVATAmount := CurrencySymbol + Format(VATAmount, 0, AutoFormat.ResolveAutoFormat(AutoFormatType::AmountFormat, CurrencyCode));
+                        if Line."Line Discount %" <> 0 then
+                            FormattedLineDiscPercent := format(Line."Line Discount %") + '%';
+                    end else begin
+                        FormattedLinePrice := '';
+                        FormattedLineAmount := '';
+                        FormattedVATAmount := '';
+                        FormattedLineDiscPercent := '';
                     end;
-
-                    FullItemDescription := Line.Description;
-                    SalesLineComment.Reset();
-                    SalesLineComment.SetRange("Document No.", Line."Document No.");
-                    SalesLineComment.SetRange(Type, SalesLineComment.Type::" ");
-                    SalesLineComment.SetRange("Attached to Line No.", Line."Line No.");
-                    if SalesLineComment.FindSet() then
-                        repeat
-                            FullItemDescription += ', ' + SalesLineComment.Description;
-                        until SalesLineComment.Next() = 0;
-                    //JCO<<
-                    //JCO110624>>
-                    if StrLen(FullItemDescription) < 340 then begin
-                        for i := 1 to (340 - StrLen(FullItemDescription)) do
-                            BlankSpace += ' ';
-                        FullItemDescription += BlankSpace;
+                    ;
+                    if Type = Type::Item then begin
+                        SrNoJCO += 1;
+                        SrNoJCOText := Format(SrNoJCO);
+                    end else
+                        SrNoJCOText := '';
+                    if Type = Type::Item then begin
+                        ValueEntry.SetRange("Item Ledger Entry Type", ValueEntry."Item Ledger Entry Type"::Sale);
+                        ValueEntry.SetRange("Entry Type", ValueEntry."Entry Type"::"Direct Cost");
+                        ValueEntry.SetRange("Document Type", ValueEntry."Document Type"::"Sales Invoice");
+                        ValueEntry.SetRange("Document No.", Line."Document No.");
+                        ValueEntry.SetRange("Document Line No.", Line."Line No.");
+                        if ValueEntry.FindSet() then
+                            repeat
+                                ItemLedgerEntry.Get(ValueEntry."Item Ledger Entry No.");
+                                If ItemLedgerEntry."Serial No." <> '' then begin
+                                    if SerialNumberText <> '' then
+                                        SerialNumberText := SerialNumberText + ' ,' + ItemLedgerEntry."Serial No."
+                                    else
+                                        SerialNumberText := ItemLedgerEntry."Serial No.";
+                                    SrNoCnt += 1;
+                                end;
+                            until ValueEntry.Next() = 0;
+                        case SrNoCnt of
+                            1:
+                                SerialNumberText := 'SERIAL NO.: ' + SerialNumberText;
+                            0:
+                                SerialNumberText := '';
+                            else
+                                SerialNumberText := 'SERIAL NOS.: ' + SerialNumberText;
+                        end;
                     end;
-                    //JCO110624<<
-
+                    if (Type = Type::Item) and (SerialNumberText <> '') then
+                        ShowSerialNoLine := true
+                    else
+                        ShowSerialNoLine := false;
+                    GetFullDescription(Line);
                 end;
 
                 trigger OnPreDataItem()
@@ -465,13 +455,7 @@ report 50204 "Sales - Invoice JCOARC"
                     TotalAmount := 0;
                     TotalVATAmount := 0;
                     TotalAmountInclVAT := 0;
-                    //JCO>>
                     SrNoJCO := 0;
-                    //JCO<<
-
-                    SetRange(Type, Type::Item);
-
-                    OnAfterLineOnPreDataItem(Header, Line);
                 end;
             }
             dataitem(WorkDescriptionLines; "Integer")
@@ -589,11 +573,9 @@ report 50204 "Sales - Invoice JCOARC"
         CompanyInformation.CalcFields(Picture);
 
         IsHandled := false;
-        OnInitReportForGlobalVariable(IsHandled, LegalOfficeTxt, LegalOfficeLbl);
     end;
 
     var
-        DummyVATAmountLine: Record "VAT Amount Line";
         DummyShipmentMethod: Record "Shipment Method";
         DummyCurrency: Record Currency;
         AutoFormat: Codeunit "Auto Format";
@@ -605,10 +587,7 @@ report 50204 "Sales - Invoice JCOARC"
         CurrencySymbol: Text[10];
         FullItemDescription: Text;
         FormattedLineDiscPercent: Text;
-
-        ////JCO>>
         ShowDiscount: Boolean;
-        FormattedLineDiscountAmount: Text;
         PaymentTermsDescription: Text;
         DocumentTitleLbl: Label 'INVOICE NO.';
         PageLbl: Label 'PAGE NO.';
@@ -619,10 +598,9 @@ report 50204 "Sales - Invoice JCOARC"
         CustomerNoLbl: Label 'CUST. CODE';
         PaymentTermsLbl: Label 'TERMS';
         SrNoJCO: Integer;
-        LineDiscountAmount: Decimal;
+        ShowSerialNoLine: Boolean;
+        SrNoJCOText: Text[3];
         SerialNumberText: Text;
-
-        ////JCO<<
         DeclartionLbl: Label 'For customs purposes only.';
         SignatureLbl: Label 'For and on behalf of the above named company:';
         SignatureNameLbl: Label 'Name (in print) Signature';
@@ -643,10 +621,8 @@ report 50204 "Sales - Invoice JCOARC"
         BillToContact: Record Contact;
         CompanyAddress: array[8] of Text[100];
         CustomerAddress: array[8] of Text[100];
-        //JCO>>
         ShipFromAddress: array[8] of Text[100];
         ShipToAddress: array[8] of Text[100];
-        //JCO<<
         WorkDescriptionInStream: InStream;
         SalesPersonLblText: Text[50];
         TotalAmountLbl: Text[50];
@@ -692,37 +668,76 @@ report 50204 "Sales - Invoice JCOARC"
         FormatAddress.GetCompanyAddr(SalesInvoiceHeader."Responsibility Center", ResponsibilityCenter, CompanyInformation, CompanyAddress);
         FormatAddress.SalesInvBillTo(CustomerAddress, SalesInvoiceHeader);
 
-        //JCO>>
         FormatDocument.SetPaymentTerms(PaymentTermsJCO, SalesInvoiceHeader."Payment Terms Code", SalesInvoiceHeader."Language Code");
         PaymentTermsDescription := PaymentTermsJCO.Description;
         FormatAddress.SalesInvShipTo(ShipToAddress, CustomerAddress, SalesInvoiceHeader);
         LocationForAddrJCO.Get(SalesInvoiceHeader."Location Code");
         FormatAddress.Location(ShipFromAddress, LocationForAddrJCO);
-        //JCO<<
         if SalesInvoiceHeader."Currency Code" = '' then begin
             GeneralLedgerSetup.Get();
             GeneralLedgerSetup.TestField("LCY Code");
             CurrencyCode := GeneralLedgerSetup."LCY Code";
             Currency.InitRoundingPrecision();
-            //JCO>>
             CurrencySymbol := GeneralLedgerSetup."Local Currency Symbol";
-            //JCO<<
         end else begin
             CurrencyCode := SalesInvoiceHeader."Currency Code";
             Currency.Get(SalesInvoiceHeader."Currency Code");
-            //JCO>>
             CurrencySymbol := Currency.Symbol;
-            //JCO<<
         end;
 
         FormatDocument.SetTotalLabels(SalesInvoiceHeader."Currency Code", TotalAmountLbl, TotalAmountInclVATLbl, TotalAmounExclVATLbl);
+    end;
+
+    local procedure GetFullDescription(SalesInvLine: Record "Sales Invoice Line")
+    var
+        SalesInvLineComment: Record "Sales Invoice Line";
+        NextSalesInvLine: Record "Sales Invoice Line";
+        NextSalesInvLineNo: Integer;
+        BlankSpace: Text;
+        i: Integer;
+    begin
+        Clear(BlankSpace);
+        FullItemDescription := SalesInvLine.Description;
+        if SalesInvLine.Type = SalesInvLine.Type::Item then begin
+            NextSalesInvLine.SetRange("Document No.", SalesInvLine."Document No.");
+            NextSalesInvLine.SetFilter(Type, '<>%1', SalesInvLine.Type::" ");
+            NextSalesInvLine.SetFilter("Line No.", '>%1', SalesInvLine."Line No.");
+            If NextSalesInvLine.FindFirst() then
+                NextSalesInvLineNo := NextSalesInvLine."Line No.";
+            if SalesInvLine.Type = SalesInvLine.Type::Item then begin
+                SalesInvLineComment.SetRange("Document No.", SalesInvLine."Document No.");
+                SalesInvLineComment.SetRange(Type, SalesInvLineComment.Type::" ");
+                if NextSalesInvLineNo <> 0 then
+                    SalesInvLineComment.SetFilter("Line No.", '%1..%2', SalesInvLine."Line No.", NextSalesInvLineNo)
+                else
+                    SalesInvLineComment.SetFilter("Line No.", '%1..', SalesInvLine."Line No.");
+                if SalesInvLineComment.FindSet() then
+                    repeat
+                        FullItemDescription += ', ' + SalesInvLineComment.Description;
+                    until SalesInvLineComment.Next() = 0;
+                GetItemForRec(SalesInvLine."No.");
+                if (StrPos(FullItemDescription, 'HS CODE') = 0) AND (StrPos(FullItemDescription, 'HS_CODE_') = 0) then
+                    if Item."Tariff No." <> '' then
+                        FullItemDescription += ', HS CODE: ' + Item."Tariff No.";
+                if StrPos(FullItemDescription, 'COUNTRY OF ORIGIN') = 0 then
+                    if Item."Country/Region of Origin Code" <> '' then
+                        FullItemDescription += ', COUNTRY OF ORIGIN: ' + Item."Country/Region of Origin Code";
+                if StrPos(FullItemDescription, 'NET WEIGHT') = 0 then
+                    if Item."Net Weight" <> 0 then
+                        FullItemDescription += ', NET WEIGHT: ' + format(Item."Net Weight") + ' GR';
+                if StrLen(FullItemDescription) < 340 then begin
+                    for i := 1 to (340 - StrLen(FullItemDescription)) do
+                        BlankSpace += ' ';
+                    FullItemDescription += BlankSpace;
+                end;
+            end;
+        end;
     end;
 
     local procedure DocumentCaption(): Text
     var
         DocCaption: Text;
     begin
-        OnBeforeGetDocumentCaption(Header, DocCaption);
         if DocCaption <> '' then
             exit(DocCaption);
         exit(DocumentTitleLbl);
@@ -733,36 +748,8 @@ report 50204 "Sales - Invoice JCOARC"
         IsHandled: Boolean;
     begin
         IsHandled := false;
-        OnBeforeGetItemForRec(ItemNo, IsHandled);
         if IsHandled then
             exit;
-
         Item.Get(ItemNo);
     end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterLineOnPreDataItem(var SalesInvoiceHeader: Record "Sales Invoice Header"; var SalesInvoiceLine: Record "Sales Invoice Line")
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeGetDocumentCaption(SalesInvoiceHeader: Record "Sales Invoice Header"; var DocCaption: Text)
-    begin
-    end;
-
-    [IntegrationEvent(true, false)]
-    local procedure OnBeforeGetItemForRec(ItemNo: Code[20]; var IsHandled: Boolean)
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeLineOnAfterGetRecord(SalesInvoiceHeader: Record "Sales Invoice Header"; var SalesInvoiceLine: Record "Sales Invoice Line")
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnInitReportForGlobalVariable(var IsHandled: Boolean; var LegalOfficeTxt: Text; var LegalOfficeLbl: Text)
-    begin
-    end;
 }
-

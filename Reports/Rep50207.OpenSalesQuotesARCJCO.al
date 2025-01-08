@@ -21,7 +21,7 @@ report 50207 "Open Sales Quotes ARCJCO"
         dataitem(SalesHeader; "Sales Header")
         {
             DataItemTableView = sorting("Sell-to Customer No.") where("Document Type" = Filter("Document Type"::Quote));
-            RequestFilterFields = "Posting Date", "Sell-to Customer No.", "Location Code";
+            RequestFilterFields = "Order Date", "Sell-to Customer No.", "Location Code";
             column(HeaderPostingDate; Format("Order Date"))
             {
             }
@@ -128,6 +128,15 @@ report 50207 "Open Sales Quotes ARCJCO"
                             repeat
                                 FullItemDescription += ', ' + ExtendedTextLine.Text;
                             until ExtendedTextLine.Next() = 0;
+                        if (StrPos(FullItemDescription, 'HS CODE') = 0) AND (StrPos(FullItemDescription, 'HS_CODE_') = 0) then
+                            if Item."Tariff No." <> '' then
+                                FullItemDescription += ', HS CODE: ' + Item."Tariff No.";
+                        if StrPos(FullItemDescription, 'COUNTRY OF ORIGIN') = 0 then
+                            if Item."Country/Region of Origin Code" <> '' then
+                                FullItemDescription += ', COUNTRY OF ORIGIN: ' + Item."Country/Region of Origin Code";
+                        if StrPos(FullItemDescription, 'NET WEIGHT') = 0 then
+                            if Item."Net Weight" <> 0 then
+                                FullItemDescription += ', NET WEIGHT: ' + format(Item."Net Weight") + ' GR';
                     end;
                     ReservationEntry.Reset();
                     ReservationEntry.SetRange("Source Type", 37);

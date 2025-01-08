@@ -121,6 +121,15 @@ report 50206 "Posted Sales Invoices ARCJCO"
                             repeat
                                 FullItemDescription += ', ' + ExtendedTextLine.Text;
                             until ExtendedTextLine.Next() = 0;
+                        if (StrPos(FullItemDescription, 'HS CODE') = 0) AND (StrPos(FullItemDescription, 'HS_CODE_') = 0) then
+                            if Item."Tariff No." <> '' then
+                                FullItemDescription += ', HS CODE: ' + Item."Tariff No.";
+                        if StrPos(FullItemDescription, 'COUNTRY OF ORIGIN') = 0 then
+                            if Item."Country/Region of Origin Code" <> '' then
+                                FullItemDescription += ', COUNTRY OF ORIGIN: ' + Item."Country/Region of Origin Code";
+                        if StrPos(FullItemDescription, 'NET WEIGHT') = 0 then
+                            if Item."Net Weight" <> 0 then
+                                FullItemDescription += ', NET WEIGHT: ' + format(Item."Net Weight") + ' GR';
                     end;
                     ValueEntry.Reset();
                     ValueEntry.SetRange("Item Ledger Entry Type", ValueEntry."Item Ledger Entry Type"::Sale);

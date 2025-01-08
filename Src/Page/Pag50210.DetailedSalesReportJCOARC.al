@@ -3,6 +3,7 @@ namespace JCO_BCDev_.JCO_BCDev_;
 using Microsoft.Inventory.Ledger;
 using JCO_BCDev_JCO_Refined.JCO_BCDev_JCO_Refined;
 using Microsoft.Sales.Customer;
+using Microsoft.Sales.Setup;
 using Microsoft.Inventory.Item.Attribute;
 
 page 50210 "Detailed Sales Report JCOARC"
@@ -134,18 +135,20 @@ page 50210 "Detailed Sales Report JCOARC"
     var
         ItemAttributeValueMapping: Record "Item Attribute Value Mapping";
         ItemAttributeValue: Record "Item Attribute Value";
+        SalesSetup: Record "Sales & Receivables Setup";
     begin
         Clear(ProfitAmt);
         Clear(AttType);
         Clear(AttCollection);
         Clear(CustName);
 
+        SalesSetup.Get();
         if Customer.Get(Rec."Source No.") then
             CustName := Customer.Name;
         ProfitAmt := Rec."Sales Amount (Actual)" + Rec."Cost Amount (Actual)";
         if ProfitAmt < 0 then
-            ProfitAmt := 0;
-
+            if not SalesSetup."Show Loss as Neg. Prft JCOARC" then
+                ProfitAmt := 0;
         //Type>>
         ItemAttributeValueMapping.SetRange("Table ID", 27);
         ItemAttributeValueMapping.SetRange("No.", Rec."Item No.");

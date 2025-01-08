@@ -9,7 +9,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.0.20283.0</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2024-11-14T05:17:01.8011352Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2024-12-30T16:55:51.5984606Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -82,7 +82,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>Style</Value>
+                                                    <Value>Style/ GL</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>9pt</FontSize>
@@ -1489,8 +1489,7 @@
                               <ZIndex>1</ZIndex>
                               <Visibility>
                                 <Hidden>=Code.SetData(
-Cstr(Fields!DocumentNo.Value) + Chr(177) + Cstr(Fields!CustomerAddress1.Value) + Chr(177) + Cstr(Fields!CustomerAddress2.Value) + Chr(177) + Cstr(Fields!CustomerAddress3.Value) + Chr(177) + Cstr(Fields!CustomerAddress4.Value) + Chr(177) + Cstr(Fields!CustomerAddress5.Value) + Chr(177) + Cstr(Fields!CustomerAddress6.Value) + Chr(177) + Cstr(Fields!CustomerAddress7.Value) + Chr(177) + Cstr(Fields!CustomerAddress8.Value) + Chr(177) + Cstr(Fields!CustomerVATRegNo.Value) + Chr(177) + Cstr(Fields!YourReference.Value) + Chr(177) + Cstr(Fields!ExternalDocumentNo.Value) + Chr(177) + Cstr(Fields!ShipmentMethodDescription.Value) + Chr(177) + Cstr(Fields!Currency.Value) + Chr(177) + Cstr(Fields!CompanyAddress1.Value) + Chr(177) + Cstr(Fields!CompanyAddress2.Value) + Chr(177) + Cstr(Fields!CompanyAddress3.Value) + Chr(177) + Cstr(Fields!CompanyAddress4.Value) + Chr(177) + Cstr(Fields!CompanyAddress5.Value) + Chr(177) + Cstr(Fields!CompanyAddress6.Value) + Chr(177) + Cstr(Fields!CompanyLegalOffice.Value) + Chr(177) + Cstr(Fields!CompanyVATRegNo.Value) + Chr(177) + Cstr(Fields!SalesPersonName.Value) + Chr(177) + Cstr(Fields!CompanyEMail.Value) + Chr(177) +Cstr(Fields!CompanyHomePage.Value) + Chr(177) + Cstr(Fields!CompanyPhoneNo.Value) + Chr(177) + Cstr(Fields!ShipFromAddress1.Value) + Chr(177) + Cstr(Fields!ShipFromAddress2.Value) + Chr(177) + Cstr(Fields!ShipFromAddress3.Value) + Chr(177) + Cstr(Fields!ShipFromAddress4.Value) + Chr(177) + Cstr(Fields!ShipFromAddress5.Value) + Chr(177) + Cstr(Fields!ShipFromAddress6.Value) + Chr(177) + Cstr(Fields!ShipFromAddress7.Value) + Chr(177) + Cstr(Fields!ShipFromAddress8.Value) + Chr(177) + Cstr(Fields!ShipToAddress1.Value) + Chr(177) + Cstr(Fields!ShipToAddress2.Value) + Chr(177) + Cstr(Fields!ShipToAddress3.Value) + Chr(177) + Cstr(Fields!ShipToAddress4.Value) + Chr(177) + Cstr(Fields!ShipToAddress5.Value) + Chr(177) +
-Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value) + Chr(177) + Cstr(Fields!ShipToAddress8.Value) + Chr(177) + Cstr(Fields!CustomerNo.Value) + Chr(177) + Cstr(Fields!PaymentTermsDescription.Value))</Hidden>
+Cstr(Fields!DocumentNo.Value) + Chr(177) + Cstr(Fields!CustomerNo.Value) + Chr(177) + Cstr(Fields!DocumentDate.Value) + Chr(177) + Cstr(Fields!ShipmentDate.Value) + Chr(177) + Cstr(Fields!CancelDate.Value) + Chr(177) + Cstr(Fields!ExternalDocumentNo.Value) + Chr(177) + Cstr(Fields!YourReference.Value) + Chr(177) + Cstr(Fields!SalesPersonName.Value) + Chr(177) + Cstr(Fields!ShipmentMethodDescription.Value) + Chr(177) + Cstr(Fields!CompanyAddress1.Value) + Chr(177) + Cstr(Fields!CompanyAddress2.Value) + Chr(177) + Cstr(Fields!CompanyAddress3.Value) + Chr(177) + Cstr(Fields!CompanyPhoneNo.Value) + Chr(177) + Cstr(Fields!CompanyAddress4.Value) + Chr(177) + Cstr(Fields!CompanyAddress5.Value) + Chr(177) + Cstr(Fields!CompanyAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress1.Value) + Chr(177) + Cstr(Fields!ShipToAddress2.Value) + Chr(177) + Cstr(Fields!ShipToAddress3.Value) + Chr(177) + Cstr(Fields!ShipToAddress4.Value) + Chr(177) + Cstr(Fields!ShipToAddress5.Value) + Chr(177) + Cstr(Fields!ShipToAddress6.Value))</Hidden>
                               </Visibility>
                               <Style>
                                 <Border>
@@ -1541,6 +1540,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
             <PageBreak>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
+            <Top>0cm</Top>
             <Height>2.44366cm</Height>
             <Width>18.99816cm</Width>
             <Style>
@@ -1630,7 +1630,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Code.GetData(11)</Value>
+                      <Value>=Code.GetData(7)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -1664,7 +1664,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Code.GetData(15)</Value>
+                      <Value>=Code.GetData(10)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>9pt</FontSize>
@@ -1699,7 +1699,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Code.GetData(16)</Value>
+                      <Value>=Code.GetData(11)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>9pt</FontSize>
@@ -1733,7 +1733,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Code.GetData(17)</Value>
+                      <Value>=Code.GetData(12)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>9pt</FontSize>
@@ -1767,7 +1767,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Code.GetData(18)</Value>
+                      <Value>=Code.GetData(14)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>9pt</FontSize>
@@ -1802,7 +1802,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Code.GetData(26)</Value>
+                      <Value>=Code.GetData(13)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -1837,7 +1837,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Code.GetData(12)</Value>
+                      <Value>=Code.GetData(6)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -1900,7 +1900,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
               </Paragraphs>
               <Top>3.365cm</Top>
               <Height>0.74082cm</Height>
-              <Width>6.33cm</Width>
+              <Width>6.92423cm</Width>
               <ZIndex>10</ZIndex>
               <Style>
                 <Border>
@@ -1987,7 +1987,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Code.GetData(35)</Value>
+                      <Value>=Code.GetData(17)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>9pt</FontSize>
@@ -2000,7 +2000,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
               <Top>4.43514cm</Top>
               <Left>0.00135in</Left>
               <Height>0.38806cm</Height>
-              <Width>6.36518cm</Width>
+              <Width>6.9208cm</Width>
               <ZIndex>13</ZIndex>
               <Style>
                 <Border>
@@ -2018,7 +2018,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Code.GetData(36)</Value>
+                      <Value>=Code.GetData(18)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>9pt</FontSize>
@@ -2031,7 +2031,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
               <Top>4.8232cm</Top>
               <Left>0.00135in</Left>
               <Height>0.38806cm</Height>
-              <Width>6.36518cm</Width>
+              <Width>6.9208cm</Width>
               <ZIndex>14</ZIndex>
               <Style>
                 <Border>
@@ -2048,7 +2048,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Code.GetData(37)</Value>
+                      <Value>=Code.GetData(19)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>9pt</FontSize>
@@ -2061,7 +2061,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
               <Top>5.21126cm</Top>
               <Left>0.00135in</Left>
               <Height>0.38806cm</Height>
-              <Width>6.36518cm</Width>
+              <Width>6.9208cm</Width>
               <ZIndex>15</ZIndex>
               <Style>
                 <Border>
@@ -2078,7 +2078,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Code.GetData(38)</Value>
+                      <Value>=Code.GetData(20)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>9pt</FontSize>
@@ -2091,7 +2091,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
               <Top>5.59932cm</Top>
               <Left>0.00135in</Left>
               <Height>0.38806cm</Height>
-              <Width>6.36518cm</Width>
+              <Width>6.9208cm</Width>
               <ZIndex>16</ZIndex>
               <Style>
                 <Border>
@@ -2109,7 +2109,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Code.GetData(39)</Value>
+                      <Value>=Code.GetData(21)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>9pt</FontSize>
@@ -2122,7 +2122,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
               <Top>5.98738cm</Top>
               <Left>0.00135in</Left>
               <Height>0.38806cm</Height>
-              <Width>6.36518cm</Width>
+              <Width>6.9208cm</Width>
               <ZIndex>17</ZIndex>
               <Style>
                 <Border>
@@ -2140,7 +2140,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Code.GetData(40)</Value>
+                      <Value>=Code.GetData(22)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>9pt</FontSize>
@@ -2153,7 +2153,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
               <Top>6.37544cm</Top>
               <Left>0.00135in</Left>
               <Height>0.38806cm</Height>
-              <Width>6.36518cm</Width>
+              <Width>6.9208cm</Width>
               <ZIndex>18</ZIndex>
               <Style>
                 <Border>
@@ -2206,7 +2206,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Code.GetData(13)</Value>
+                      <Value>=Code.GetData(9)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -2235,8 +2235,9 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
             <Rectangle Name="Rectangle7">
               <KeepTogether>true</KeepTogether>
               <Top>4.10582cm</Top>
-              <Height>2.93989cm</Height>
-              <Width>6.40046cm</Width>
+              <Left>0.00343cm</Left>
+              <Height>2.94872cm</Height>
+              <Width>6.9208cm</Width>
               <ZIndex>21</ZIndex>
               <Style>
                 <Border>
@@ -2248,7 +2249,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
               <KeepTogether>true</KeepTogether>
               <Top>3.38349cm</Top>
               <Height>0.69587cm</Height>
-              <Width>6.40046cm</Width>
+              <Width>6.92423cm</Width>
               <ZIndex>22</ZIndex>
               <Style>
                 <Border>
@@ -2332,7 +2333,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=First(Fields!DocumentDate.Value, "DataSet_Result")</Value>
+                      <Value>=Code.GetData(3)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -2349,7 +2350,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
               <Top>2.48809cm</Top>
               <Left>5.85417in</Left>
               <Height>0.38806cm</Height>
-              <Width>3.59941cm</Width>
+              <Width>3.91681cm</Width>
               <ZIndex>24</ZIndex>
               <Style>
                 <Border>
@@ -2366,7 +2367,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>CUST. CODE</Value>
+                      <Value>=First(Fields!CustomerNoLbl.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -2401,7 +2402,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=First(Fields!CustomerNo.Value, "DataSet_Result")</Value>
+                      <Value>=Code.GetData(2)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -2470,7 +2471,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>PAGE NO.:</Value>
+                      <Value>=First(Fields!PageLbl.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -2540,7 +2541,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Code.GetData(31)</Value>
+                      <Value>=Code.GetData(8)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -2569,7 +2570,6 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
             <Rectangle Name="Rectangle1">
               <ReportItems>
                 <Line Name="Line1">
-                  <Top>0.01328cm</Top>
                   <Left>6.58152cm</Left>
                   <Height>1.28672cm</Height>
                   <Width>0cm</Width>
@@ -2580,7 +2580,6 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                   </Style>
                 </Line>
                 <Line Name="Line2">
-                  <Top>0.00664cm</Top>
                   <Left>12.67236cm</Left>
                   <Height>1.28672cm</Height>
                   <Width>0cm</Width>
@@ -2593,9 +2592,9 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 </Line>
               </ReportItems>
               <KeepTogether>true</KeepTogether>
-              <Top>7.3125cm</Top>
+              <Top>7.38228cm</Top>
               <Left>0.00343cm</Left>
-              <Height>1.3cm</Height>
+              <Height>1.28672cm</Height>
               <Width>18.99473cm</Width>
               <ZIndex>31</ZIndex>
               <Style>
@@ -2611,7 +2610,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=First(Fields!ShipmentDate.Value, "DataSet_Result")</Value>
+                      <Value>=Code.GetData(4)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -2628,7 +2627,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
               <Top>3.05254cm</Top>
               <Left>5.8478in</Left>
               <Height>0.38806cm</Height>
-              <Width>3.59941cm</Width>
+              <Width>3.93298cm</Width>
               <ZIndex>32</ZIndex>
               <Style>
                 <Border>
@@ -2680,7 +2679,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=First(Fields!CancelDate.Value, "DataSet_Result")</Value>
+                      <Value>=Code.GetData(5)</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -2697,7 +2696,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
               <Top>3.54643cm</Top>
               <Left>5.84143in</Left>
               <Height>0.38806cm</Height>
-              <Width>3.59941cm</Width>
+              <Width>3.94917cm</Width>
               <ZIndex>34</ZIndex>
               <Style>
                 <Border>
@@ -2784,7 +2783,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Style</Value>
+                      <Value>Style/ GL</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>9pt</FontSize>
@@ -3328,9 +3327,6 @@ End Function
         <Field Name="CompanyEMail">
           <DataField>CompanyEMail</DataField>
         </Field>
-        <Field Name="CompanyHomePage">
-          <DataField>CompanyHomePage</DataField>
-        </Field>
         <Field Name="CompanyPhoneNo">
           <DataField>CompanyPhoneNo</DataField>
         </Field>
@@ -3361,65 +3357,8 @@ End Function
         <Field Name="CompanyAddress8">
           <DataField>CompanyAddress8</DataField>
         </Field>
-        <Field Name="CustomerAddress1">
-          <DataField>CustomerAddress1</DataField>
-        </Field>
-        <Field Name="CustomerAddress2">
-          <DataField>CustomerAddress2</DataField>
-        </Field>
-        <Field Name="CustomerAddress3">
-          <DataField>CustomerAddress3</DataField>
-        </Field>
-        <Field Name="CustomerAddress4">
-          <DataField>CustomerAddress4</DataField>
-        </Field>
-        <Field Name="CustomerAddress5">
-          <DataField>CustomerAddress5</DataField>
-        </Field>
-        <Field Name="CustomerAddress6">
-          <DataField>CustomerAddress6</DataField>
-        </Field>
-        <Field Name="CustomerAddress7">
-          <DataField>CustomerAddress7</DataField>
-        </Field>
-        <Field Name="CustomerAddress8">
-          <DataField>CustomerAddress8</DataField>
-        </Field>
-        <Field Name="SellToContactPhoneNoLbl">
-          <DataField>SellToContactPhoneNoLbl</DataField>
-        </Field>
-        <Field Name="SellToContactMobilePhoneNoLbl">
-          <DataField>SellToContactMobilePhoneNoLbl</DataField>
-        </Field>
-        <Field Name="SellToContactEmailLbl">
-          <DataField>SellToContactEmailLbl</DataField>
-        </Field>
-        <Field Name="BillToContactPhoneNoLbl">
-          <DataField>BillToContactPhoneNoLbl</DataField>
-        </Field>
-        <Field Name="BillToContactMobilePhoneNoLbl">
-          <DataField>BillToContactMobilePhoneNoLbl</DataField>
-        </Field>
-        <Field Name="BillToContactEmailLbl">
-          <DataField>BillToContactEmailLbl</DataField>
-        </Field>
-        <Field Name="SellToContactPhoneNo">
-          <DataField>SellToContactPhoneNo</DataField>
-        </Field>
-        <Field Name="SellToContactMobilePhoneNo">
-          <DataField>SellToContactMobilePhoneNo</DataField>
-        </Field>
-        <Field Name="SellToContactEmail">
-          <DataField>SellToContactEmail</DataField>
-        </Field>
-        <Field Name="BillToContactPhoneNo">
-          <DataField>BillToContactPhoneNo</DataField>
-        </Field>
-        <Field Name="BillToContactMobilePhoneNo">
-          <DataField>BillToContactMobilePhoneNo</DataField>
-        </Field>
-        <Field Name="BillToContactEmail">
-          <DataField>BillToContactEmail</DataField>
+        <Field Name="PageLbl">
+          <DataField>PageLbl</DataField>
         </Field>
         <Field Name="YourReference">
           <DataField>YourReference</DataField>
@@ -3430,50 +3369,14 @@ End Function
         <Field Name="DocumentNo">
           <DataField>DocumentNo</DataField>
         </Field>
-        <Field Name="CompanyLegalOffice">
-          <DataField>CompanyLegalOffice</DataField>
-        </Field>
         <Field Name="SalesPersonName">
           <DataField>SalesPersonName</DataField>
         </Field>
         <Field Name="ShipmentMethodDescription">
           <DataField>ShipmentMethodDescription</DataField>
         </Field>
-        <Field Name="PaymentTermsDescription">
-          <DataField>PaymentTermsDescription</DataField>
-        </Field>
         <Field Name="Currency">
           <DataField>Currency</DataField>
-        </Field>
-        <Field Name="CustomerVATRegNo">
-          <DataField>CustomerVATRegNo</DataField>
-        </Field>
-        <Field Name="CustomerVATRegistrationNoLbl">
-          <DataField>CustomerVATRegistrationNoLbl</DataField>
-        </Field>
-        <Field Name="ShipFromAddress1">
-          <DataField>ShipFromAddress1</DataField>
-        </Field>
-        <Field Name="ShipFromAddress2">
-          <DataField>ShipFromAddress2</DataField>
-        </Field>
-        <Field Name="ShipFromAddress3">
-          <DataField>ShipFromAddress3</DataField>
-        </Field>
-        <Field Name="ShipFromAddress4">
-          <DataField>ShipFromAddress4</DataField>
-        </Field>
-        <Field Name="ShipFromAddress5">
-          <DataField>ShipFromAddress5</DataField>
-        </Field>
-        <Field Name="ShipFromAddress6">
-          <DataField>ShipFromAddress6</DataField>
-        </Field>
-        <Field Name="ShipFromAddress7">
-          <DataField>ShipFromAddress7</DataField>
-        </Field>
-        <Field Name="ShipFromAddress8">
-          <DataField>ShipFromAddress8</DataField>
         </Field>
         <Field Name="ShipToAddress1">
           <DataField>ShipToAddress1</DataField>
@@ -3502,9 +3405,6 @@ End Function
         <Field Name="CustomerNo">
           <DataField>CustomerNo</DataField>
         </Field>
-        <Field Name="PageLbl">
-          <DataField>PageLbl</DataField>
-        </Field>
         <Field Name="DocumentTitleLbl">
           <DataField>DocumentTitleLbl</DataField>
         </Field>
@@ -3514,26 +3414,11 @@ End Function
         <Field Name="ExternalDocumentNoLbl">
           <DataField>ExternalDocumentNoLbl</DataField>
         </Field>
-        <Field Name="CompanyLegalOfficeLbl">
-          <DataField>CompanyLegalOfficeLbl</DataField>
-        </Field>
         <Field Name="CustomerNoLbl">
           <DataField>CustomerNoLbl</DataField>
         </Field>
-        <Field Name="PaymentTermsLbl">
-          <DataField>PaymentTermsLbl</DataField>
-        </Field>
         <Field Name="SalesPersonLbl">
           <DataField>SalesPersonLbl</DataField>
-        </Field>
-        <Field Name="EMailLbl">
-          <DataField>EMailLbl</DataField>
-        </Field>
-        <Field Name="HomePageLbl">
-          <DataField>HomePageLbl</DataField>
-        </Field>
-        <Field Name="CompanyPhoneNoLbl">
-          <DataField>CompanyPhoneNoLbl</DataField>
         </Field>
         <Field Name="ShipmentMethodDescriptionLbl">
           <DataField>ShipmentMethodDescriptionLbl</DataField>
@@ -3544,14 +3429,8 @@ End Function
         <Field Name="ItemLbl">
           <DataField>ItemLbl</DataField>
         </Field>
-        <Field Name="TariffLbl">
-          <DataField>TariffLbl</DataField>
-        </Field>
         <Field Name="UnitPriceLbl">
           <DataField>UnitPriceLbl</DataField>
-        </Field>
-        <Field Name="CountryOfManufactuctureLbl">
-          <DataField>CountryOfManufactuctureLbl</DataField>
         </Field>
         <Field Name="AmountLbl">
           <DataField>AmountLbl</DataField>
@@ -3559,44 +3438,17 @@ End Function
         <Field Name="VATPctLbl">
           <DataField>VATPctLbl</DataField>
         </Field>
-        <Field Name="VATAmountLbl">
-          <DataField>VATAmountLbl</DataField>
-        </Field>
-        <Field Name="TotalWeightLbl">
-          <DataField>TotalWeightLbl</DataField>
-        </Field>
         <Field Name="TotalAmountLbl">
           <DataField>TotalAmountLbl</DataField>
         </Field>
-        <Field Name="TotalAmountInclVATLbl">
-          <DataField>TotalAmountInclVATLbl</DataField>
-        </Field>
         <Field Name="QuantityLbl">
           <DataField>QuantityLbl</DataField>
-        </Field>
-        <Field Name="NetWeightLbl">
-          <DataField>NetWeightLbl</DataField>
-        </Field>
-        <Field Name="DeclartionLbl">
-          <DataField>DeclartionLbl</DataField>
-        </Field>
-        <Field Name="SignatureLbl">
-          <DataField>SignatureLbl</DataField>
-        </Field>
-        <Field Name="SignatureNameLbl">
-          <DataField>SignatureNameLbl</DataField>
-        </Field>
-        <Field Name="SignaturePositionLbl">
-          <DataField>SignaturePositionLbl</DataField>
         </Field>
         <Field Name="VATRegNoLbl">
           <DataField>VATRegNoLbl</DataField>
         </Field>
         <Field Name="ShowDisc">
           <DataField>ShowDisc</DataField>
-        </Field>
-        <Field Name="ShowWorkDescription">
-          <DataField>ShowWorkDescription</DataField>
         </Field>
         <Field Name="ItemPicture">
           <DataField>ItemPicture</DataField>
@@ -3607,12 +3459,6 @@ End Function
         <Field Name="ItemDescription">
           <DataField>ItemDescription</DataField>
         </Field>
-        <Field Name="CountryOfManufacturing">
-          <DataField>CountryOfManufacturing</DataField>
-        </Field>
-        <Field Name="Tariff">
-          <DataField>Tariff</DataField>
-        </Field>
         <Field Name="Quantity">
           <DataField>Quantity</DataField>
         </Field>
@@ -3622,14 +3468,14 @@ End Function
         <Field Name="Price">
           <DataField>Price</DataField>
         </Field>
-        <Field Name="NetWeight">
-          <DataField>NetWeight</DataField>
-        </Field>
-        <Field Name="NetWeightFormat">
-          <DataField>NetWeightFormat</DataField>
-        </Field>
         <Field Name="LineAmount">
           <DataField>LineAmount</DataField>
+        </Field>
+        <Field Name="LineAmountDec">
+          <DataField>LineAmountDec</DataField>
+        </Field>
+        <Field Name="LineAmountDecFormat">
+          <DataField>LineAmountDecFormat</DataField>
         </Field>
         <Field Name="VATPct">
           <DataField>VATPct</DataField>
@@ -3637,8 +3483,11 @@ End Function
         <Field Name="VATPctFormat">
           <DataField>VATPctFormat</DataField>
         </Field>
-        <Field Name="VATAmount">
-          <DataField>VATAmount</DataField>
+        <Field Name="VATAmountDec">
+          <DataField>VATAmountDec</DataField>
+        </Field>
+        <Field Name="VATAmountDecFormat">
+          <DataField>VATAmountDecFormat</DataField>
         </Field>
         <Field Name="TagPrice">
           <DataField>TagPrice</DataField>
@@ -3652,29 +3501,11 @@ End Function
         <Field Name="SerialNumberText">
           <DataField>SerialNumberText</DataField>
         </Field>
-        <Field Name="FormattedLineDiscountAmount">
-          <DataField>FormattedLineDiscountAmount</DataField>
-        </Field>
-        <Field Name="WorkDescriptionLineNumber">
-          <DataField>WorkDescriptionLineNumber</DataField>
-        </Field>
-        <Field Name="WorkDescriptionLine">
-          <DataField>WorkDescriptionLine</DataField>
-        </Field>
-        <Field Name="TotalWeight">
-          <DataField>TotalWeight</DataField>
-        </Field>
-        <Field Name="TotalWeightFormat">
-          <DataField>TotalWeightFormat</DataField>
+        <Field Name="ShowSerialNoLine">
+          <DataField>ShowSerialNoLine</DataField>
         </Field>
         <Field Name="TotalValue">
           <DataField>TotalValue</DataField>
-        </Field>
-        <Field Name="TotalVATAmount">
-          <DataField>TotalVATAmount</DataField>
-        </Field>
-        <Field Name="TotalAmountInclVAT">
-          <DataField>TotalAmountInclVAT</DataField>
         </Field>
       </Fields>
       <Query>

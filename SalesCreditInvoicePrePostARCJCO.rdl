@@ -9,7 +9,7 @@
       <am:Name>MSRB</am:Name>
       <am:Version>15.0.20283.0</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2024-11-22T12:13:44.3862975Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2024-12-30T12:05:53.6400333Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -79,7 +79,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>STYLE/ GL ACC</Value>
+                                                    <Value>STYLE/ GL </Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>9pt</FontSize>
@@ -1149,7 +1149,7 @@
                               <ZIndex>1</ZIndex>
                               <Visibility>
                                 <Hidden>=Code.SetData(
-Cstr(Fields!DocumentNo.Value) + Chr(177) + Cstr(Fields!CustomerAddress1.Value) + Chr(177) + Cstr(Fields!CustomerAddress2.Value) + Chr(177) + Cstr(Fields!CustomerAddress3.Value) + Chr(177) + Cstr(Fields!CustomerAddress4.Value) + Chr(177) + Cstr(Fields!CustomerAddress5.Value) + Chr(177) + Cstr(Fields!CustomerAddress6.Value) + Chr(177) + Cstr(Fields!CustomerAddress7.Value) + Chr(177) + Cstr(Fields!CustomerAddress8.Value) + Chr(177) + Cstr(Fields!CustomerVATRegNo.Value) + Chr(177) + Cstr(Fields!YourReference.Value) + Chr(177) + Cstr(Fields!ExternalDocumentNo.Value) + Chr(177) + Cstr(Fields!ShipmentMethodDescription.Value) + Chr(177) + Cstr(Fields!Currency.Value) + Chr(177) + Cstr(Fields!CompanyAddress1.Value) + Chr(177) + Cstr(Fields!CompanyAddress2.Value) + Chr(177) + Cstr(Fields!CompanyAddress3.Value) + Chr(177) + Cstr(Fields!CompanyAddress4.Value) + Chr(177) + Cstr(Fields!CompanyAddress5.Value) + Chr(177) + Cstr(Fields!CompanyAddress6.Value) + Chr(177) + Cstr(Fields!CompanyLegalOffice.Value) + Chr(177) + Cstr(Fields!CompanyVATRegNo.Value) + Chr(177) + Cstr(Fields!SalesPersonName.Value) + Chr(177) + Cstr(Fields!CompanyEMail.Value) + Chr(177) +Cstr(Fields!CompanyHomePage.Value) + Chr(177) + Cstr(Fields!CompanyPhoneNo.Value) + Chr(177) + Cstr(Fields!DocumentDate.Value) + Chr(177) + Cstr(Fields!AppliestoDocNo.Value) + Chr(177) + Cstr(Fields!ShipFromAddress3.Value) + Chr(177) + Cstr(Fields!ShipFromAddress4.Value) + Chr(177) + Cstr(Fields!ShipFromAddress5.Value) + Chr(177) + Cstr(Fields!ShipFromAddress6.Value) + Chr(177) + Cstr(Fields!ShipFromAddress7.Value) + Chr(177) + Cstr(Fields!ShipFromAddress8.Value) + Chr(177) + Cstr(Fields!ShipToAddress1.Value) + Chr(177) + Cstr(Fields!ShipToAddress2.Value) + Chr(177) + Cstr(Fields!ShipToAddress3.Value) + Chr(177) + Cstr(Fields!ShipToAddress4.Value) + Chr(177) + Cstr(Fields!ShipToAddress5.Value) + Chr(177) +
+Cstr(Fields!DocumentNo.Value) + Chr(177) + Cstr(Fields!CustomerAddress1.Value) + Chr(177) + Cstr(Fields!CustomerAddress2.Value) + Chr(177) + Cstr(Fields!CustomerAddress3.Value) + Chr(177) + Cstr(Fields!CustomerAddress4.Value) + Chr(177) + Cstr(Fields!CustomerAddress5.Value) + Chr(177) + Cstr(Fields!CustomerAddress6.Value) + Chr(177) + Cstr(Fields!CustomerAddress7.Value) + Chr(177) + Cstr(Fields!CustomerAddress8.Value) + Chr(177) + Cstr(Fields!CustomerVATRegNo.Value) + Chr(177) + Cstr(Fields!YourReference.Value) + Chr(177) + Cstr(Fields!ExternalDocumentNo.Value) + Chr(177) + Cstr(Fields!ShipmentMethodDescription.Value) + Chr(177) + Cstr(Fields!Currency.Value) + Chr(177) + Cstr(Fields!CompanyAddress1.Value) + Chr(177) + Cstr(Fields!CompanyAddress2.Value) + Chr(177) + Cstr(Fields!CompanyAddress3.Value) + Chr(177) + Cstr(Fields!CompanyAddress4.Value) + Chr(177) + Cstr(Fields!CompanyAddress5.Value) + Chr(177) + Cstr(Fields!CompanyAddress6.Value) + Chr(177) + Cstr(Fields!CompanyLegalOffice.Value) + Chr(177) + Cstr(Fields!CompanyVATRegNo.Value) + Chr(177) + Cstr(Fields!SalesPersonName.Value) + Chr(177) + Cstr(Fields!CompanyEMail.Value) + Chr(177) +Cstr(Fields!SrNoJCO.Value) + Chr(177) + Cstr(Fields!CompanyPhoneNo.Value) + Chr(177) + Cstr(Fields!DocumentDate.Value) + Chr(177) + Cstr(Fields!AppliestoDocNo.Value) + Chr(177) + Cstr(Fields!ShipFromAddress3.Value) + Chr(177) + Cstr(Fields!ShipFromAddress4.Value) + Chr(177) + Cstr(Fields!ShipFromAddress5.Value) + Chr(177) + Cstr(Fields!ShipFromAddress6.Value) + Chr(177) + Cstr(Fields!ShipFromAddress7.Value) + Chr(177) + Cstr(Fields!ShipFromAddress8.Value) + Chr(177) + Cstr(Fields!ShipToAddress1.Value) + Chr(177) + Cstr(Fields!ShipToAddress2.Value) + Chr(177) + Cstr(Fields!ShipToAddress3.Value) + Chr(177) + Cstr(Fields!ShipToAddress4.Value) + Chr(177) + Cstr(Fields!ShipToAddress5.Value) + Chr(177) +
 Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value) + Chr(177) + Cstr(Fields!ShipToAddress8.Value) + Chr(177) + Cstr(Fields!CustomerNo.Value) + Chr(177) + Cstr(Fields!PaymentTermsDescription.Value))</Hidden>
                               </Visibility>
                               <Style>
@@ -1355,7 +1355,7 @@ Cstr(Fields!ShipToAddress6.Value) + Chr(177) + Cstr(Fields!ShipToAddress7.Value)
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>$0.00</Value>
+                                      <Value>=Fields!CurrencySymbol.Value &amp; "0.00"</Value>
                                       <Style>
                                         <FontFamily>Segoe UI</FontFamily>
                                         <FontSize>8pt</FontSize>
@@ -3089,9 +3089,6 @@ End Function
         <Field Name="CompanyEMail">
           <DataField>CompanyEMail</DataField>
         </Field>
-        <Field Name="CompanyHomePage">
-          <DataField>CompanyHomePage</DataField>
-        </Field>
         <Field Name="CompanyPhoneNo">
           <DataField>CompanyPhoneNo</DataField>
         </Field>
@@ -3205,6 +3202,9 @@ End Function
         </Field>
         <Field Name="Currency">
           <DataField>Currency</DataField>
+        </Field>
+        <Field Name="CurrencySymbol">
+          <DataField>CurrencySymbol</DataField>
         </Field>
         <Field Name="CustomerVATRegNo">
           <DataField>CustomerVATRegNo</DataField>
@@ -3326,9 +3326,6 @@ End Function
         <Field Name="VATPctLbl">
           <DataField>VATPctLbl</DataField>
         </Field>
-        <Field Name="VATAmountLbl">
-          <DataField>VATAmountLbl</DataField>
-        </Field>
         <Field Name="TotalWeightLbl">
           <DataField>TotalWeightLbl</DataField>
         </Field>
@@ -3398,6 +3395,12 @@ End Function
         <Field Name="LineAmount">
           <DataField>LineAmount</DataField>
         </Field>
+        <Field Name="LineAmountDec">
+          <DataField>LineAmountDec</DataField>
+        </Field>
+        <Field Name="LineAmountDecFormat">
+          <DataField>LineAmountDecFormat</DataField>
+        </Field>
         <Field Name="VATPct">
           <DataField>VATPct</DataField>
         </Field>
@@ -3407,14 +3410,17 @@ End Function
         <Field Name="VATAmount">
           <DataField>VATAmount</DataField>
         </Field>
+        <Field Name="VATAmountDec">
+          <DataField>VATAmountDec</DataField>
+        </Field>
+        <Field Name="VATAmountDecFormat">
+          <DataField>VATAmountDecFormat</DataField>
+        </Field>
         <Field Name="SrNoJCO">
           <DataField>SrNoJCO</DataField>
         </Field>
         <Field Name="SerialNumberText">
           <DataField>SerialNumberText</DataField>
-        </Field>
-        <Field Name="FormattedLineDiscountAmount">
-          <DataField>FormattedLineDiscountAmount</DataField>
         </Field>
         <Field Name="WorkDescriptionLineNumber">
           <DataField>WorkDescriptionLineNumber</DataField>
