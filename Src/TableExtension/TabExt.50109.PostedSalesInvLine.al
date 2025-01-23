@@ -91,6 +91,12 @@ tableextension 50109 "JCO Sales Invoice Line" extends "Sales Invoice Line"
             CalcFormula = lookup(Location."Country/Region Code" where(Code = field("Location Code")));
         }
         //JCO112224 <<
+        field(50212; "Document Date JCO"; Date)
+        {
+            Caption = 'Document Date';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Invoice Header"."Document Date" where("No." = field("Document No.")));
+        }
     }
 
     keys

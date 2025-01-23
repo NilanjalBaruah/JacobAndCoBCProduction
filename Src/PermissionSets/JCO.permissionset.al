@@ -21,7 +21,6 @@ permissionset 50100 GeneratedPermission
         report "Sales - Invoice JCOARC" = X,
         report "Sales - Memo JCOARC" = X,
         report "Sales - Pro Forma Inv JCOARC" = X,
-        report "Transfer Order JCO" = X,
         codeunit "Intercompany Mgmt JCOARC" = X,
         report "Items By Location ARCJCO" = X,
         report "Items In Memo JCO" = X,
@@ -34,5 +33,6 @@ permissionset 50100 GeneratedPermission
         report "Sales Cr. Invoice Pre JCOARC" = X,
         report "Detailed Sales Report ARCJCO" = X,
         page "Detailed Sales Report JCOARC" = X,
-        page "Returned Consignments ARCJOC" = X;
+        page "Returned Consignments ARCJOC" = X,
+        report "Trans - Pro Forma Inv JCOARC" = X;
 }

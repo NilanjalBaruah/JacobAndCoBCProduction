@@ -14,7 +14,17 @@ pageextension 50218 TransferOrderSubform extends "Transfer Order Subform"
                 ApplicationArea = All;
                 ShowMandatory = true;
             }
+            field("Unit Price JCOARC"; Rec."Unit Price JCOARC")
+            {
+                ToolTip = 'Specifies the Unit price of the Transfer. This is onlt for reporting purpose';
+                ApplicationArea = All;
+            }
+            field("Line Amount JCOARC"; Rec."Line Amount JCOARC")
+            {
+                Editable = false;
+                ToolTip = 'Specifies the Line Amount of the Transfer. This is onlt for reporting purpose';
+                ApplicationArea = All;
+            }
         }
     }
-
 }

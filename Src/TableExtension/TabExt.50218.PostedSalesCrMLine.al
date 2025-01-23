@@ -56,5 +56,11 @@ tableextension 50218 "JCO Sales CrMemo Line" extends "Sales Cr.Memo Line"
             CalcFormula = lookup(Location."Country/Region Code" where(Code = field("Location Code")));
         }
         //JCO112224 <<
+        field(50212; "Document Date JCO"; Date)
+        {
+            Caption = 'Document Date';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Cr.Memo Header"."Document Date" where("No." = field("Document No.")));
+        }
     }
 }

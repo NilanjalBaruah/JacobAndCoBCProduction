@@ -1,5 +1,7 @@
 namespace JCO.JCO;
 using Microsoft.Sales.Document;
+using Microsoft.Finance.Currency;
+using Microsoft.Inventory.Item;
 using Microsoft.Inventory.Transfer;
 using Microsoft.Inventory.Setup;
 using Microsoft.Warehouse.History;
@@ -32,9 +34,12 @@ codeunit 50202 "InventoryMgmt JCOARC"
         Location: Record Location;
     begin
         Location.Get(Rec."Transfer-to Code");
-        if Location."Allow Trnsfer Ord ToFro ARCJCO" then
+        if Location."Allow Trnsfer Ord ToFro ARCJCO" then begin
+            Rec.Validate("Customer No. JCOARC", Location."Consignment Customer No. ARJCO");
             exit;
+        end;
         Location.TestField("Consignment Location ARCJCO", false);
+        Rec.Validate("Customer No. JCOARC", Location."Consignment Customer No. ARJCO");
     end;
 
     [EventSubscriber(ObjectType::Codeunit, 5704, 'OnBeforeTransferOrderPostShipment', '', false, false)]
@@ -73,6 +78,9 @@ codeunit 50202 "InventoryMgmt JCOARC"
     local procedure JCOOnAfterCopyFromTransferLine(var DirectTransLine: Record "Direct Trans. Line"; TransferLine: Record "Transfer Line")
     begin
         DirectTransLine."Reason Code JCOARC" := TransferLine."Reason Code JCOARC";
+        DirectTransLine."Currency Code JCOARC" := TransferLine."Currency Code JCOARC";
+        DirectTransLine."Unit Price JCOARC" := TransferLine."Unit Price JCOARC";
+        DirectTransLine."Line Amount JCOARC" := TransferLine."Line Amount JCOARC";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, 5856, 'OnAfterCreateItemJnlLine', '', false, false)]
@@ -96,16 +104,40 @@ codeunit 50202 "InventoryMgmt JCOARC"
         ItemJournalLine."Reason Code" := TransferLine."Reason Code JCOARC";
     end;
 
-    [EventSubscriber(ObjectType::Table, 5745, 'OnAfterCopyFromTransferLine', '', false, false)]
+    [EventSubscriber(ObjectType::Codeunit, 5704, 'OnBeforeInsertTransShptHeader', '', false, false)]
+    local procedure OnBeforeInsertTransShptHeaderJCO(var TransShptHeader: Record "Transfer Shipment Header"; TransHeader: Record "Transfer Header"; CommitIsSuppressed: Boolean)
+    begin
+        TransShptHeader."Customer No. JCOARC" := TransHeader."Customer No. JCOARC";
+        TransShptHeader."Currency Code JCOARC" := TransHeader."Currency Code JCOARC";
+        TransShptHeader."Currency Factor JCOARC" := TransHeader."Currency Factor JCOARC";
+        TransShptHeader."Your Reference JCOARC" := TransHeader."Your Reference JCOARC";
+    end;
+
+    [EventSubscriber(ObjectType::Table, database::"Transfer Shipment Line", 'OnAfterCopyFromTransferLine', '', false, false)]
     local procedure JCOOnAfterCopyFromTransferLinetoShptLine(var TransferShipmentLine: Record "Transfer Shipment Line"; TransferLine: Record "Transfer Line")
     begin
         TransferShipmentLine."Reason Code JCOARC" := TransferLine."Reason Code JCOARC";
+        TransferShipmentLine."Currency Code JCOARC" := TransferLine."Currency Code JCOARC";
+        TransferShipmentLine."Unit Price JCOARC" := TransferLine."Unit Price JCOARC";
+        TransferShipmentLine."Line Amount JCOARC" := TransferLine."Line Amount JCOARC";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, 5705, 'OnBeforeTransRcptHeaderInsert', '', false, false)]
+    local procedure OnBeforeTransRcptHeaderInsertJCO(var TransferReceiptHeader: Record "Transfer Receipt Header"; TransferHeader: Record "Transfer Header")
+    begin
+        TransferReceiptHeader."Customer No. JCOARC" := TransferHeader."Customer No. JCOARC";
+        TransferReceiptHeader."Currency Code JCOARC" := TransferHeader."Currency Code JCOARC";
+        TransferReceiptHeader."Currency Factor JCOARC" := TransferHeader."Currency Factor JCOARC";
+        TransferReceiptHeader."Your Reference JCOARC" := TransferHeader."Your Reference JCOARC";
     end;
 
     [EventSubscriber(ObjectType::Table, 5747, 'OnAfterCopyFromTransferLine', '', false, false)]
     local procedure JCOOnAfterCopyFromTransferLinetoRcptLine(var TransferReceiptLine: Record "Transfer Receipt Line"; TransferLine: Record "Transfer Line")
     begin
         TransferReceiptLine."Reason Code JCOARC" := TransferLine."Reason Code JCOARC";
+        TransferReceiptLine."Currency Code JCOARC" := TransferLine."Currency Code JCOARC";
+        TransferReceiptLine."Unit Price JCOARC" := TransferLine."Unit Price JCOARC";
+        TransferReceiptLine."Line Amount JCOARC" := TransferLine."Line Amount JCOARC";
     end;
     //TransferEvents <<
 
@@ -190,5 +222,71 @@ codeunit 50202 "InventoryMgmt JCOARC"
                 Location.Get(PurchaseHeader."Location Code");
                 Location.TestField("Sales/Purchase Location ARCJCO");
             until PurchaseLine.Next() = 0;
+    end;
+
+
+    [EventSubscriber(ObjectType::Table, database::"Transfer Line", 'OnAfterAssignItemValues', '', false, false)]
+    local procedure OnAfterAssignItemValuesJCO(var TransferLine: Record "Transfer Line"; TransferHeader: Record "Transfer Header")
+    var
+        Item: Record Item;
+    begin
+        Item.Get(TransferLine."Item No.");
+        TransferLine.Validate("Unit Price JCOARC", Item."Unit Price");
+        if TransferLine.Quantity <> 0 then
+            TransferLine.Validate(Quantity);
+    end;
+
+    [EventSubscriber(ObjectType::Table, database::"Transfer Line", 'OnValidateQuantityOnBeforeTransLineVerifyChange', '', false, false)]
+    local procedure OnValidateQuantityOnBeforeTransLineVerifyChangeJCO(var TransferLine: Record "Transfer Line"; xTransferLine: Record "Transfer Line"; var IsHandled: Boolean)
+    begin
+        TransferLine."Line Amount JCOARC" := TransferLine.Quantity * TransferLine."Unit Price JCOARC";
+    end;
+
+
+    [EventSubscriber(ObjectType::Table, database::"Transfer Line", 'OnAfterGetTransHeader', '', false, false)]
+
+    local procedure OnAfterGetTransHeaderJCOARC(var TransferLine: Record "Transfer Line"; TransferHeader: Record "Transfer Header")
+    begin
+        TransferLine.Validate("Currency Code JCOARC", TransferHeader."Currency Code JCOARC");
+    end;
+
+    procedure UpdateTransferCurrencyFactorJCO(var TransHeader: Record "Transfer Header"; var xTransHeader: Record "Transfer Header"; Updated: Boolean)
+    var
+        CurrExchRate: Record "Currency Exchange Rate";
+        UpdateCurrencyExchangeRates: Codeunit "Update Currency Exchange Rates";
+        CurrencyDate: Date;
+    begin
+        if Updated then
+            exit;
+
+        if TransHeader."Currency Code JCOARC" <> '' then begin
+            if TransHeader."Posting Date" <> 0D then
+                CurrencyDate := TransHeader."Posting Date"
+            else
+                CurrencyDate := WorkDate();
+
+            if UpdateCurrencyExchangeRates.ExchangeRatesForCurrencyExist(CurrencyDate, TransHeader."Currency Code JCOARC") then begin
+                TransHeader."Currency Factor JCOARC" := CurrExchRate.ExchangeRate(CurrencyDate, TransHeader."Currency Code JCOARC");
+                if TransHeader."Currency Code JCOARC" <> xTransHeader."Currency Code JCOARC" then
+                    UpdateTransLinesJCO(TransHeader);
+            end else
+                UpdateCurrencyExchangeRates.ShowMissingExchangeRatesNotification(TransHeader."Currency Code JCOARC");
+        end else begin
+            TransHeader."Currency Factor JCOARC" := 0;
+            if TransHeader."Currency Factor JCOARC" <> xTransHeader."Currency Factor JCOARC" then
+                UpdateTransLinesJCO(TransHeader)
+        end;
+    end;
+
+    procedure UpdateTransLinesJCO(TransHeader: Record "Transfer Header")
+    var
+        TransLine: Record "Transfer Line";
+    begin
+        TransLine.SetRange("Document No.", TransHeader."No.");
+        if TransLine.FindSet() then
+            repeat
+                TransLine.Validate("Currency Code JCOARC", TransHeader."Currency Code JCOARC");
+                TransLine.Modify();
+            until TransLine.Next() = 0;
     end;
 }

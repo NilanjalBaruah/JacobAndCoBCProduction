@@ -6,13 +6,19 @@ pageextension 50229 "JCO PostedSalesCrMLinesExtn" extends "Posted Sales Credit M
         {
             field("Posting Date"; Rec."Posting Date")
             {
-                ToolTip = 'Specifies the Posting Date of the Invoice';
+                ToolTip = 'Specifies the Posting Date of the Credit Memo';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field("Document Date JCO"; Rec."Document Date JCO")
+            {
+                ToolTip = 'Specifies the Documeny Date of the Credit Memo';
                 ApplicationArea = All;
                 Editable = false;
             }
             field("Currency Code JCO"; Rec."Currency Code JCO")
             {
-                ToolTip = 'Specifies the Currency Code of the Invoice';
+                ToolTip = 'Specifies the Currency Code of the Credit Memo';
                 ApplicationArea = All;
                 Editable = false;
             }
@@ -59,5 +65,60 @@ pageextension 50229 "JCO PostedSalesCrMLinesExtn" extends "Posted Sales Credit M
                 Editable = false;
             }
         }
+        addafter(Amount)
+        {
+            field(amountDollar; AmountDollar)
+            {
+                ToolTip = 'Shows the Sales Amount in $';
+                Caption = 'Amount $';
+                ApplicationArea = All;
+                Editable = false;
+            }
+        }
+        addafter("Amount Including VAT")
+        {
+            field("VAT %"; Rec."VAT %")
+            {
+                ToolTip = 'Shows the Tax/VAT %';
+                Caption = 'Tax/VAT %';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field(VATAmount; VATAmount)
+            {
+                ToolTip = 'Shows the Tax/VAT Amount';
+                Caption = 'Tax/VAT Amount';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field(VATAmountDollar; VATAmountDollar)
+            {
+                ToolTip = 'Shows the Tax/VAT Amount in $';
+                Caption = 'Tax/VAT Amount ($)';
+                ApplicationArea = All;
+                Editable = false;
+            }
+        }
     }
+    trigger OnAfterGetRecord()
+    begin
+        Clear(AmountDollar);
+        VATAmount := Rec."Amount Including VAT" - Rec.Amount;
+        Rec.CalcFields("Currency Factor JCO");
+        if Rec."Currency Factor JCO" = 0 then begin
+            AmountDollar := Rec.Amount;
+            VATAmountDollar := VATAmount;
+        end else begin
+            if Rec.Amount <> 0 then
+                AmountDollar := round(Rec.Amount / Rec."Currency Factor JCO", 0.01);
+            if VATAmount <> 0 then
+                VATAmountDollar := round(VATAmount / Rec."Currency Factor JCO", 0.01);
+        end;
+    end;
+
+    var
+        AmountDollar: Decimal;
+        VATAmount: Decimal;
+        VATAmountDollar: Decimal;
+
 }

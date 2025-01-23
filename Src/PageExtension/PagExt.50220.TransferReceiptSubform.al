@@ -13,6 +13,18 @@ pageextension 50220 TransferReceiptSubform extends "Posted Transfer Rcpt. Subfor
                 ToolTip = 'Specifies the Reason Code for transfer.';
                 ApplicationArea = All;
             }
+            field("Unit Price JCOARC"; Rec."Unit Price JCOARC")
+            {
+                Editable = false;
+                ToolTip = 'Specifies the Unit price of the Transfer. This is onlt for reporting purpose';
+                ApplicationArea = All;
+            }
+            field("Line Amount JCOARC"; Rec."Line Amount JCOARC")
+            {
+                Editable = false;
+                ToolTip = 'Specifies the Line Amount of the Transfer. This is onlt for reporting purpose';
+                ApplicationArea = All;
+            }
         }
     }
 
