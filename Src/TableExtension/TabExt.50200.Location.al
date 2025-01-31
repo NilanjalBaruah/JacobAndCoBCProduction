@@ -2,7 +2,6 @@ namespace JCO.JCO;
 
 using Microsoft.Inventory.Location;
 using Microsoft.Purchases.Vendor;
-using Microsoft.Inventory.Ledger;
 using Microsoft.Sales.Customer;
 
 tableextension 50200 "Location Extn ARCJCO" extends Location
@@ -40,6 +39,12 @@ tableextension 50200 "Location Extn ARCJCO" extends Location
         {
             Caption = 'Allow Transfer (Order) From and To this location';
             DataClassification = CustomerContent;
+        }
+        field(50106; "Location Group Code ARCJCO"; Code[20])
+        {
+            Caption = 'Location Group Code';
+            DataClassification = CustomerContent;
+            TableRelation = "Location Group ARCJCO";
         }
     }
 }

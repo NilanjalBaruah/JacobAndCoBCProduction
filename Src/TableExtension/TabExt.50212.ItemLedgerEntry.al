@@ -16,5 +16,11 @@ tableextension 50212 "ItemLedgEntry Extn ARCJCO" extends "Item Ledger Entry"
         {
             Caption = 'Damage/Repair Location';
         }
+        field(50106; "Location Group Code ARCJCO"; Code[20])
+        {
+            Caption = 'Location Group Code';
+            DataClassification = CustomerContent;
+            TableRelation = "Location Group ARCJCO";
+        }
     }
 }

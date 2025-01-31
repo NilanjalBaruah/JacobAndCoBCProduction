@@ -8,6 +8,11 @@ pageextension 50221 ItemLedgEntriesJCO extends "Item Ledger Entries"
     {
         addafter(Quantity)
         {
+            field("Location Group Code ARCJCO"; Rec."Location Group Code ARCJCO")
+            {
+                ToolTip = 'Specify the Location Group, this location belongs to';
+                ApplicationArea = All;
+            }
             field("Reason Code JCOARC"; Rec."Reason Code JCOARC")
             {
                 ToolTip = 'Specifies the Reason Code for teh transaction';

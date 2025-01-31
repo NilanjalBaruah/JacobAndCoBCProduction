@@ -41,6 +41,11 @@ pageextension 50200 "LocationCard Extn ARCJCO" extends "Location Card"
                     ToolTip = 'Check, if this location will be Used to keep Damaged/Returned Items. This will be used for reporting and analysis purpose';
                     ApplicationArea = All;
                 }
+                field("Location Group Code ARCJCO"; Rec."Location Group Code ARCJCO")
+                {
+                    ToolTip = 'Specify the Location Group, this location belongs to';
+                    ApplicationArea = All;
+                }
             }
         }
     }

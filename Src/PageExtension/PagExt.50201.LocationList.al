@@ -38,6 +38,11 @@ pageextension 50201 "LocationList Extn ARCJCO" extends "Location List"
                 ToolTip = 'Specify, if To and From Location Transfer (Transfer Order) is allowed for this location. This will bypass the restriction of using consignment locations in Transfer Orders';
                 ApplicationArea = All;
             }
+            field("Location Group Code ARCJCO"; Rec."Location Group Code ARCJCO")
+            {
+                ToolTip = 'Specify the Location Group, this location belongs to';
+                ApplicationArea = All;
+            }
         }
     }
 }

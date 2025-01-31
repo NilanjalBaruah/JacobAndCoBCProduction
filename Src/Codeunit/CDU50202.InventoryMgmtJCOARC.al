@@ -9,12 +9,13 @@ using Microsoft.Inventory.Ledger;
 using Microsoft.Purchases.Document;
 using Microsoft.Inventory.Location;
 using Microsoft.Inventory.Posting;
-using Microsoft.Intercompany.Setup;
 using Microsoft.Inventory.Journal;
-
 
 codeunit 50202 "InventoryMgmt JCOARC"
 {
+    Permissions = TableData "Item Ledger Entry" = rimd,
+                  TableData "Value Entry" = rimd;
+
     //TransferEvents >>
     [EventSubscriber(ObjectType::Table, Database::"Transfer Header", 'OnAfterValidateEvent', 'Transfer-from Code', false, false)]
     local procedure TransferHeaderFromCodeOnAfterValidateJCO(var Rec: Record "Transfer Header"; var xRec: Record "Transfer Header"; CurrFieldNo: Integer)
@@ -151,12 +152,22 @@ codeunit 50202 "InventoryMgmt JCOARC"
             Location.Get(ItemJournalLine."New Location Code");
             if Location."Damage/Repair Location ARCJCO" then
                 NewItemLedgEntry."Damage/Repair Location ARCJCO" := Location."Damage/Repair Location ARCJCO";
+            NewItemLedgEntry."Location Group Code ARCJCO" := Location."Location Group Code ARCJCO";
         end else if ItemJournalLine."Location Code" <> '' then begin
             Location.Get(ItemJournalLine."Location Code");
             if Location."Damage/Repair Location ARCJCO" then
                 NewItemLedgEntry."Damage/Repair Location ARCJCO" := Location."Damage/Repair Location ARCJCO";
+            NewItemLedgEntry."Location Group Code ARCJCO" := Location."Location Group Code ARCJCO";
         end;
+    end;
 
+    [EventSubscriber(ObjectType::Codeunit, 22, 'OnAfterInitValueEntry', '', false, false)]
+    local procedure JCOOnAfterInitValueEntry(var ValueEntry: Record "Value Entry"; var ItemJournalLine: Record "Item Journal Line"; var ValueEntryNo: Integer; var ItemLedgEntry: Record "Item Ledger Entry")
+    var
+        Location: Record Location;
+    begin
+        if Location.Get(ItemLedgEntry."Location Code") then
+            ValueEntry."Location Group Code ARCJCO" := ItemLedgEntry."Location Group Code ARCJCO";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, 80, 'OnBeforePostSalesDoc', '', false, false)]
