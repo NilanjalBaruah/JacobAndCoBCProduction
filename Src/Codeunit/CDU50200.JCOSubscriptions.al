@@ -3,6 +3,7 @@ using Microsoft.Finance.GeneralLedger.Ledger;
 using Microsoft.Finance.GeneralLedger.Journal;
 using Microsoft.Sales.Receivables;
 using Microsoft.Purchases.Payables;
+using Microsoft.Sales.Customer;
 using Microsoft.Bank.BankAccount;
 using Microsoft.Foundation.Enums;
 using Microsoft.Inventory.Ledger;
@@ -154,6 +155,23 @@ codeunit 50200 "JCO Subscriptions"
                         OpenConsVendItemEntryFound := true;
                 end;
         end;
+    end;
+
+    procedure PrintJCOStatement(var Customer: Record Customer)
+    var
+        Cust: Record Customer;
+        CustomerStatementRpt: Report "Customer Statement ARCJCO";
+    begin
+        Cust.SetRange("No.", Customer."No.");
+        CustomerStatementRpt.SetTableView(Cust);
+        CustomerStatementRpt.RunModal();
+    end;
+
+    procedure PrintJCOStatementAll()
+    var
+        CustomerStatementRpt: Report "Customer Statement ARCJCO";
+    begin
+        CustomerStatementRpt.RunModal();
     end;
 
     var

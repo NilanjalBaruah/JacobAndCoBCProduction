@@ -13,4 +13,26 @@ pageextension 50100 "JCO CustomerCardExtn" extends "Customer Card"
             }
         }
     }
+    actions
+    {
+        addafter("Report Statement")
+        {
+            action(StatementJCO)
+            {
+                Image = BankAccountStatement;
+                Caption = 'JCO Customer Statement';
+                ToolTip = 'This action runs the Customer Statement specific to Jacob & Co LLC';
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Report;
+
+                trigger OnAction()
+                var
+                    JCOSubsciption: Codeunit "JCO Subscriptions";
+                begin
+                    JCOSubsciption.PrintJCOStatement(Rec);
+                end;
+            }
+        }
+    }
 }

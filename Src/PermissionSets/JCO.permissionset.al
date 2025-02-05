@@ -34,5 +34,10 @@ permissionset 50100 GeneratedPermission
         report "Detailed Sales Report ARCJCO" = X,
         page "Detailed Sales Report JCOARC" = X,
         page "Returned Consignments ARCJOC" = X,
-        report "Trans - Pro Forma Inv JCOARC" = X;
+        report "Trans - Pro Forma Inv JCOARC" = X,
+        tabledata "Location Group ARCJCO" = RIMD,
+        table "Location Group ARCJCO" = X,
+        report "Customer Statement ARCJCO" = X,
+        page "Item Attr ValueList JCOARC" = X,
+        page "Location Groups ARCJCO" = X;
 }

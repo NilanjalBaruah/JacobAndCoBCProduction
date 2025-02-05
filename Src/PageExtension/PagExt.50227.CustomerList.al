@@ -13,4 +13,25 @@ pageextension 50227 "JCO CustomerListExtn" extends "Customer List"
             }
         }
     }
+    actions
+    {
+        addafter(Email)
+        {
+            action(StatementJCO)
+            {
+                Image = BankAccountStatement;
+                Caption = 'JCO Customer Statement';
+                ToolTip = 'This action runs the Customer Statement specific to Jacob & Co LLC';
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Report;
+                trigger OnAction()
+                var
+                    JCOSubsciption: Codeunit "JCO Subscriptions";
+                begin
+                    JCOSubsciption.PrintJCOStatementAll();
+                end;
+            }
+        }
+    }
 }
