@@ -1,6 +1,7 @@
 namespace JCO.JCO;
 
 using Microsoft.Sales.History;
+using Microsoft.Sales.Document;
 
 pageextension 50214 "PSalesInvoices Extn JCO" extends "Posted Sales Invoices"
 {
@@ -15,6 +16,25 @@ pageextension 50214 "PSalesInvoices Extn JCO" extends "Posted Sales Invoices"
                 ApplicationArea = All;
             }
             //JCO-91<<          
+        }
+        addafter(Amount)
+        {
+            field(amountDollar; AmountDollar)
+            {
+                ToolTip = 'Shows the Sales Amount in $';
+                Caption = 'Amount $';
+                ApplicationArea = All;
+                Editable = false;
+                AssistEdit = true;
+                trigger OnAssistEdit()
+                var
+                    SalesInvoiceLine: Record "Sales Invoice Line";
+                begin
+                    SalesInvoiceLine.SetRange("Document No.", Rec."No.");
+                    SalesInvoiceLine.SetFilter(Type, '<>%1', SalesInvoiceLine.Type::" ");
+                    Page.RunModal(page::"Posted Sales Invoice Lines", SalesInvoiceLine);
+                end;
+            }
         }
         addafter("Amount Including VAT")
         {
@@ -35,16 +55,23 @@ pageextension 50214 "PSalesInvoices Extn JCO" extends "Posted Sales Invoices"
     }
     trigger OnAfterGetRecord()
     begin
+        Clear(AmountDollar);
         Clear(VATAmountDollar);
         Rec.CalcFields(Amount, "Amount Including VAT");
+        AmountDollar := Rec.Amount;
+        if Rec."Currency Factor" <> 0 then
+            if Rec.Amount <> 0 then
+                AmountDollar := round(Rec.Amount / Rec."Currency Factor", 0.01);
         if (Rec."Amount Including VAT" - Rec.Amount) <> 0 then begin
             VATAmountDollar := (Rec."Amount Including VAT" - Rec.Amount);
-            if Rec."Currency Code" <> '' then
+            if Rec."Currency Factor" <> 0 then begin
                 if VATAmountDollar <> 0 then
                     VATAmountDollar := round(VATAmountDollar / Rec."Currency factor", 0.01);
+            end;
         end;
     end;
 
     var
+        AmountDollar: Decimal;
         VATAmountDollar: Decimal;
 }

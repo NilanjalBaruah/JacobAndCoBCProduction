@@ -62,6 +62,12 @@ tableextension 50103 "Jco Purchase Line Ext" extends "Purchase Line"
             DataClassification = CustomerContent;
             TableRelation = "Purchase Line"."Line No." where("Document Type" = const(Order), "Buy-from Vendor No." = field("Buy-from Vendor No."), "No." = field("No."), "Consignment Location Code ARCJ" = field("Location Code"));
         }
+        field(50214; "Location Group Code ARCJCO"; Code[20])
+        {
+            Caption = 'Location Group Code';
+            DataClassification = CustomerContent;
+            TableRelation = "Location Group ARCJCO";
+        }
     }
 
     keys

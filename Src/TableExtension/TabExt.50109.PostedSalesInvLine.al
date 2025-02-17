@@ -97,6 +97,12 @@ tableextension 50109 "JCO Sales Invoice Line" extends "Sales Invoice Line"
             FieldClass = FlowField;
             CalcFormula = lookup("Sales Invoice Header"."Document Date" where("No." = field("Document No.")));
         }
+        field(50214; "Location Group Code ARCJCO"; Code[20])
+        {
+            Caption = 'Location Group Code';
+            DataClassification = CustomerContent;
+            TableRelation = "Location Group ARCJCO";
+        }
     }
 
     keys

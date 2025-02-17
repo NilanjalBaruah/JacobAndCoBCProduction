@@ -105,6 +105,12 @@ tableextension 50108 "JCO Sales Line" extends "Sales Line"
         }
         //JCO112224 <<
 
+        field(50214; "Location Group Code ARCJCO"; Code[20])
+        {
+            Caption = 'Location Group Code';
+            DataClassification = CustomerContent;
+            TableRelation = "Location Group ARCJCO";
+        }
     }
 
     keys

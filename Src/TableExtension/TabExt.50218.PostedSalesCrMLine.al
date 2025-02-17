@@ -62,5 +62,12 @@ tableextension 50218 "JCO Sales CrMemo Line" extends "Sales Cr.Memo Line"
             FieldClass = FlowField;
             CalcFormula = lookup("Sales Cr.Memo Header"."Document Date" where("No." = field("Document No.")));
         }
+        field(50214; "Location Group Code ARCJCO"; Code[20])
+        {
+            Caption = 'Location Group Code';
+            DataClassification = CustomerContent;
+            TableRelation = "Location Group ARCJCO";
+        }
+
     }
 }

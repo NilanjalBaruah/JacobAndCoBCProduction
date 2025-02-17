@@ -2,6 +2,8 @@ namespace JCO.JCO;
 using Microsoft.Sales.Document;
 using Microsoft.Finance.Currency;
 using Microsoft.Inventory.Item;
+using Microsoft.Purchases.History;
+using Microsoft.Sales.History;
 using Microsoft.Inventory.Transfer;
 using Microsoft.Inventory.Setup;
 using Microsoft.Warehouse.History;
@@ -14,7 +16,11 @@ using Microsoft.Inventory.Journal;
 codeunit 50202 "InventoryMgmt JCOARC"
 {
     Permissions = TableData "Item Ledger Entry" = rimd,
-                  TableData "Value Entry" = rimd;
+                  TableData "Value Entry" = rimd,
+                  tabledata "Sales Invoice Line" = rimd,
+                  tabledata "Sales Cr.Memo Line" = rimd,
+                  tabledata "Purch. Inv. Line" = rimd,
+                  tabledata "Purch. Cr. Memo Line" = rimd;
 
     //TransferEvents >>
     [EventSubscriber(ObjectType::Table, Database::"Transfer Header", 'OnAfterValidateEvent', 'Transfer-from Code', false, false)]
@@ -141,6 +147,30 @@ codeunit 50202 "InventoryMgmt JCOARC"
         TransferReceiptLine."Line Amount JCOARC" := TransferLine."Line Amount JCOARC";
     end;
     //TransferEvents <<
+
+    [EventSubscriber(ObjectType::Table, database::"Sales Line", 'OnAfterValidateLocationCode', '', false, false)]
+    local procedure OnAfterValidateLocationCodeJCO(var SalesLine: Record "Sales Line"; xSalesLine: Record "Sales Line")
+    var
+        Location: Record Location;
+    begin
+        if SalesLine."Location Code" <> '' then begin
+            Location.Get(SalesLine."Location Code");
+            SalesLine."Location Group Code ARCJCO" := Location."Location Group Code ARCJCO";
+        end else
+            SalesLine."Location Group Code ARCJCO" := '';
+    end;
+
+    [EventSubscriber(ObjectType::Table, database::"Purchase Line", 'OnAfterValidateLocationCode', '', false, false)]
+    local procedure OnAfterValidateLocationCode(var PurchaseLine: Record "Purchase Line"; xPurchaseLine: Record "Purchase Line")
+    var
+        Location: Record Location;
+    begin
+        if PurchaseLine."Location Code" <> '' then begin
+            Location.Get(PurchaseLine."Location Code");
+            PurchaseLine."Location Group Code ARCJCO" := Location."Location Group Code ARCJCO";
+        end else
+            PurchaseLine."Location Group Code ARCJCO" := '';
+    end;
 
     [EventSubscriber(ObjectType::Codeunit, 22, 'OnAfterInitItemLedgEntry', '', false, false)]
     local procedure JCOOnAfterInitItemLedgEntry(var NewItemLedgEntry: Record "Item Ledger Entry"; var ItemJournalLine: Record "Item Journal Line"; var ItemLedgEntryNo: Integer)
@@ -299,5 +329,63 @@ codeunit 50202 "InventoryMgmt JCOARC"
                 TransLine.Validate("Currency Code JCOARC", TransHeader."Currency Code JCOARC");
                 TransLine.Modify();
             until TransLine.Next() = 0;
+    end;
+    //one off function>>
+    procedure UpdateLedgerLocatiionGroup()
+    var
+        LocationJCO: Record Location;
+        ItemLedgerEntryJCO: Record "Item Ledger Entry";
+        ValueEntryJCO: Record "Value Entry";
+        SalesLineJCO: Record "Sales Line";
+        SalesInvLineJCO: Record "Sales Invoice Line";
+        SalesCrMemoLineJCO: Record "Sales Cr.Memo Line";
+        PurchLineJCO: Record "Purchase Line";
+        PurchInvLineJCO: Record "Purch. Inv. Line";
+        PurchCrMemoLineJCO: Record "Purch. Cr. Memo Line";
+    begin
+        LocationJCO.SetFilter("Location Group Code ARCJCO", '<>%1', '');
+        if LocationJCO.FindSet() then
+            repeat
+                ItemLedgerEntryJCO.Reset();
+                ItemLedgerEntryJCO.SetRange("Location Code", LocationJCO.Code);
+                ItemLedgerEntryJCO.SetFilter("Location Group Code ARCJCO", '%1', '');
+                if ItemLedgerEntryJCO.FindSet() then
+                    ItemLedgerEntryJCO.ModifyAll("Location Group Code ARCJCO", LocationJCO."Location Group Code ARCJCO");
+                ValueEntryJCO.Reset();
+                ValueEntryJCO.SetRange("Location Code", LocationJCO.Code);
+                ValueEntryJCO.SetFilter("Location Group Code ARCJCO", '%1', '');
+                if ValueEntryJCO.FindSet() then
+                    ValueEntryJCO.ModifyAll("Location Group Code ARCJCO", LocationJCO."Location Group Code ARCJCO");
+
+                SalesLineJCO.Reset();
+                SalesLineJCO.SetRange("Location Code", LocationJCO.Code);
+                SalesLineJCO.SetFilter("Location Group Code ARCJCO", '%1', '');
+                if SalesLineJCO.FindSet() then
+                    SalesLineJCO.ModifyAll("Location Group Code ARCJCO", LocationJCO."Location Group Code ARCJCO");
+
+                SalesInvLineJCO.Reset();
+                SalesInvLineJCO.SetRange("Location Code", LocationJCO.Code);
+                SalesInvLineJCO.SetFilter("Location Group Code ARCJCO", '%1', '');
+                if SalesInvLineJCO.FindSet() then
+                    SalesInvLineJCO.ModifyAll("Location Group Code ARCJCO", LocationJCO."Location Group Code ARCJCO");
+
+                SalesCrMemoLineJCO.Reset();
+                SalesCrMemoLineJCO.SetRange("Location Code", LocationJCO.Code);
+                SalesCrMemoLineJCO.SetFilter("Location Group Code ARCJCO", '%1', '');
+                if SalesCrMemoLineJCO.FindSet() then
+                    SalesCrMemoLineJCO.ModifyAll("Location Group Code ARCJCO", LocationJCO."Location Group Code ARCJCO");
+
+                PurchLineJCO.Reset();
+                PurchLineJCO.SetRange("Location Code", LocationJCO.Code);
+                PurchLineJCO.SetFilter("Location Group Code ARCJCO", '%1', '');
+                if PurchLineJCO.FindSet() then
+                    PurchLineJCO.ModifyAll("Location Group Code ARCJCO", LocationJCO."Location Group Code ARCJCO");
+
+                PurchInvLineJCO.Reset();
+                PurchInvLineJCO.SetRange("Location Code", LocationJCO.Code);
+                PurchInvLineJCO.SetFilter("Location Group Code ARCJCO", '%1', '');
+                if PurchInvLineJCO.FindSet() then
+                    PurchInvLineJCO.ModifyAll("Location Group Code ARCJCO", LocationJCO."Location Group Code ARCJCO");
+            until LocationJCO.Next() = 0;
     end;
 }

@@ -62,6 +62,8 @@ report 50207 "Open Sales Quotes ARCJCO"
             dataitem(SalesLine; "Sales Line")
             {
                 DataItemLink = "Document Type" = field("Document Type"), "Document No." = field("No.");
+                DataItemTableView = where(Type = filter(Item));
+                RequestFilterFields = "No.", "Item Category Code", "Location Group Code ARCJCO";
                 DataItemLinkReference = SalesHeader;
                 column(Line_No_; "Line No.")
                 {
@@ -167,7 +169,7 @@ report 50207 "Open Sales Quotes ARCJCO"
 
                 trigger OnPreDataItem()
                 begin
-                    SetRange(Type, Type::Item);
+                    //                   SetRange(Type, Type::Item);
                 end;
             }
         }

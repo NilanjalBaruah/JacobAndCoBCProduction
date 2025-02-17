@@ -46,6 +46,12 @@ tableextension 50110 "JCO Posted Purchase Inv Line" extends "Purch. Inv. Line"
             Caption = 'Quantity Received at Location';
             DecimalPlaces = 0 : 5;
         }
+        field(50214; "Location Group Code ARCJCO"; Code[20])
+        {
+            Caption = 'Location Group Code';
+            DataClassification = CustomerContent;
+            TableRelation = "Location Group ARCJCO";
+        }
     }
 
     keys

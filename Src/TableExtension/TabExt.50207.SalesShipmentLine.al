@@ -25,6 +25,12 @@ tableextension 50207 "JCO SalesShipmentLine Ext" extends "Sales Shipment Line"
             Editable = false;
         }
         //JCO-91<<
+        field(50214; "Location Group Code ARCJCO"; Code[20])
+        {
+            Caption = 'Location Group Code';
+            DataClassification = CustomerContent;
+            TableRelation = "Location Group ARCJCO";
+        }
     }
 
     keys
