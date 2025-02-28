@@ -47,7 +47,4 @@ pageextension 50108 "JCO Posted Sales Inv Line" extends "Posted Sales Invoice Su
     {
         // Add changes to page actions here
     }
-
-    var
-        myInt: Integer;
 }

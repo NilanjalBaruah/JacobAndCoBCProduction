@@ -29,6 +29,7 @@ pageextension 50210 "PSalesInvoice Extn ARCJCO" extends "Posted Sales Invoice"
             {
                 ToolTip = 'Specifies, if the Invoice is applied with Swiss VAT';
                 ApplicationArea = All;
+                Visible = false;
             }
             //JCO-91>>
             field("Consignment Order ARCJCO"; Rec."Consignment Order ARCJCO")

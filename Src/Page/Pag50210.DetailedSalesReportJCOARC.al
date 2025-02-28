@@ -1,6 +1,7 @@
 namespace JCO_BCDev_.JCO_BCDev_;
 
 using Microsoft.Inventory.Ledger;
+using JCO.JCO;
 using JCO_BCDev_JCO_Refined.JCO_BCDev_JCO_Refined;
 using Microsoft.Sales.Customer;
 using Microsoft.Sales.Setup;
@@ -59,6 +60,36 @@ page 50210 "Detailed Sales Report JCOARC"
                     ApplicationArea = All;
                     Caption = 'Name';
                     ToolTip = 'Customer Name';
+                }
+                field("Ship-to Address JCO"; Rec."Ship-to Address JCO")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Ship-to Address';
+                    ToolTip = 'Shows the Ship-to Address of the Sales Document';
+                }
+                field("Ship-to State JCO"; Rec."Ship-to Address JCO")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Ship-to State';
+                    ToolTip = 'Shows the Ship-to State of the Sales Document';
+                }
+                field("Ship-to Post Code JCO"; Rec."Ship-to Post Code JCO")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Ship-to Zip Code';
+                    ToolTip = 'Shows the Ship-to Zip Code of the Sales Document';
+                }
+                field("Ship-to Cntry/Region Code JCO"; Rec."Ship-to Cntry/Region Code JCO")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Ship-to Country';
+                    ToolTip = 'Shows the Ship-to Country of the Sales Document';
+                }
+                field("Ship-from Cntry/Regin Code JCO"; Rec."Ship-from Cntry/Regin Code JCO")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Ship-from Country';
+                    ToolTip = 'Shows the Ship-from Country of the Sales Document';
                 }
                 field("Item No."; Rec."Item No.")
                 {

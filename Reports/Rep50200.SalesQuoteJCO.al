@@ -430,7 +430,6 @@ report 50200 "Sales Quote JCOARC"
 
         FormatAddress.GetCompanyAddr(SalesHeader."Responsibility Center", ResponsibilityCenter, CompanyInformation, CompanyAddress);
         FormatAddress.SalesHeaderBillTo(CustomerAddress, SalesHeader);
-
         FormatDocument.SetPaymentTerms(PaymentTermsJCO, SalesHeader."Payment Terms Code", SalesHeader."Language Code");
         PaymentTermsDescription := PaymentTermsJCO.Description;
         FormatAddress.SalesHeaderShipTo(ShipToAddress, CustomerAddress, SalesHeader);

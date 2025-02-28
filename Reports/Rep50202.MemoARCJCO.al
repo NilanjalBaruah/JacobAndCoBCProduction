@@ -539,6 +539,12 @@ report 50202 "Sales - Memo JCOARC"
                         Caption = 'Show Discount';
                         ToolTip = 'Specifies whether or not to show Discount column, in the report';
                     }
+                    field(ShowPaymentTerms; ShowPaymentTerms)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Show Payment Terms';
+                        ToolTip = 'Specifies whether or not to show Payment Terms, in the report';
+                    }
                 }
             }
         }
@@ -585,6 +591,7 @@ report 50202 "Sales - Memo JCOARC"
         FullItemDescription: Text;
         FormattedLineDiscPercent: Text;
         ShowDiscount: Boolean;
+        ShowPaymentTerms: Boolean;
         SerialNumberText: Text;
         ShowSerialNoLine: Boolean;
         PaymentTermsDescription: Text;
@@ -665,8 +672,10 @@ report 50202 "Sales - Memo JCOARC"
         FormatAddress.GetCompanyAddr(SalesHeader."Responsibility Center", ResponsibilityCenter, CompanyInformation, CompanyAddress);
         FormatAddress.SalesHeaderBillTo(CustomerAddress, SalesHeader);
 
-        FormatDocument.SetPaymentTerms(PaymentTermsJCO, SalesHeader."Payment Terms Code", SalesHeader."Language Code");
-        PaymentTermsDescription := PaymentTermsJCO.Description;
+        if ShowPaymentTerms then begin
+            FormatDocument.SetPaymentTerms(PaymentTermsJCO, SalesHeader."Payment Terms Code", SalesHeader."Language Code");
+            PaymentTermsDescription := PaymentTermsJCO.Description;
+        end;
         FormatAddress.SalesHeaderShipTo(ShipToAddress, CustomerAddress, SalesHeader);
         LocationForAddrJCO.Get(SalesHeader."Location Code");
         FormatAddress.Location(ShipFromAddress, LocationForAddrJCO);

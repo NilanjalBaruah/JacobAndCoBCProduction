@@ -456,6 +456,8 @@ report 50204 "Sales - Invoice JCOARC"
                     TotalVATAmount := 0;
                     TotalAmountInclVAT := 0;
                     SrNoJCO := 0;
+
+                    SetFilter(Quantity, '>%1', 0);
                 end;
             }
             dataitem(WorkDescriptionLines; "Integer")
@@ -541,6 +543,12 @@ report 50204 "Sales - Invoice JCOARC"
                         Caption = 'Show Discount';
                         ToolTip = 'Specifies whether or not to show Discount column, in the report';
                     }
+                    field(ShowPaymentTerms; ShowPaymentTerms)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Show Payment Terms';
+                        ToolTip = 'Specifies whether or not to show Payment Terms, in the report';
+                    }
                 }
             }
         }
@@ -588,6 +596,7 @@ report 50204 "Sales - Invoice JCOARC"
         FullItemDescription: Text;
         FormattedLineDiscPercent: Text;
         ShowDiscount: Boolean;
+        ShowPaymentTerms: Boolean;
         PaymentTermsDescription: Text;
         DocumentTitleLbl: Label 'INVOICE NO.';
         PageLbl: Label 'PAGE NO.';
@@ -668,8 +677,10 @@ report 50204 "Sales - Invoice JCOARC"
         FormatAddress.GetCompanyAddr(SalesInvoiceHeader."Responsibility Center", ResponsibilityCenter, CompanyInformation, CompanyAddress);
         FormatAddress.SalesInvBillTo(CustomerAddress, SalesInvoiceHeader);
 
-        FormatDocument.SetPaymentTerms(PaymentTermsJCO, SalesInvoiceHeader."Payment Terms Code", SalesInvoiceHeader."Language Code");
-        PaymentTermsDescription := PaymentTermsJCO.Description;
+        if ShowPaymentTerms then begin
+            FormatDocument.SetPaymentTerms(PaymentTermsJCO, SalesInvoiceHeader."Payment Terms Code", SalesInvoiceHeader."Language Code");
+            PaymentTermsDescription := PaymentTermsJCO.Description;
+        end;
         FormatAddress.SalesInvShipTo(ShipToAddress, CustomerAddress, SalesInvoiceHeader);
         LocationForAddrJCO.Get(SalesInvoiceHeader."Location Code");
         FormatAddress.Location(ShipFromAddress, LocationForAddrJCO);

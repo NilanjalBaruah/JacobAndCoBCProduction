@@ -367,6 +367,8 @@ report 50201 "Sales - Pro Forma Inv JCOARC"
                     Clear(FullItemDescription);
                     Clear(SerialNumberText);
                     Clear(FormattedLineDiscPercent);
+                    if "Qty. to Assemble to Order" <> 0 then
+                        CurrReport.Skip();
                     if Type = Type::" " then begin
                         SalesLineComment.SetRange("Document Type", "Document Type");
                         SalesLineComment.SetRange("Document No.", "Document No.");
@@ -488,7 +490,7 @@ report 50201 "Sales - Pro Forma Inv JCOARC"
                     TotalVATAmount := 0;
                     TotalAmountInclVAT := 0;
                     SrNoJCO := 0;
-                    SetRange("Qty. to Assemble to Order", 0);
+                    SetFilter("Qty. to Invoice", '>%1', 0);
                 end;
             }
             dataitem(WorkDescriptionLines; "Integer")
@@ -574,6 +576,12 @@ report 50201 "Sales - Pro Forma Inv JCOARC"
                         Caption = 'Show Discount';
                         ToolTip = 'Specifies whether or not to show Discount column, in the report';
                     }
+                    field(ShowPaymentTerms; ShowPaymentTerms)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Show Payment Terms';
+                        ToolTip = 'Specifies whether or not to show Payment Terms, in the report';
+                    }
                 }
             }
         }
@@ -655,6 +663,7 @@ report 50201 "Sales - Pro Forma Inv JCOARC"
         ShipFromAddress: array[8] of Text[100];
         ShipToAddress: array[8] of Text[100];
         ShowDiscount: Boolean;
+        ShowPaymentTerms: Boolean;
         WorkDescriptionInStream: InStream;
         SalesPersonLblText: Text[50];
         TotalAmountLbl: Text[50];
@@ -704,9 +713,10 @@ report 50201 "Sales - Pro Forma Inv JCOARC"
 
         FormatAddress.GetCompanyAddr(SalesHeader."Responsibility Center", ResponsibilityCenter, CompanyInformation, CompanyAddress);
         FormatAddress.SalesHeaderBillTo(CustomerAddress, SalesHeader);
-
-        FormatDocument.SetPaymentTerms(PaymentTermsJCO, SalesHeader."Payment Terms Code", SalesHeader."Language Code");
-        PaymentTermsDescription := PaymentTermsJCO.Description;
+        if ShowPaymentTerms then begin
+            FormatDocument.SetPaymentTerms(PaymentTermsJCO, SalesHeader."Payment Terms Code", SalesHeader."Language Code");
+            PaymentTermsDescription := PaymentTermsJCO.Description;
+        end;
         FormatAddress.SalesHeaderShipTo(ShipToAddress, CustomerAddress, SalesHeader);
         LocationForAddrJCO.Get(SalesHeader."Location Code");
         FormatAddress.Location(ShipFromAddress, LocationForAddrJCO);

@@ -405,6 +405,12 @@ report 50203 "Trans - Pro Forma Inv JCOARC"
                 group(Options)
                 {
                     Caption = 'Options';
+                    field(ShowPaymentTerms; ShowPaymentTerms)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Show Payment Terms';
+                        ToolTip = 'Specifies whether or not to show Payment Terms, in the report';
+                    }
                 }
             }
         }
@@ -470,6 +476,7 @@ report 50203 "Trans - Pro Forma Inv JCOARC"
         ShipFromAddress: array[8] of Text[100];
         ShipToAddress: array[8] of Text[100];
         ShowDiscount: Boolean;
+        ShowPaymentTerms: Boolean;
         SalesPersonLblText: Text[50];
         TotalAmountLbl: Text[50];
         TotalAmountInclVATLbl: Text[50];
@@ -511,8 +518,10 @@ report 50203 "Trans - Pro Forma Inv JCOARC"
 
         FormatAddress.GetCompanyAddr(Customer."Responsibility Center", ResponsibilityCenter, CompanyInformation, CompanyAddress);
         FormatAddress.Customer(CustomerAddress, Customer);
-        FormatDocument.SetPaymentTerms(PaymentTermsJCO, Customer."Payment Terms Code", Customer."Language Code");
-        PaymentTermsDescription := PaymentTermsJCO.Description;
+        if ShowPaymentTerms then begin
+            FormatDocument.SetPaymentTerms(PaymentTermsJCO, Customer."Payment Terms Code", Customer."Language Code");
+            PaymentTermsDescription := PaymentTermsJCO.Description;
+        end;
         FormatAddress.TransferHeaderTransferTo(ShipToAddress, TransHeader);
         FormatAddress.TransferHeaderTransferFrom(ShipFromAddress, TransHeader);
 

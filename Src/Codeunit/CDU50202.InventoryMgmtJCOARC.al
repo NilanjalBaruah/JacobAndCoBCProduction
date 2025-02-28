@@ -4,6 +4,8 @@ using Microsoft.Finance.Currency;
 using Microsoft.Inventory.Item;
 using Microsoft.Purchases.History;
 using Microsoft.Sales.History;
+using Microsoft.Sales.Receivables;
+using Microsoft.Finance.GeneralLedger.Journal;
 using Microsoft.Inventory.Transfer;
 using Microsoft.Inventory.Setup;
 using Microsoft.Warehouse.History;
@@ -172,6 +174,46 @@ codeunit 50202 "InventoryMgmt JCOARC"
             PurchaseLine."Location Group Code ARCJCO" := '';
     end;
 
+    [EventSubscriber(ObjectType::Table, database::"Item Journal Line", 'OnAfterCopyItemJnlLineFromSalesHeader', '', false, false)]
+    local procedure OnAfterCopyItemJnlLineFromSalesHeaderJCO(var ItemJnlLine: Record "Item Journal Line"; SalesHeader: Record "Sales Header")
+    var
+        Location: Record Location;
+    begin
+        if (SalesHeader."Document Type" = SalesHeader."Document Type"::Order) or (SalesHeader."Document Type" = SalesHeader."Document Type"::Invoice) then begin
+            ItemJnlLine."Ship-to Address JCO" := SalesHeader."Ship-to Address";
+            ItemJnlLine."Ship-to Post Code JCO" := SalesHeader."Ship-to Post Code";
+            ItemJnlLine."Ship-to County JCO" := SalesHeader."Ship-to County";
+            ItemJnlLine."Ship-to Cntry/Region Code JCO" := SalesHeader."Ship-to Country/Region Code";
+            if Location.Get(SalesHeader."Location Code") then
+                ItemJnlLine."Ship-from Cntry/Regin Code JCO" := Location."Country/Region Code";
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Table, database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromSalesHeader', '', false, false)]
+    local procedure OnAfterCopyGenJnlLineFromSalesHeaderJCO(SalesHeader: Record "Sales Header"; var GenJournalLine: Record "Gen. Journal Line")
+    var
+        Location: Record Location;
+    begin
+        if (SalesHeader."Document Type" = SalesHeader."Document Type"::Order) or (SalesHeader."Document Type" = SalesHeader."Document Type"::Invoice) then begin
+            GenJournalLine."Ship-to Address JCO" := SalesHeader."Ship-to Address";
+            GenJournalLine."Ship-to Post Code JCO" := SalesHeader."Ship-to Post Code";
+            GenJournalLine."Ship-to County JCO" := SalesHeader."Ship-to County";
+            GenJournalLine."Ship-to Cntry/Region Code JCO" := SalesHeader."Ship-to Country/Region Code";
+            if Location.Get(SalesHeader."Location Code") then
+                GenJournalLine."Ship-from Cntry/Regin Code JCO" := Location."Country/Region Code";
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Table, database::"Cust. Ledger Entry", 'OnAfterCopyCustLedgerEntryFromGenJnlLine', '', false, false)]
+    local procedure OnAfterCopyCustLedgerEntryFromGenJnlLineJCO(var CustLedgerEntry: Record "Cust. Ledger Entry"; GenJournalLine: Record "Gen. Journal Line")
+    begin
+        CustLedgerEntry."Ship-to Address JCO" := GenJournalLine."Ship-to Address JCO";
+        CustLedgerEntry."Ship-to Cntry/Region Code JCO" := GenJournalLine."Ship-to Cntry/Region Code JCO";
+        CustLedgerEntry."Ship-to County JCO" := GenJournalLine."Ship-to County JCO";
+        CustLedgerEntry."Ship-to Post Code JCO" := GenJournalLine."Ship-to Post Code JCO";
+        CustLedgerEntry."Ship-from Cntry/Regin Code JCO" := GenJournalLine."Ship-from Cntry/Regin Code JCO";
+    end;
+
     [EventSubscriber(ObjectType::Codeunit, 22, 'OnAfterInitItemLedgEntry', '', false, false)]
     local procedure JCOOnAfterInitItemLedgEntry(var NewItemLedgEntry: Record "Item Ledger Entry"; var ItemJournalLine: Record "Item Journal Line"; var ItemLedgEntryNo: Integer)
     var
@@ -189,6 +231,11 @@ codeunit 50202 "InventoryMgmt JCOARC"
                 NewItemLedgEntry."Damage/Repair Location ARCJCO" := Location."Damage/Repair Location ARCJCO";
             NewItemLedgEntry."Location Group Code ARCJCO" := Location."Location Group Code ARCJCO";
         end;
+        NewItemLedgEntry."Ship-to Address JCO" := ItemJournalLine."Ship-to Address JCO";
+        NewItemLedgEntry."Ship-to Cntry/Region Code JCO" := ItemJournalLine."Ship-to Cntry/Region Code JCO";
+        NewItemLedgEntry."Ship-to County JCO" := ItemJournalLine."Ship-to County JCO";
+        NewItemLedgEntry."Ship-to Post Code JCO" := ItemJournalLine."Ship-to Post Code JCO";
+        NewItemLedgEntry."Ship-from Cntry/Regin Code JCO" := ItemJournalLine."Ship-from Cntry/Regin Code JCO";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, 22, 'OnAfterInitValueEntry', '', false, false)]
@@ -198,6 +245,11 @@ codeunit 50202 "InventoryMgmt JCOARC"
     begin
         if Location.Get(ItemLedgEntry."Location Code") then
             ValueEntry."Location Group Code ARCJCO" := ItemLedgEntry."Location Group Code ARCJCO";
+        ValueEntry."Ship-to Address JCO" := ItemLedgEntry."Ship-to Address JCO";
+        ValueEntry."Ship-to Cntry/Region Code JCO" := ItemLedgEntry."Ship-to Cntry/Region Code JCO";
+        ValueEntry."Ship-to County JCO" := ItemLedgEntry."Ship-to County JCO";
+        ValueEntry."Ship-to Post Code JCO" := ItemLedgEntry."Ship-to Post Code JCO";
+        ValueEntry."Ship-from Cntry/Regin Code JCO" := ItemLedgEntry."Ship-from Cntry/Regin Code JCO";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, 80, 'OnBeforePostSalesDoc', '', false, false)]
@@ -330,7 +382,7 @@ codeunit 50202 "InventoryMgmt JCOARC"
                 TransLine.Modify();
             until TransLine.Next() = 0;
     end;
-    //one off function>>
+    //one off maintenance function>>
     procedure UpdateLedgerLocatiionGroup()
     var
         LocationJCO: Record Location;
