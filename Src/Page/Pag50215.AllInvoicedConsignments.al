@@ -1,16 +1,17 @@
 namespace JCO_BCDev_JCO.JCO_BCDev_JCO;
 using JCO.JCO;
+using Microsoft.Sales.History;
 
-page 50202 "Ord Consignments Hist ARCJOC"
+page 50215 "Invoiced Consignments ARCJOC"
 {
     ApplicationArea = All;
-    Caption = 'Order Consignments History';
+    Caption = 'Invoiced Consignments';
     PageType = List;
     SourceTable = "Consignment Detail ARCJCO";
-    SourceTableView = sorting("Consignment Status") where("Consignment Status" = filter("Shipped to Business" | "Sold By Business" | "Returned By Business" | "Invoiced to Business"));
-    UsageCategory = None;
+    SourceTableView = sorting("Consignment Status", "Posted Invoice No.") where("Consignment Status" = filter("Invoiced to Business"));
+    UsageCategory = History;
     DataCaptionFields = "Document No.", "Document Line No.", "Item No.";
-    Editable = false;
+    //Editable = false;
     DeleteAllowed = false;
     InsertAllowed = false;
     layout
@@ -23,6 +24,32 @@ page 50202 "Ord Consignments Hist ARCJOC"
                 {
                     ToolTip = ' Status of Consignment for this Serial No.';
                     ApplicationArea = All;
+                    Visible = false;
+                }
+                field("Posted Invoice No."; Rec."Posted Invoice No.")
+                {
+                    Editable = false;
+                    ToolTip = 'This is the Posted Invoice Number of the Invoice sent to Business';
+                    ApplicationArea = All;
+                }
+                field("Invoice Date"; Rec."Invoice Date")
+                {
+                    Editable = false;
+                    ToolTip = 'This is the Posting Date of the Invoice Number of the Invoice sent to Business';
+                    ApplicationArea = All;
+                }
+                field("Document No."; Rec."Document No.")
+                {
+                    Caption = 'Sales Order No';
+                    ToolTip = 'Specifies the value of the Document No. of the Consignment';
+                    ApplicationArea = All;
+                }
+                field("Document Line No."; Rec."Document Line No.")
+                {
+                    Caption = 'Sales Order Line No';
+                    ToolTip = 'Specifies the value of the Document Line No. of the Consignment (e.g. Sales Order Line No.)';
+                    ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Item No."; Rec."Item No.")
                 {
@@ -59,53 +86,14 @@ page 50202 "Ord Consignments Hist ARCJOC"
                     ToolTip = 'Specifies the value of the Serial No. of the Item';
                     ApplicationArea = All;
                 }
-                field("Shipment Confirmed By"; Rec."Shipment Confirmed By")
-                {
-                    ToolTip = 'Specifies the Name of the User who confirm the Shipment.';
-                    ApplicationArea = All;
-                }
                 field("Shipment Date"; Rec."Shipment Date")
                 {
                     ToolTip = 'Specifies the value of the Shipment Date';
                     ApplicationArea = All;
                 }
-                field(Comment; Rec.Comment)
-                {
-                    Caption = 'Shipment Comment';
-                    ToolTip = 'Specifies theComment, if user wants to add to the line';
-                    ApplicationArea = All;
-                }
-                field("Confirm Sold by Custromer"; Rec."Confirm Sold by Custromer")
-                {
-                    ToolTip = 'Sales Confirmed By Customer';
-                    ApplicationArea = All;
-                }
                 field("B2B Sales Date"; Rec."B2B Sales Date")
                 {
                     ToolTip = 'Date on which Business Sold the Item';
-                    ApplicationArea = All;
-                }
-                field("Date of Return"; Rec."Date of Return")
-                {
-                    ToolTip = 'Date on which Business Returned the Item';
-                    ApplicationArea = All;
-                }
-                field("Reason Code"; Rec."Reason Code")
-                {
-                    ToolTip = 'Reason Code for return';
-                    ApplicationArea = All;
-                }
-
-                field("Item with Business"; Rec."Item with Business")
-                {
-                    Editable = false;
-                    ToolTip = 'Show TRUE or CHECKED, if the Item is shipped to Consignee';
-                    ApplicationArea = All;
-                }
-                field("Posted Invoice No."; Rec."Posted Invoice No.")
-                {
-                    Editable = false;
-                    ToolTip = 'This is the Posted Invoice Number of the Invoice sent to Business';
                     ApplicationArea = All;
                 }
             }
@@ -129,6 +117,25 @@ page 50202 "Ord Consignments Hist ARCJOC"
                     SalesConsignmentMgmtJCOARC: Codeunit "SalesConsignmentMgmt JCOARC";
                 begin
                     SalesConsignmentMgmtJCOARC.PrintSalesInvoice(Rec);
+                end;
+            }
+        }
+        area(Navigation)
+        {
+            action("Show Document")
+            {
+                ApplicationArea = Basic, Suite;
+                Caption = 'Show Invoice';
+                Image = View;
+                ShortCutKey = 'Shift+F7';
+                ToolTip = 'Open the Posted Sales Invoice that the selected line exists on.';
+
+                trigger OnAction()
+                var
+                    SalesInvHeader: Record "Sales Invoice Header";
+                begin
+                    SalesInvHeader.Get(Rec."Posted Invoice No.");
+                    Page.Run(Page::"Posted Sales Invoice", SalesInvHeader);
                 end;
             }
         }

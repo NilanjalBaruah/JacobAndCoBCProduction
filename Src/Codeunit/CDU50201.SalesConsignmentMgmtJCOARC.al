@@ -7,10 +7,11 @@ using Microsoft.Sales.History;
 using Microsoft.Inventory.Location;
 using Microsoft.Inventory.Posting;
 using Microsoft.Inventory.Item;
+using Microsoft.Finance.GeneralLedger.Setup;
+using Microsoft.Sales.Posting;
 using Microsoft.Inventory.Ledger;
 using Microsoft.Inventory.Journal;
 using Microsoft.Inventory.Tracking;
-
 
 codeunit 50201 "SalesConsignmentMgmt JCOARC"
 {
@@ -600,8 +601,350 @@ codeunit 50201 "SalesConsignmentMgmt JCOARC"
             Message('Nothing to Process!');
     end;
 
+    //For Invoicing
+    procedure SetConfirmInvoiceAll(ConsignmentDetails: Record "Consignment Detail ARCJCO"; ClearRec: Boolean)
+    var
+        SalesConsignmentForInvoice: Record "Consignment Detail ARCJCO";
+        Item: Record Item;
+        ConfirmLblTxt: Text;
+    begin
+        if ClearRec then
+            ConfirmLblTxt := StrSubstNo(ConfirmClearLbl, SalesConsignmentForInvoice.FieldCaption("Confirm Invoice To Customer"))
+        else
+            ConfirmLblTxt := StrSubstNo(ConfirmSetLbl, SalesConsignmentForInvoice.FieldCaption("Confirm Invoice To Customer"));
+
+        SalesConsignmentForInvoice.SetRange("Entry Type", ConsignmentDetails."Entry Type");
+        SalesConsignmentForInvoice.SetRange("Document Type", ConsignmentDetails."Document Type");
+        SalesConsignmentForInvoice.SetRange("Document No.", ConsignmentDetails."Document No.");
+        SalesConsignmentForInvoice.SetRange("Consignment Status", SalesConsignmentForInvoice."Consignment Status"::"Sold By Business");
+        if ClearRec then
+            SalesConsignmentForInvoice.SetRange("Confirm Invoice To Customer", true)
+        else
+            SalesConsignmentForInvoice.SetRange("Confirm Invoice To Customer", false);
+        if SalesConsignmentForInvoice.FindSet() then begin
+            if Confirm(ConfirmLblTxt, false) then
+                repeat
+                    if Item.Get(SalesConsignmentForInvoice."Item No.") then
+                        if Item."Item Tracking Code" = '' then begin
+                            if ClearRec then begin
+                                SalesConsignmentForInvoice."Confirm Invoice To Customer" := false;
+                                SalesConsignmentForInvoice."Invoice Date" := 0D;
+                            end else begin
+                                SalesConsignmentForInvoice."Confirm Invoice To Customer" := true;
+                                SalesConsignmentForInvoice."Invoice Date" := Today;
+                            end;
+                            SalesConsignmentForInvoice.Modify();
+                        end;
+                until SalesConsignmentForInvoice.Next() = 0;
+        end else
+            Message('Nothing to Process!');
+    end;
+
+    procedure UpdateInvoicedConsignments(ConsignmentDetailARCJCO: Record "Consignment Detail ARCJCO")
+    var
+        ConsignmentDetailARCJCO2: Record "Consignment Detail ARCJCO";
+        SalesInvoiceLine: Record "Sales Invoice Line";
+        ValueEntry: Record "Value Entry";
+        ItemLedgEntry: Record "Item Ledger Entry";
+    begin
+        //check for invoices from current sales order
+        ConsignmentDetailARCJCO2.SetRange("Entry Type", ConsignmentDetailARCJCO2."Entry Type"::Sales);
+        ConsignmentDetailARCJCO2.SetRange("Document Type", ConsignmentDetailARCJCO."Document Type");
+        ConsignmentDetailARCJCO2.SetRange("Document No.", ConsignmentDetailARCJCO."Document No.");
+        ConsignmentDetailARCJCO2.SetRange("Consignment Status", ConsignmentDetailARCJCO2."Consignment Status"::"Sold By Business");
+        ConsignmentDetailARCJCO2.SetFilter("Serial No.", '<>%1', '');
+        if ConsignmentDetailARCJCO2.FindSet() then
+            repeat
+                SalesInvoiceLine.Reset();
+                SalesInvoiceLine.SetRange(Type, SalesInvoiceLine.Type::Item);
+                SalesInvoiceLine.SetRange("No.", ConsignmentDetailARCJCO2."Item No.");
+                SalesInvoiceLine.SetRange("Order No.", ConsignmentDetailARCJCO2."Document No.");
+                SalesInvoiceLine.SetRange("Order Line No.", ConsignmentDetailARCJCO2."Document Line No.");
+                SalesInvoiceLine.SetFilter(Quantity, '<>%1', 0);
+                if SalesInvoiceLine.FindSet() then
+                    repeat
+                        ValueEntry.Reset();
+                        ValueEntry.SetCurrentKey("Document No.", "Document Line No.", "Document Type");
+                        ValueEntry.SetRange("Document No.", SalesInvoiceLine."Document No.");
+                        ValueEntry.SetRange("Document Line No.", SalesInvoiceLine."Line No.");
+                        if ValueEntry.FindFirst() then begin
+                            ItemLedgEntry.get(ValueEntry."Item Ledger Entry No.");
+                            if ItemLedgEntry."Serial No." = ConsignmentDetailARCJCO2."Serial No." then begin
+                                ConsignmentDetailARCJCO2."Posted Invoice No." := SalesInvoiceLine."Document No.";
+                                ConsignmentDetailARCJCO2."Consignment Status" := ConsignmentDetailARCJCO2."Consignment Status"::"Invoiced to Business";
+                                ConsignmentDetailARCJCO2."Confirm Invoice To Customer" := true;
+                                ConsignmentDetailARCJCO2."Invoice Date" := ValueEntry."Posting Date";
+                                ConsignmentDetailARCJCO2.Modify();
+                            end;
+                        end;
+                    until SalesInvoiceLine.Next() = 0;
+            until ConsignmentDetailARCJCO2.Next() = 0;
+        Commit();
+
+        //check for invoices from other sales order/invoice
+        ConsignmentDetailARCJCO2.SetRange("Entry Type", ConsignmentDetailARCJCO2."Entry Type"::Sales);
+        ConsignmentDetailARCJCO2.SetRange("Document Type", ConsignmentDetailARCJCO."Document Type");
+        ConsignmentDetailARCJCO2.SetRange("Consignment Status", ConsignmentDetailARCJCO2."Consignment Status"::"Sold By Business");
+        ConsignmentDetailARCJCO2.SetFilter("Serial No.", '<>%1', '');
+        if ConsignmentDetailARCJCO2.FindSet() then
+            repeat
+                ItemLedgEntry.Reset();
+                ItemLedgEntry.SetCurrentKey("Serial No.", "Item No.", Open, "Variant Code", Positive, "Location Code", "Posting Date");
+                ItemLedgEntry.SetRange("Serial No.", ConsignmentDetailARCJCO2."Serial No.");
+                ItemLedgEntry.SetRange("Item No.", ConsignmentDetailARCJCO2."Item No.");
+                ItemLedgEntry.SetRange("Location Code", ConsignmentDetailARCJCO2."Location Code");
+                ItemLedgEntry.SetRange("Entry Type", ItemLedgEntry."Entry Type"::Sale);
+                ItemLedgEntry.SetRange("Document Type", ItemLedgEntry."Document Type"::"Sales Shipment");
+                if ItemLedgEntry.FindFirst() then begin
+                    ValueEntry.Reset();
+                    ValueEntry.SetCurrentKey("Item Ledger Entry No.", "Entry Type");
+                    ValueEntry.SetRange("Item Ledger Entry No.", ItemLedgEntry."Entry No.");
+                    ValueEntry.SetRange("Item Ledger Entry Type", ItemLedgEntry."Entry Type");
+                    if ValueEntry.FindFirst() then begin
+                        ConsignmentDetailARCJCO2."Posted Invoice No." := ValueEntry."Document No.";
+                        ConsignmentDetailARCJCO2."Consignment Status" := ConsignmentDetailARCJCO2."Consignment Status"::"Invoiced to Business";
+                        ConsignmentDetailARCJCO2."Confirm Invoice To Customer" := true;
+                        ConsignmentDetailARCJCO2."Invoice Date" := ValueEntry."Posting Date";
+                        ConsignmentDetailARCJCO2.Modify();
+                    end;
+                End;
+            until ConsignmentDetailARCJCO2.Next() = 0;
+    end;
+
+    procedure PostConsignmentSalesInvoice(ConsignmentDetailARCJCO: Record "Consignment Detail ARCJCO")
+    begin
+        UpdateSalesLineQtyToShipBeforePosting(ConsignmentDetailARCJCO, false);
+        PostSalesOrder(ConsignmentDetailARCJCO, CODEUNIT::"Sales-Post (Yes/No)");
+    end;
+
+    procedure UpdateSalesLineQtyToShipBeforePosting(ConsignmentDetailARCJCO: Record "Consignment Detail ARCJCO"; HideDialog: Boolean)
+    var
+        ConsignmentDetailARCJCO2: Record "Consignment Detail ARCJCO";
+        SalesHeader: Record "Sales Header";
+        SalesLine: Record "Sales Line";
+        ReleaseSalesDoc: Codeunit "Release Sales Document";
+        NothingToProcessErr: Label 'Nothing to Process!';
+        ConfInvoiceLabel: Label 'You have selected, %1 Items for Invoicing to the Business, for Memo No.%2. Do you want to continue?.', Comment = '%1=Count';
+        ConsQtyToInvoice: Decimal;
+        SalesLineQtyToInvoice: Decimal;
+        EntryCount: Integer;
+    begin
+        ConsignmentDetailARCJCO2.SetRange("Entry Type", ConsignmentDetailARCJCO2."Entry Type"::Sales);
+        ConsignmentDetailARCJCO2.SetRange("Document Type", ConsignmentDetailARCJCO."Document Type");
+        ConsignmentDetailARCJCO2.SetRange("Document No.", ConsignmentDetailARCJCO."Document No.");
+        ConsignmentDetailARCJCO2.SetRange("Consignment Status", ConsignmentDetailARCJCO2."Consignment Status"::"Sold By Business");
+        ConsignmentDetailARCJCO2.SetRange("Confirm Invoice To Customer", true);
+        if ConsignmentDetailARCJCO2.FindSet() then
+            EntryCount := ConsignmentDetailARCJCO2.Count;
+        if EntryCount = 0 then
+            Error(NothingToProcessErr);
+        if not HideDialog then
+            if not Confirm(StrSubstNo(ConfInvoiceLabel, EntryCount, ConsignmentDetailARCJCO2."Document No."), false) then
+                exit;
+        SalesHeader.SetHideValidationDialog(true);
+        SalesHeader.Get(ConsignmentDetailARCJCO2."Document Type", ConsignmentDetailARCJCO2."Document No.");
+        if SalesHeader.Status <> SalesHeader.Status::Open then
+            ReleaseSalesDoc.Reopen(SalesHeader);
+
+        SalesLine.SetHideValidationDialog(true);
+        SalesLineQtyToInvoice := 0;
+        SalesLine.SetRange("Document Type", ConsignmentDetailARCJCO2."Document Type");
+        SalesLine.SetRange("Document No.", ConsignmentDetailARCJCO2."Document No.");
+        SalesLine.SetFilter(Type, '<>%1', SalesLine.Type::" ");
+        if SalesLine.FindSet() then
+            repeat
+                ConsignmentDetailARCJCO2.Reset();
+                ConsignmentDetailARCJCO2.SetRange("Entry Type", ConsignmentDetailARCJCO2."Entry Type"::Sales);
+                ConsignmentDetailARCJCO2.SetRange("Document Type", ConsignmentDetailARCJCO."Document Type");
+                ConsignmentDetailARCJCO2.SetRange("Document No.", ConsignmentDetailARCJCO."Document No.");
+                ConsignmentDetailARCJCO2.SetRange("Consignment Status", ConsignmentDetailARCJCO2."Consignment Status"::"Sold By Business");
+                ConsignmentDetailARCJCO2.SetRange("Confirm Invoice To Customer", true);
+                ConsignmentDetailARCJCO2.SetRange("Document Line No.", SalesLine."Line No.");
+                if ConsignmentDetailARCJCO2.FindFirst() then begin
+                    SalesLineQtyToInvoice := SalesLine.Quantity - SalesLine."Quantity Invoiced";
+                    ConsQtyToInvoice := TotalLineQtyToShipAndInvoice(ConsignmentDetailARCJCO2);
+                    if SalesLineQtyToInvoice > 0 then
+                        if (SalesLine."Qty. to Ship" <> ConsQtyToInvoice) then
+                            SalesLine.Validate("Qty. to Ship", ConsQtyToInvoice);
+                end else
+                    SalesLine.Validate("Qty. to Ship", 0);
+                SalesLine.Modify();
+            until SalesLine.Next() = 0;
+        SalesHeader.Validate("Posting Date", ConsignmentDetailARCJCO2."Invoice Date");
+        SalesHeader.Modify();
+        ReleaseSalesDoc.ReleaseSalesHeader(SalesHeader, false);
+    end;
+
+    procedure TotalLineQtyToShipAndInvoice(ConsignmentDetailARCJCO: Record "Consignment Detail ARCJCO"): Decimal;
+    var
+        ConsignmentDetailARCJCO2: Record "Consignment Detail ARCJCO";
+    begin
+        ConsignmentDetailARCJCO2.SetRange("Entry Type", ConsignmentDetailARCJCO2."Entry Type"::Sales);
+        ConsignmentDetailARCJCO2.SetRange("Document Type", ConsignmentDetailARCJCO."Document Type");
+        ConsignmentDetailARCJCO2.SetRange("Document No.", ConsignmentDetailARCJCO."Document No.");
+        ConsignmentDetailARCJCO2.SetRange("Consignment Status", ConsignmentDetailARCJCO2."Consignment Status"::"Sold By Business");
+        ConsignmentDetailARCJCO2.SetRange("Document Line No.", ConsignmentDetailARCJCO."Document Line No.");
+        ConsignmentDetailARCJCO2.SetRange("Confirm Invoice To Customer", true);
+        exit(ConsignmentDetailARCJCO2.Count);
+    end;
+
+    procedure PostSalesOrder(ConsignmentDetailARCJCO: Record "Consignment Detail ARCJCO"; PostingCodeunitID: Integer)
+    var
+        SalesHeader: Record "Sales Header";
+        OrderSalesHeader: Record "Sales Header";
+        SalesInvoiceHeader: Record "Sales Invoice Header";
+        LinesInstructionMgt: Codeunit "Lines Instruction Mgt.";
+        IsHandled: Boolean;
+    begin
+        SalesHeader.Get(ConsignmentDetailARCJCO."Document Type", ConsignmentDetailARCJCO."Document No.");
+        LinesInstructionMgt.SalesCheckAllLinesHaveQuantityAssigned(SalesHeader);
+
+        if not SalesHeader.SendToPosting(PostingCodeunitID) then
+            exit;
+
+        IsHandled := false;
+        if IsHandled then
+            exit;
+
+        if PostingCodeunitID <> CODEUNIT::"Sales-Post (Yes/No)" then
+            exit;
+        ShowPostedConfirmationMessage(SalesHeader);
+        ConsignmentDetailARCJCO."Consignment Status" := ConsignmentDetailARCJCO."Consignment Status"::"Invoiced to Business";
+        if OrderSalesHeader.Get(SalesHeader."Document Type", SalesHeader."No.") then
+            ConsignmentDetailARCJCO."Posted Invoice No." := OrderSalesHeader."Last Posting No."
+        else begin
+            SalesInvoiceHeader.SetRange("Order No.", SalesHeader."No.");
+            if SalesInvoiceHeader.FindLast() then
+                ConsignmentDetailARCJCO."Posted Invoice No." := SalesInvoiceHeader."No."
+        end;
+        ConsignmentDetailARCJCO.Modify();
+    end;
+
+    local procedure ShowPostedConfirmationMessage(SalesHeader: Record "Sales Header")
+    var
+        OrderSalesHeader: Record "Sales Header";
+        SalesInvoiceHeader: Record "Sales Invoice Header";
+        InstructionMgt: Codeunit "Instruction Mgt.";
+    begin
+        if not OrderSalesHeader.Get(SalesHeader."Document Type", SalesHeader."No.") then begin
+            SalesInvoiceHeader.SetRange("No.", SalesHeader."Last Posting No.");
+            if SalesInvoiceHeader.FindFirst() then begin
+                if InstructionMgt.ShowConfirm(StrSubstNo(OpenPostedSalesOrderQst, SalesInvoiceHeader."No."),
+                     InstructionMgt.ShowPostedConfirmationMessageCode())
+                then
+                    InstructionMgt.ShowPostedDocument(SalesInvoiceHeader, Page::"Sales Order");
+            end;
+        end;
+    end;
+
+    procedure PrintSalesInvoice(ConsignmentDetailARCJCO: Record "Consignment Detail ARCJCO")
+    var
+        SalesInvoiceHeader: Record "Sales Invoice Header";
+    begin
+        if ConsignmentDetailARCJCO."Posted Invoice No." <> '' then begin
+            SalesInvoiceHeader.SetRange("No.", ConsignmentDetailARCJCO."Posted Invoice No.");
+            SalesInvoiceHeader.PrintRecords(true);
+        end;
+    end;
+
+    //<<For Invoicing
+
+    //ON OF ROUTINE TO UPDATE CONSIGNENT DATA, EITHER INVOICED TO OTHER SALES INVOICE OR TRANSFERED TO OTHER LOCATION OR USED IN TRANSGER ORDER 
+    procedure UpdateShippedToConsignments(ConsignmentDetailARCJCO: Record "Consignment Detail ARCJCO")
+    var
+        ConsignmentDetailARCJCO2: Record "Consignment Detail ARCJCO";
+        SalesInvoiceLine: Record "Sales Invoice Line";
+        ValueEntry: Record "Value Entry";
+        ItemLedgEntry: Record "Item Ledger Entry";
+    begin
+        ConsignmentDetailARCJCO2.SetRange("Entry Type", ConsignmentDetailARCJCO2."Entry Type"::Sales);
+        ConsignmentDetailARCJCO2.SetRange("Document Type", ConsignmentDetailARCJCO."Document Type");
+        ConsignmentDetailARCJCO2.SetRange("Document No.", ConsignmentDetailARCJCO."Document No.");
+        ConsignmentDetailARCJCO2.SetRange("Consignment Status", ConsignmentDetailARCJCO2."Consignment Status"::"Shipped to Business");
+        ConsignmentDetailARCJCO2.SetFilter("Serial No.", '<>%1', '');
+        if ConsignmentDetailARCJCO2.FindSet() then
+            repeat
+                ConsignmentDetailARCJCO2.CalcFields("Item with Business");
+                if not ConsignmentDetailARCJCO2."Item with Business" then begin
+                    //check for invoices from current sales order
+                    SalesInvoiceLine.Reset();
+                    SalesInvoiceLine.SetRange(Type, SalesInvoiceLine.Type::Item);
+                    SalesInvoiceLine.SetRange("No.", ConsignmentDetailARCJCO2."Item No.");
+                    SalesInvoiceLine.SetRange("Order No.", ConsignmentDetailARCJCO2."Document No.");
+                    SalesInvoiceLine.SetRange("Order Line No.", ConsignmentDetailARCJCO2."Document Line No.");
+                    SalesInvoiceLine.SetFilter(Quantity, '<>%1', 0);
+                    if SalesInvoiceLine.FindSet() then
+                        repeat
+                            ValueEntry.Reset();
+                            ValueEntry.SetCurrentKey("Document No.", "Document Line No.", "Document Type");
+                            ValueEntry.SetRange("Document No.", SalesInvoiceLine."Document No.");
+                            ValueEntry.SetRange("Document Line No.", SalesInvoiceLine."Line No.");
+                            if ValueEntry.FindFirst() then begin
+                                ItemLedgEntry.get(ValueEntry."Item Ledger Entry No.");
+                                if ItemLedgEntry."Serial No." = ConsignmentDetailARCJCO2."Serial No." then begin
+                                    ConsignmentDetailARCJCO2."Posted Invoice No." := SalesInvoiceLine."Document No.";
+                                    ConsignmentDetailARCJCO2."Consignment Status" := ConsignmentDetailARCJCO2."Consignment Status"::"Invoiced to Business";
+                                    ConsignmentDetailARCJCO2."Confirm Invoice To Customer" := true;
+                                    ConsignmentDetailARCJCO2."Invoice Date" := ValueEntry."Posting Date";
+                                    ConsignmentDetailARCJCO2.Modify();
+                                end;
+                            end;
+                        until SalesInvoiceLine.Next() = 0
+                    else begin
+                        //invoiced with other Sales doc.
+                        ItemLedgEntry.Reset();
+                        ItemLedgEntry.SetCurrentKey("Serial No.", "Item No.", Open, "Variant Code", Positive, "Location Code", "Posting Date");
+                        ItemLedgEntry.SetRange("Serial No.", ConsignmentDetailARCJCO2."Serial No.");
+                        ItemLedgEntry.SetRange("Item No.", ConsignmentDetailARCJCO2."Item No.");
+                        ItemLedgEntry.SetRange("Entry Type", ItemLedgEntry."Entry Type"::Sale);
+                        ItemLedgEntry.SetRange("Document Type", ItemLedgEntry."Document Type"::"Sales Shipment");
+                        if ItemLedgEntry.FindFirst() then begin
+                            ValueEntry.Reset();
+                            ValueEntry.SetCurrentKey("Item Ledger Entry No.", "Entry Type");
+                            ValueEntry.SetRange("Item Ledger Entry No.", ItemLedgEntry."Entry No.");
+                            ValueEntry.SetRange("Document Type", ValueEntry."Document Type"::"Sales Invoice");
+                            if ValueEntry.FindFirst() then begin
+                                ConsignmentDetailARCJCO2."Posted Invoice No." := ValueEntry."Document No.";
+                                ConsignmentDetailARCJCO2."Consignment Status" := ConsignmentDetailARCJCO2."Consignment Status"::"Invoiced to Business";
+                                ConsignmentDetailARCJCO2."Confirm Invoice To Customer" := true;
+                                ConsignmentDetailARCJCO2."Invoice Date" := ValueEntry."Posting Date";
+                                ConsignmentDetailARCJCO2.Modify();
+                            end;
+                        end else begin
+                            //used in other transfers/Inventory Adjustment (Open)
+                            ItemLedgEntry.Reset();
+                            ItemLedgEntry.SetCurrentKey("Entry No.");
+                            ItemLedgEntry.SetRange("Serial No.", ConsignmentDetailARCJCO2."Serial No.");
+                            ItemLedgEntry.SetRange("Item No.", ConsignmentDetailARCJCO2."Item No.");
+                            ItemLedgEntry.SetFilter("Entry Type", '<>%1', ItemLedgEntry."Entry Type"::Sale);
+                            ItemLedgEntry.SetRange(Open, true);
+                            if ItemLedgEntry.FindFirst() then begin
+                                ConsignmentDetailARCJCO2."Consignment Status" := ConsignmentDetailARCJCO2."Consignment Status"::"Returned By Business";
+                                ConsignmentDetailARCJCO2."Confirm Returned by Custromer" := true;
+                                ConsignmentDetailARCJCO2."Date of Return" := ItemLedgEntry."Posting Date";
+                                ConsignmentDetailARCJCO2.Modify();
+                            end else begin
+                                ItemLedgEntry.Reset();
+                                ItemLedgEntry.SetCurrentKey("Entry No.");
+                                ItemLedgEntry.SetRange("Serial No.", ConsignmentDetailARCJCO2."Serial No.");
+                                ItemLedgEntry.SetRange("Item No.", ConsignmentDetailARCJCO2."Item No.");
+                                ItemLedgEntry.SetFilter("Entry Type", '<>%1', ItemLedgEntry."Entry Type"::Sale);
+                                if ItemLedgEntry.FindLast() then begin
+                                    ConsignmentDetailARCJCO2."Consignment Status" := ConsignmentDetailARCJCO2."Consignment Status"::"Returned By Business";
+                                    ConsignmentDetailARCJCO2."Confirm Returned by Custromer" := true;
+                                    ConsignmentDetailARCJCO2."Date of Return" := ItemLedgEntry."Posting Date";
+                                    ConsignmentDetailARCJCO2.Modify();
+                                end;
+                            end;
+                        end;
+                    end;
+                end;
+            until ConsignmentDetailARCJCO2.Next() = 0;
+    end;
+    //ONE OFF UPDATE ENDS HERE
     var
         ConfirmSetLbl: Label 'Do you want to mark %1 to all the Non Serialized lines?';
         ConfirmClearLbl: Label 'Do you want to clear %1 to all the Non Serialized lines?';
+        OpenPostedSalesOrderQst: Label 'The order is posted as number %1 and moved to the Posted Sales Invoices/ Invoiced Consignments window.\\Do you want to open the posted invoice?', Comment = '%1 = posted document number';
 
 }

@@ -19,7 +19,7 @@ report 50205 "Items By Location ARCJCO"
         dataitem(ItemLedgerEntry; "Item Ledger Entry")
         {
             DataItemTableView = sorting("Item No.", Positive, "Location Code", "Variant Code") where(Open = filter(true));
-            RequestFilterFields = "Posting Date", "Item No.", "Location Code", "Location Group Code ARCJCO";
+            RequestFilterFields = "Posting Date", "Item No.", "Location Code", "Location Group Code ARCJCO", "Item Category Code";
             column(CompanyAddress1; CompanyAddress[1])
             {
             }

@@ -53,6 +53,11 @@ pageextension 50104 "JCO Sales Order Card" extends "Sales Order"
 
     actions
     {
+        modify("Pick Instruction")
+        {
+            Caption = 'Packing List';
+            ToolTip = 'Packing List comprising of Items in the Sales Order Line';
+        }
         // Add changes to page actions here
         //JCO-91>>
         addbefore("Request Approval")
@@ -99,6 +104,19 @@ pageextension 50104 "JCO Sales Order Card" extends "Sales Order"
                     Promoted = true;
                     PromotedCategory = Process;
 
+                }
+                action(ConsignmentToInvoiceARCJCO)
+                {
+                    Image = SalesInvoice;
+                    Caption = 'Consignments to Invoice';
+                    ToolTip = 'Use this button to open the page to log details of serials of Items ready for Invoicing to Business (B2B)';
+                    ApplicationArea = All;
+                    RunObject = page "Consignments To Invoice ARCJOC";
+                    RunPageLink = "Document Type" = field("Document Type"),
+                                    "Document No." = field("No.");
+                    ShortcutKey = "Ctrl+Alt+F3";
+                    Promoted = true;
+                    PromotedCategory = Process;
                 }
                 action(ConsignmentHitoryARCJCO)
                 {

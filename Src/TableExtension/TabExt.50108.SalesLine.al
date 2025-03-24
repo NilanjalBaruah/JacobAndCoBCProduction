@@ -111,6 +111,21 @@ tableextension 50108 "JCO Sales Line" extends "Sales Line"
             DataClassification = CustomerContent;
             TableRelation = "Location Group ARCJCO";
         }
+        field(50215; "Qty. Invoiced to Consignee JCO"; Decimal)
+        {
+            Caption = 'Quantity Invoiced to Consignee';
+            DecimalPlaces = 0 : 5;
+            FieldClass = FlowField;
+            CalcFormula = sum("Consignment Detail ARCJCO".Quantity where("Document Type" = field("Document Type"), "Document No." = field("Document No."), "Document Line No." = field("Line No."), "Consignment Status" = const("Consignment Status ARCJCO"::"Invoiced to Business")));
+        }
+        field(50216; "Qty. Returned By Consignee JCO"; Decimal)
+        {
+            Caption = 'Quantity Returned By Consignee';
+            DecimalPlaces = 0 : 5;
+            FieldClass = FlowField;
+            CalcFormula = sum("Consignment Detail ARCJCO".Quantity where("Document Type" = field("Document Type"), "Document No." = field("Document No."), "Document Line No." = field("Line No."), "Consignment Status" = const("Consignment Status ARCJCO"::"Returned By Business")));
+        }
+
     }
 
     keys

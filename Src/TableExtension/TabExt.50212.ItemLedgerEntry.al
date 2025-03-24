@@ -1,6 +1,7 @@
 namespace JCO.JCO;
 
 using Microsoft.Inventory.Ledger;
+using System.Security.AccessControl;
 using Microsoft.Foundation.AuditCodes;
 using Microsoft.Foundation.Address;
 
@@ -49,6 +50,13 @@ tableextension 50212 "ItemLedgEntry Extn ARCJCO" extends "Item Ledger Entry"
             Caption = 'Ship-from Country Code';
             TableRelation = "Country/Region";
             DataClassification = CustomerContent;
+        }
+        field(50212; "User Name ARCJCO"; Code[50])
+        {
+            Caption = 'User Name';
+            FieldClass = FlowField;
+            CalcFormula = lookup(User."User Name" where("User Security ID" = field(SystemCreatedBy)));
+            Editable = false;
         }
     }
 }

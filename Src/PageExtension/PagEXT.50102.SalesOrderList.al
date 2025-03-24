@@ -25,6 +25,11 @@ pageextension 50102 "JCO Sales order List" extends "Sales Order List"
 
     actions
     {
+        modify("Pick Instruction")
+        {
+            Caption = 'Packing List';
+            ToolTip = 'Packing List comprising of Items in the Sales Order Line';
+        }
         // Add changes to page actions here
     }
 

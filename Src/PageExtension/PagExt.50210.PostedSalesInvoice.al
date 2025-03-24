@@ -52,16 +52,23 @@ pageextension 50210 "PSalesInvoice Extn ARCJCO" extends "Posted Sales Invoice"
                     Image = History;
                     Caption = 'Consignment History';
                     ToolTip = 'Use this button to open the list showing all serial numbers consigned to Business';
+                    Visible = ConsignmentHistoryEnabled;
                     ApplicationArea = All;
                     RunObject = page "Ord Consignments Hist ARCJOC";
-                    RunPageLink = "Document No." = field("Order No.");
+                    RunPageLink = "Posted Invoice No." = field("No.");
                     ShortcutKey = "Ctrl+Alt+F10";
                     Promoted = true;
                     PromotedCategory = Process;
                 }
             }
         }
-
     }
 
+    trigger OnAfterGetRecord()
+    begin
+        ConsignmentHistoryEnabled := Rec."Consignment Order ARCJCO";
+    end;
+
+    var
+        ConsignmentHistoryEnabled: Boolean;
 }

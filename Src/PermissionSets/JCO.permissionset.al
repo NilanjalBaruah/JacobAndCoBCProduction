@@ -39,5 +39,9 @@ permissionset 50100 GeneratedPermission
         tabledata "Location Group ARCJCO" = RIMD,
         table "Location Group ARCJCO" = X,
         page "Location Groups ARCJCO" = X,
-        report "Customer Statement ARCJCO" = X;
+        report "Customer Statement ARCJCO" = X,
+        report "Packing List JCOARC" = X,
+        page "Consignments To Invoice ARCJOC" = X,
+        page "Consignmnts To Invoice. ARCJOC" = X,
+        page "Invoiced Consignments ARCJOC" = X;
 }

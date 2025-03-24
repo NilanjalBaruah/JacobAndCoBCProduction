@@ -42,6 +42,18 @@ pageextension 50109 "JCO Sales Order Line" extends "Sales Order Subform"
                 ApplicationArea = All;
                 Editable = false;
             }
+            field("Qty. Invoiced to Consignee JCO"; Rec."Qty. Invoiced to Consignee JCO")
+            {
+                ToolTip = 'This is the Quantity Invoiced to Business (B2B). Information will automatically updated when Invoice is posted from Consignments to Invoice page';
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field("Qty. Returned By Consignee JCO"; Rec."Qty. Returned By Consignee JCO")
+            {
+                ToolTip = 'This is the Quantity Invoiced to Business (B2B). Information will automatically updated when Invoice is posted from Consignments to Invoice page';
+                ApplicationArea = All;
+                Editable = false;
+            }
         }
         //JCO091<<
         //JCO11122024>>

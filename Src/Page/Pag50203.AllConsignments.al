@@ -7,7 +7,7 @@ page 50203 "Consignments History ARCJOC"
     Caption = 'All Consignment Details';
     PageType = List;
     SourceTable = "Consignment Detail ARCJCO";
-    SourceTableView = sorting("Consignment Status") where("Consignment Status" = filter("Shipped to Business" | "Sold By Business" | "Returned By Business"));
+    //SourceTableView = sorting("Consignment Status") where("Consignment Status" = filter("Shipped to Business" | "Sold By Business" | "Returned By Business" | "Invoiced to Business"));
     UsageCategory = History;
     DataCaptionFields = "Document No.", "Document Line No.", "Item No.";
     //Editable = false;
@@ -101,28 +101,60 @@ page 50203 "Consignments History ARCJOC"
                     ToolTip = 'Show TRUE or CHECKED, if the Item is shipped to Consignee';
                     ApplicationArea = All;
                 }
-
+                field("Posted Invoice No."; Rec."Posted Invoice No.")
+                {
+                    Editable = false;
+                    ToolTip = 'This is the Posted Invoice Number of the Invoice sent to Business';
+                    ApplicationArea = All;
+                }
             }
         }
     }
     actions
     {
-        //     area(Processing)
-        //     {
-        //         action(ConfirmSoldByCustomer)
-        //         {
-        //             Promoted = true;
-        //             PromotedCategory = Process;
-        //             PromotedIsBig = true;
-        //             Image = Shipment;
-        //             Caption = 'Confirm Sold by Customer';
-        //             trigger OnAction()
-        //             var
-        //                 SalesConsignmentMgmtJCOARC: Codeunit "SalesConsignmentMgmt JCOARC";
-        //             begin
-        //                 SalesConsignmentMgmtJCOARC.CreateAndPostItemReclassJournalAndUpdateConsignment(Rec, false);
-        //             end;
-        //         }
-        //     }
+        area(Reporting)
+        {
+            action(SalesInvoicePrint)
+            {
+                Promoted = true;
+                PromotedCategory = Report;
+                PromotedIsBig = true;
+                Image = PrintDocument;
+                PromotedOnly = true;
+                Enabled = PrintEnabled;
+                Caption = 'Sales Invoice';
+                trigger OnAction()
+                var
+                    SalesConsignmentMgmtJCOARC: Codeunit "SalesConsignmentMgmt JCOARC";
+                begin
+                    SalesConsignmentMgmtJCOARC.PrintSalesInvoice(Rec);
+                end;
+            }
+        }
+        area(Processing)
+        {
+            action(UpdateInvoicedStatus)
+            {
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = UpdateShipment;
+                Caption = 'Validate Invoiced Consignments';
+                trigger OnAction()
+                var
+                    SalesConsignmentMgmtJCOARC: Codeunit "SalesConsignmentMgmt JCOARC";
+                begin
+                    SalesConsignmentMgmtJCOARC.UpdateShippedToConsignments(Rec);
+                end;
+            }
+        }
     }
+
+    trigger OnAfterGetRecord()
+    begin
+        PrintEnabled := (Rec."Posted Invoice No." <> '');
+    end;
+
+    var
+        PrintEnabled: Boolean;
 }

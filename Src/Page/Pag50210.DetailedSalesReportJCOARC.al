@@ -1,9 +1,9 @@
 namespace JCO_BCDev_.JCO_BCDev_;
 
 using Microsoft.Inventory.Ledger;
-using JCO.JCO;
 using JCO_BCDev_JCO_Refined.JCO_BCDev_JCO_Refined;
 using Microsoft.Sales.Customer;
+using JCO.JCO;
 using Microsoft.Sales.Setup;
 using Microsoft.Sales.History;
 using Microsoft.Inventory.Item.Attribute;

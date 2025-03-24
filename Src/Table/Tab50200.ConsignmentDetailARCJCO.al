@@ -222,6 +222,23 @@ table 50200 "Consignment Detail ARCJCO"
             TableRelation = "Reason Code";
         }
         //For return<<
+        //For Invoice>>
+        field(34; "Confirm Invoice To Customer"; Boolean)
+        {
+            Caption = 'Confirm Invoice to Customer';
+            DataClassification = CustomerContent;
+        }
+        field(35; "Invoice Date"; Date)
+        {
+            Caption = 'Invoice Date';
+            DataClassification = CustomerContent;
+        }
+        field(36; "Posted Invoice No."; Code[20])
+        {
+            Caption = 'Posted Invoice No.';
+            TableRelation = "Sales Invoice Header" where("No." = field("Posted Invoice No."));
+        }
+        //For Inoice<<
 
     }
     keys
@@ -231,6 +248,14 @@ table 50200 "Consignment Detail ARCJCO"
             Clustered = true;
         }
         key(Key2; "Consignment Status")
+        {
+
+        }
+        key(Key3; "Consignment Status", "Posted Invoice No.")
+        {
+
+        }
+        key(Key4; "Consignment Status", "Document No.", "Document Line No.")
         {
 
         }

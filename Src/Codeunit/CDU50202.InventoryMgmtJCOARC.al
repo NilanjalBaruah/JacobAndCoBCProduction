@@ -21,8 +21,14 @@ codeunit 50202 "InventoryMgmt JCOARC"
                   TableData "Value Entry" = rimd,
                   tabledata "Sales Invoice Line" = rimd,
                   tabledata "Sales Cr.Memo Line" = rimd,
+                  tabledata "Sales Shipment Line" = rimd,
+                  tabledata "Return Receipt Line" = rimd,
                   tabledata "Purch. Inv. Line" = rimd,
-                  tabledata "Purch. Cr. Memo Line" = rimd;
+                  tabledata "Purch. Cr. Memo Line" = rimd,
+                  tabledata "Purch. Rcpt. Line" = rimd,
+                  tabledata "Return Shipment Line" = rimd,
+                  tabledata "Transfer Shipment Line" = rimd,
+                  tabledata "Transfer Receipt Line" = rimd;
 
     //TransferEvents >>
     [EventSubscriber(ObjectType::Table, Database::"Transfer Header", 'OnAfterValidateEvent', 'Transfer-from Code', false, false)]
@@ -150,6 +156,83 @@ codeunit 50202 "InventoryMgmt JCOARC"
     end;
     //TransferEvents <<
 
+    [EventSubscriber(ObjectType::Table, Database::"Location", 'OnAfterValidateEvent', 'Location Group Code ARCJCO', false, false)]
+
+    local procedure OnAfterValidateLocationLocationGroupCodeJCO(var Rec: Record Location; var xRec: Record Location; CurrFieldNo: Integer)
+    var
+        ItemLedgerEntryJCO: Record "Item Ledger Entry";
+        ValueEntryJCO: Record "Value Entry";
+        SalesLineJCO: Record "Sales Line";
+        SalesInvLineJCO: Record "Sales Invoice Line";
+        SalesCrMemoLineJCO: Record "Sales Cr.Memo Line";
+        PurchLineJCO: Record "Purchase Line";
+        PurchInvLineJCO: Record "Purch. Inv. Line";
+        PurchCrMemoLineJCO: Record "Purch. Cr. Memo Line";
+        LocationGroupChangeConf: Label 'Changing the Location Group Code for this Location will update the Location Group references in Ledger Entries and Open documents. Do you want to continue?';
+    begin
+        if Rec."Location Group Code ARCJCO" = xRec."Location Group Code ARCJCO" then
+            exit;
+        if not Confirm(LocationGroupChangeConf) then begin
+            Rec."Location Group Code ARCJCO" := xRec."Location Group Code ARCJCO";
+            exit;
+        end;
+        ItemLedgerEntryJCO.SetRange("Location Code", Rec.Code);
+        ItemLedgerEntryJCO.SetFilter("Location Group Code ARCJCO", '%1', xRec."Location Group Code ARCJCO");
+        if ItemLedgerEntryJCO.FindSet() then
+            repeat
+                ItemLedgerEntryJCO."Location Group Code ARCJCO" := Rec."Location Group Code ARCJCO";
+                ItemLedgerEntryJCO.Modify();
+            until ItemLedgerEntryJCO.Next() = 0;
+
+        ValueEntryJCO.SetRange("Location Code", Rec.Code);
+        ValueEntryJCO.SetFilter("Location Group Code ARCJCO", '%1', xRec."Location Group Code ARCJCO");
+        if ValueEntryJCO.FindSet() then
+            repeat
+                ValueEntryJCO."Location Group Code ARCJCO" := Rec."Location Group Code ARCJCO";
+                ValueEntryJCO.Modify();
+            until ValueEntryJCO.Next() = 0;
+
+        SalesLineJCO.SetRange("Location Code", Rec.Code);
+        SalesLineJCO.SetFilter("Location Group Code ARCJCO", '%1', xRec."Location Group Code ARCJCO");
+        if SalesLineJCO.FindSet() then
+            repeat
+                SalesLineJCO."Location Group Code ARCJCO" := Rec."Location Group Code ARCJCO";
+                SalesLineJCO.Modify();
+            until SalesLineJCO.Next() = 0;
+
+        SalesInvLineJCO.SetRange("Location Code", Rec.Code);
+        SalesInvLineJCO.SetFilter("Location Group Code ARCJCO", '%1', xRec."Location Group Code ARCJCO");
+        if SalesInvLineJCO.FindSet() then
+            repeat
+                SalesInvLineJCO."Location Group Code ARCJCO" := Rec."Location Group Code ARCJCO";
+                SalesInvLineJCO.Modify();
+            until SalesInvLineJCO.Next() = 0;
+
+        SalesCrMemoLineJCO.SetRange("Location Code", Rec.Code);
+        SalesCrMemoLineJCO.SetFilter("Location Group Code ARCJCO", '%1', xRec."Location Group Code ARCJCO");
+        if SalesCrMemoLineJCO.FindSet() then
+            repeat
+                SalesCrMemoLineJCO."Location Group Code ARCJCO" := Rec."Location Group Code ARCJCO";
+                SalesCrMemoLineJCO.Modify();
+            until SalesCrMemoLineJCO.Next() = 0;
+
+        PurchLineJCO.SetRange("Location Code", Rec.Code);
+        PurchLineJCO.SetFilter("Location Group Code ARCJCO", '%1', xRec."Location Group Code ARCJCO");
+        if PurchLineJCO.FindSet() then
+            repeat
+                PurchLineJCO."Location Group Code ARCJCO" := Rec."Location Group Code ARCJCO";
+                PurchLineJCO.Modify();
+            until PurchLineJCO.Next() = 0;
+
+        PurchInvLineJCO.SetRange("Location Code", Rec.Code);
+        PurchInvLineJCO.SetFilter("Location Group Code ARCJCO", '%1', xRec."Location Group Code ARCJCO");
+        if PurchInvLineJCO.FindSet() then
+            repeat
+                PurchInvLineJCO."Location Group Code ARCJCO" := Rec."Location Group Code ARCJCO";
+                PurchInvLineJCO.Modify();
+            until PurchInvLineJCO.Next() = 0;
+    end;
+
     [EventSubscriber(ObjectType::Table, database::"Sales Line", 'OnAfterValidateLocationCode', '', false, false)]
     local procedure OnAfterValidateLocationCodeJCO(var SalesLine: Record "Sales Line"; xSalesLine: Record "Sales Line")
     var
@@ -231,6 +314,8 @@ codeunit 50202 "InventoryMgmt JCOARC"
                 NewItemLedgEntry."Damage/Repair Location ARCJCO" := Location."Damage/Repair Location ARCJCO";
             NewItemLedgEntry."Location Group Code ARCJCO" := Location."Location Group Code ARCJCO";
         end;
+        if (ItemJournalLine."Location Code" = '') and (ItemJournalLine."New Location Code" = '') then
+            NewItemLedgEntry."Location Group Code ARCJCO" := '';
         NewItemLedgEntry."Ship-to Address JCO" := ItemJournalLine."Ship-to Address JCO";
         NewItemLedgEntry."Ship-to Cntry/Region Code JCO" := ItemJournalLine."Ship-to Cntry/Region Code JCO";
         NewItemLedgEntry."Ship-to County JCO" := ItemJournalLine."Ship-to County JCO";
@@ -245,6 +330,8 @@ codeunit 50202 "InventoryMgmt JCOARC"
     begin
         if Location.Get(ItemLedgEntry."Location Code") then
             ValueEntry."Location Group Code ARCJCO" := ItemLedgEntry."Location Group Code ARCJCO";
+        if ItemLedgEntry."Location Code" = '' then
+            ValueEntry."Location Group Code ARCJCO" := '';
         ValueEntry."Ship-to Address JCO" := ItemLedgEntry."Ship-to Address JCO";
         ValueEntry."Ship-to Cntry/Region Code JCO" := ItemLedgEntry."Ship-to Cntry/Region Code JCO";
         ValueEntry."Ship-to County JCO" := ItemLedgEntry."Ship-to County JCO";
@@ -439,5 +526,129 @@ codeunit 50202 "InventoryMgmt JCOARC"
                 if PurchInvLineJCO.FindSet() then
                     PurchInvLineJCO.ModifyAll("Location Group Code ARCJCO", LocationJCO."Location Group Code ARCJCO");
             until LocationJCO.Next() = 0;
+        ItemLedgerEntryJCO.Reset();
+        ItemLedgerEntryJCO.SetCurrentKey("Item No.", "Variant Code", "Location Code", "Posting Date");
+        ItemLedgerEntryJCO.SetFilter("Location Code", '%1', '');
+        ItemLedgerEntryJCO.SetFilter("Location Group Code ARCJCO", '<>%1', '');
+        if ItemLedgerEntryJCO.FindSet() then
+            ItemLedgerEntryJCO.ModifyAll("Location Group Code ARCJCO", '');
+    end;
+    [EventSubscriber(ObjectType::Table, Database::"Item", 'OnAfterValidateEvent', 'Item Category Code', false, false)]
+    local procedure ItemCategoryCodeOnAfterValidateJCO(var Rec: Record Item; var xRec: Record Item; CurrFieldNo: Integer)
+    var
+        SalesLine: Record "Sales Line";
+        SalesShptLine: Record "Sales Shipment Line";
+        SalesInvLine: Record "Sales Invoice Line";
+        SalesCrMemoLine: Record "Sales Cr.Memo Line";
+        RetRcptLine: Record "Return Receipt Line";
+        PurchLine: Record "Purchase Line";
+        PurchRcptLine: Record "Purch. Rcpt. Line";
+        PurchInvLine: Record "Purch. Inv. Line";
+        PurchCrMemoLine: Record "Purch. Cr. Memo Line";
+        RetShptLine: Record "Return Shipment Line";
+        TransferLine: Record "Transfer Line";
+        TransferShptLine: Record "Transfer Shipment Line";
+        TransferRcptLine: Record "Transfer Receipt Line";
+        ItemJnlLine: Record "Item Journal Line";
+        ItemLedgerEntry: Record "Item Ledger Entry";
+        ConfMessageLbl: Label 'You are changing the %1 of Item %2 from %3 to %4. Do you want to update all open and historical transactions to reflect the new Item Category of this Item?', Comment = '%1=FieldCaption("Item Category Code"), %2="No.", %3= xRec."Item Category Code", %4= Rec."Item Category Code"';
+    begin
+        if Rec."Item Category Code" = xRec."Item Category Code" then
+            exit;
+        ItemLedgerEntry.SetRange("Item No.", Rec."No.");
+        ItemLedgerEntry.SetFilter("Item Category Code", '<>%1', Rec."Item Category Code");
+        if ItemLedgerEntry.FindFirst() then
+            if not Confirm(StrSubstNo(ConfMessageLbl, Rec.FieldCaption("Item Category Code"), Rec."No.", xRec."Item Category Code", Rec."Item Category Code"), false) then
+                exit;
+
+        //Update Open and Posted Sales
+        SalesLine.SetRange(Type, SalesLine.Type::Item);
+        SalesLine.SetRange("No.", Rec."No.");
+        SalesLine.SetFilter("Item Category Code", '<>%1', Rec."Item Category Code");
+        if SalesLine.Findfirst() then
+            SalesLine.ModifyAll("Item Category Code", Rec."Item Category Code");
+
+        SalesShptLine.SetRange(Type, SalesShptLine.Type::Item);
+        SalesShptLine.SetRange("No.", Rec."No.");
+        SalesShptLine.SetFilter("Item Category Code", '<>%1', Rec."Item Category Code");
+        if SalesShptLine.Findfirst() then
+            SalesShptLine.ModifyAll("Item Category Code", Rec."Item Category Code");
+
+        SalesInvLine.SetRange(Type, SalesInvLine.Type::Item);
+        SalesInvLine.SetRange("No.", Rec."No.");
+        SalesInvLine.SetFilter("Item Category Code", '<>%1', Rec."Item Category Code");
+        if SalesInvLine.Findfirst() then
+            SalesInvLine.ModifyAll("Item Category Code", Rec."Item Category Code");
+
+        SalesCrMemoLine.SetRange(Type, SalesCrMemoLine.Type::Item);
+        SalesCrMemoLine.SetRange("No.", Rec."No.");
+        SalesCrMemoLine.SetFilter("Item Category Code", '<>%1', Rec."Item Category Code");
+        if SalesCrMemoLine.Findfirst() then
+            SalesCrMemoLine.ModifyAll("Item Category Code", Rec."Item Category Code");
+
+        RetRcptLine.SetRange(Type, RetRcptLine.Type::Item);
+        RetRcptLine.SetRange("No.", Rec."No.");
+        RetRcptLine.SetFilter("Item Category Code", '<>%1', Rec."Item Category Code");
+        if RetRcptLine.Findfirst() then
+            RetRcptLine.ModifyAll("Item Category Code", Rec."Item Category Code");
+
+        //Update Open and Posted Purchase
+        PurchLine.SetRange(Type, PurchLine.Type::Item);
+        PurchLine.SetRange("No.", Rec."No.");
+        PurchLine.SetFilter("Item Category Code", '<>%1', Rec."Item Category Code");
+        if PurchLine.Findfirst() then
+            PurchLine.ModifyAll("Item Category Code", Rec."Item Category Code");
+
+        PurchRcptLine.SetRange(Type, PurchRcptLine.Type::Item);
+        PurchRcptLine.SetRange("No.", Rec."No.");
+        PurchRcptLine.SetFilter("Item Category Code", '<>%1', Rec."Item Category Code");
+        if PurchRcptLine.Findfirst() then
+            PurchRcptLine.ModifyAll("Item Category Code", Rec."Item Category Code");
+
+        PurchInvLine.SetRange(Type, PurchInvLine.Type::Item);
+        PurchInvLine.SetRange("No.", Rec."No.");
+        PurchInvLine.SetFilter("Item Category Code", '<>%1', Rec."Item Category Code");
+        if PurchInvLine.Findfirst() then
+            PurchInvLine.ModifyAll("Item Category Code", Rec."Item Category Code");
+
+        RetShptLine.SetRange(Type, SalesLine.Type::Item);
+        RetShptLine.SetRange("No.", Rec."No.");
+        RetShptLine.SetFilter("Item Category Code", '<>%1', Rec."Item Category Code");
+        if RetShptLine.Findfirst() then
+            RetShptLine.ModifyAll("Item Category Code", Rec."Item Category Code");
+
+        PurchCrMemoLine.SetRange(Type, PurchCrMemoLine.Type::Item);
+        PurchCrMemoLine.SetRange("No.", Rec."No.");
+        PurchCrMemoLine.SetFilter("Item Category Code", '<>%1', Rec."Item Category Code");
+        if PurchCrMemoLine.Findfirst() then
+            PurchCrMemoLine.ModifyAll("Item Category Code", Rec."Item Category Code");
+
+        //Update Open and Posted Transfers
+        TransferLine.SetRange("Item No.", Rec."No.");
+        TransferLine.SetFilter("Item Category Code", '<>%1', Rec."Item Category Code");
+        if TransferLine.Findfirst() then
+            TransferLine.ModifyAll("Item Category Code", Rec."Item Category Code");
+
+        TransferShptLine.SetRange("Item No.", Rec."No.");
+        TransferShptLine.SetFilter("Item Category Code", '<>%1', Rec."Item Category Code");
+        if TransferShptLine.Findfirst() then
+            TransferShptLine.ModifyAll("Item Category Code", Rec."Item Category Code");
+
+        TransferRcptLine.SetRange("Item No.", Rec."No.");
+        TransferRcptLine.SetFilter("Item Category Code", '<>%1', Rec."Item Category Code");
+        if TransferRcptLine.Findfirst() then
+            TransferRcptLine.ModifyAll("Item Category Code", Rec."Item Category Code");
+
+        //Update Open Journals
+        ItemJnlLine.SetRange("Item No.", Rec."No.");
+        ItemJnlLine.SetFilter("Item Category Code", '<>%1', Rec."Item Category Code");
+        if ItemJnlLine.Findfirst() then
+            ItemJnlLine.ModifyAll("Item Category Code", Rec."Item Category Code");
+
+        //Update Item ledgers
+        ItemLedgerEntry.SetRange("Item No.", Rec."No.");
+        ItemLedgerEntry.SetFilter("Item Category Code", '<>%1', Rec."Item Category Code");
+        if ItemLedgerEntry.Findfirst() then
+            ItemLedgerEntry.ModifyAll("Item Category Code", Rec."Item Category Code");
     end;
 }
