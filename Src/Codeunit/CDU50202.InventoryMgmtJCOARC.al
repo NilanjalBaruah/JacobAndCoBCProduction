@@ -481,51 +481,83 @@ codeunit 50202 "InventoryMgmt JCOARC"
         PurchLineJCO: Record "Purchase Line";
         PurchInvLineJCO: Record "Purch. Inv. Line";
         PurchCrMemoLineJCO: Record "Purch. Cr. Memo Line";
+        UpdateCnt: Integer;
     begin
-        LocationJCO.SetFilter("Location Group Code ARCJCO", '<>%1', '');
+        UpdateCnt := 0;
         if LocationJCO.FindSet() then
             repeat
                 ItemLedgerEntryJCO.Reset();
                 ItemLedgerEntryJCO.SetRange("Location Code", LocationJCO.Code);
-                ItemLedgerEntryJCO.SetFilter("Location Group Code ARCJCO", '%1', '');
+                ItemLedgerEntryJCO.SetFilter("Location Group Code ARCJCO", '<>%1', LocationJCO."Location Group Code ARCJCO");
                 if ItemLedgerEntryJCO.FindSet() then
-                    ItemLedgerEntryJCO.ModifyAll("Location Group Code ARCJCO", LocationJCO."Location Group Code ARCJCO");
+                    repeat
+                        ItemLedgerEntryJCO."Location Group Code ARCJCO" := LocationJCO."Location Group Code ARCJCO";
+                        ItemLedgerEntryJCO.Modify();
+                        UpdateCnt += 1;
+                    until ItemLedgerEntryJCO.Next() = 0;
+
                 ValueEntryJCO.Reset();
                 ValueEntryJCO.SetRange("Location Code", LocationJCO.Code);
-                ValueEntryJCO.SetFilter("Location Group Code ARCJCO", '%1', '');
+                ValueEntryJCO.SetFilter("Location Group Code ARCJCO", '<>%1', LocationJCO."Location Group Code ARCJCO");
                 if ValueEntryJCO.FindSet() then
-                    ValueEntryJCO.ModifyAll("Location Group Code ARCJCO", LocationJCO."Location Group Code ARCJCO");
+                    repeat
+                        ValueEntryJCO."Location Group Code ARCJCO" := LocationJCO."Location Group Code ARCJCO";
+                        ValueEntryJCO.Modify();
+                        UpdateCnt += 1;
+                    until ValueEntryJCO.Next() = 0;
 
                 SalesLineJCO.Reset();
                 SalesLineJCO.SetRange("Location Code", LocationJCO.Code);
-                SalesLineJCO.SetFilter("Location Group Code ARCJCO", '%1', '');
+                SalesLineJCO.SetFilter("Location Group Code ARCJCO", '<>%1', LocationJCO."Location Group Code ARCJCO");
                 if SalesLineJCO.FindSet() then
-                    SalesLineJCO.ModifyAll("Location Group Code ARCJCO", LocationJCO."Location Group Code ARCJCO");
+                    repeat
+                        SalesLineJCO."Location Group Code ARCJCO" := LocationJCO."Location Group Code ARCJCO";
+                        SalesLineJCO.Modify();
+                        UpdateCnt += 1;
+                    until SalesLineJCO.Next() = 0;
 
                 SalesInvLineJCO.Reset();
                 SalesInvLineJCO.SetRange("Location Code", LocationJCO.Code);
-                SalesInvLineJCO.SetFilter("Location Group Code ARCJCO", '%1', '');
+                SalesInvLineJCO.SetFilter("Location Group Code ARCJCO", '<>%1', LocationJCO."Location Group Code ARCJCO");
                 if SalesInvLineJCO.FindSet() then
-                    SalesInvLineJCO.ModifyAll("Location Group Code ARCJCO", LocationJCO."Location Group Code ARCJCO");
+                    repeat
+                        SalesInvLineJCO."Location Group Code ARCJCO" := LocationJCO."Location Group Code ARCJCO";
+                        SalesInvLineJCO.Modify();
+                        UpdateCnt += 1;
+                    until SalesInvLineJCO.Next() = 0;
 
                 SalesCrMemoLineJCO.Reset();
                 SalesCrMemoLineJCO.SetRange("Location Code", LocationJCO.Code);
-                SalesCrMemoLineJCO.SetFilter("Location Group Code ARCJCO", '%1', '');
+                SalesCrMemoLineJCO.SetFilter("Location Group Code ARCJCO", '<>%1', LocationJCO."Location Group Code ARCJCO");
                 if SalesCrMemoLineJCO.FindSet() then
-                    SalesCrMemoLineJCO.ModifyAll("Location Group Code ARCJCO", LocationJCO."Location Group Code ARCJCO");
+                    repeat
+                        SalesCrMemoLineJCO."Location Group Code ARCJCO" := LocationJCO."Location Group Code ARCJCO";
+                        SalesCrMemoLineJCO.Modify();
+                        UpdateCnt += 1;
+                    until SalesCrMemoLineJCO.Next() = 0;
 
                 PurchLineJCO.Reset();
                 PurchLineJCO.SetRange("Location Code", LocationJCO.Code);
-                PurchLineJCO.SetFilter("Location Group Code ARCJCO", '%1', '');
+                PurchLineJCO.SetFilter("Location Group Code ARCJCO", '<>%1', LocationJCO."Location Group Code ARCJCO");
                 if PurchLineJCO.FindSet() then
-                    PurchLineJCO.ModifyAll("Location Group Code ARCJCO", LocationJCO."Location Group Code ARCJCO");
+                    repeat
+                        PurchLineJCO."Location Group Code ARCJCO" := LocationJCO."Location Group Code ARCJCO";
+                        PurchLineJCO.Modify();
+                        UpdateCnt += 1;
+                    until PurchLineJCO.Next() = 0;
 
                 PurchInvLineJCO.Reset();
                 PurchInvLineJCO.SetRange("Location Code", LocationJCO.Code);
-                PurchInvLineJCO.SetFilter("Location Group Code ARCJCO", '%1', '');
+                PurchInvLineJCO.SetFilter("Location Group Code ARCJCO", '<>%1', LocationJCO."Location Group Code ARCJCO");
                 if PurchInvLineJCO.FindSet() then
-                    PurchInvLineJCO.ModifyAll("Location Group Code ARCJCO", LocationJCO."Location Group Code ARCJCO");
+                    repeat
+                        PurchInvLineJCO."Location Group Code ARCJCO" := LocationJCO."Location Group Code ARCJCO";
+                        PurchInvLineJCO.Modify();
+                        UpdateCnt += 1;
+                    until PurchInvLineJCO.Next() = 0;
             until LocationJCO.Next() = 0;
+        Message('%1 records has been updated', UpdateCnt);
+
         ItemLedgerEntryJCO.Reset();
         ItemLedgerEntryJCO.SetCurrentKey("Item No.", "Variant Code", "Location Code", "Posting Date");
         ItemLedgerEntryJCO.SetFilter("Location Code", '%1', '');
@@ -533,6 +565,88 @@ codeunit 50202 "InventoryMgmt JCOARC"
         if ItemLedgerEntryJCO.FindSet() then
             ItemLedgerEntryJCO.ModifyAll("Location Group Code ARCJCO", '');
     end;
+
+    //maintenance Ship-to In Value Entry
+    procedure UpdateShipToValueEntry()
+    var
+        ValueEntry: Record "Value Entry";
+        ItemLedgerEntry: Record "Item Ledger Entry";
+        CustLedgerEntry: Record "Cust. Ledger Entry";
+        SalesInvoiceHeader: Record "Sales Invoice Header";
+        SalesShipmentHeader: Record "Sales Shipment Header";
+        Location: Record Location;
+        cnt: Integer;
+    begin
+        cnt := 0;
+        ValueEntry.SetCurrentKey("Item Ledger Entry Type", "Posting Date", "Item No.", "Inventory Posting Group", "Dimension Set ID");
+        ValueEntry.SetRange("Item Ledger Entry Type", ValueEntry."Item Ledger Entry Type"::Sale);
+        ValueEntry.SetRange("Document Type", ValueEntry."Document Type"::"Sales Invoice");
+        ValueEntry.SetFilter("Item No.", '<>%1', '');
+        ValueEntry.SetFilter("Ship-to Address JCO", '%1', '');
+        if ValueEntry.FindSet() then
+            repeat
+                SalesInvoiceHeader.Get(ValueEntry."Document No.");
+                ValueEntry."Ship-to Address JCO" := SalesInvoiceHeader."Ship-to Address";
+                ValueEntry."Ship-to Cntry/Region Code JCO" := SalesInvoiceHeader."Ship-to Country/Region Code";
+                ValueEntry."Ship-to County JCO" := SalesInvoiceHeader."Ship-to County";
+                ValueEntry."Ship-to Post Code JCO" := SalesInvoiceHeader."Ship-to Post Code";
+                Location.Get(ValueEntry."Location Code");
+                ValueEntry."Ship-from Cntry/Regin Code JCO" := Location."Country/Region Code";
+                ValueEntry.Modify();
+                cnt += 1;
+            until ValueEntry.Next() = 0;
+        Message('%1 Value Entries updated successfully', cnt);
+
+        cnt := 0;
+        ItemLedgerEntry.SetCurrentKey("Entry Type", "Item No.");
+        ItemLedgerEntry.SetRange("Entry Type", ValueEntry."Item Ledger Entry Type"::Sale);
+        ItemLedgerEntry.SetFilter("Document Type", '%1|%2', ItemLedgerEntry."Document Type"::"Sales Invoice", ItemLedgerEntry."Document Type"::"Sales Shipment");
+        ItemLedgerEntry.SetFilter("Item No.", '<>%1', '');
+        ItemLedgerEntry.SetFilter("Ship-to Address JCO", '%1', '');
+        if ItemLedgerEntry.FindSet() then
+            repeat
+                Location.Get(ItemLedgerEntry."Location Code");
+                if ItemLedgerEntry."Document Type" = ItemLedgerEntry."Document Type"::"Sales Invoice" then begin
+                    SalesInvoiceHeader.Get(ItemLedgerEntry."Document No.");
+                    ItemLedgerEntry."Ship-to Address JCO" := SalesInvoiceHeader."Ship-to Address";
+                    ItemLedgerEntry."Ship-to Cntry/Region Code JCO" := SalesInvoiceHeader."Ship-to Country/Region Code";
+                    ItemLedgerEntry."Ship-to County JCO" := SalesInvoiceHeader."Ship-to County";
+                    ItemLedgerEntry."Ship-to Post Code JCO" := SalesInvoiceHeader."Ship-to Post Code";
+                end else begin
+                    SalesShipmentHeader.Get(ItemLedgerEntry."Document No.");
+                    ItemLedgerEntry."Ship-to Address JCO" := SalesShipmentHeader."Ship-to Address";
+                    ItemLedgerEntry."Ship-to Cntry/Region Code JCO" := SalesShipmentHeader."Ship-to Country/Region Code";
+                    ItemLedgerEntry."Ship-to County JCO" := SalesShipmentHeader."Ship-to County";
+                    ItemLedgerEntry."Ship-to Post Code JCO" := SalesShipmentHeader."Ship-to Post Code";
+                end;
+                ItemLedgerEntry."Ship-from Cntry/Regin Code JCO" := Location."Country/Region Code";
+                ItemLedgerEntry.Modify();
+                cnt += 1;
+            until ItemLedgerEntry.Next() = 0;
+        Message('%1 Item Ledger Entries updated successfully', cnt);
+
+        cnt := 0;
+        CustLedgerEntry.SetCurrentKey("Document Type", "Posting Date");
+        CustLedgerEntry.SetRange("Document Type", CustLedgerEntry."Document Type"::Invoice);
+        CustLedgerEntry.SetFilter("Ship-to Address JCO", '%1', '');
+        if CustLedgerEntry.FindSet() then
+            repeat
+                if SalesInvoiceHeader.Get(CustLedgerEntry."Document No.") then begin
+                    CustLedgerEntry."Ship-to Address JCO" := SalesInvoiceHeader."Ship-to Address";
+                    CustLedgerEntry."Ship-to Cntry/Region Code JCO" := SalesInvoiceHeader."Ship-to Country/Region Code";
+                    CustLedgerEntry."Ship-to County JCO" := SalesInvoiceHeader."Ship-to County";
+                    CustLedgerEntry."Ship-to Post Code JCO" := SalesInvoiceHeader."Ship-to Post Code";
+                    if SalesInvoiceHeader."Location Code" <> '' then begin
+                        Location.Get(SalesInvoiceHeader."Location Code");
+                        CustLedgerEntry."Ship-from Cntry/Regin Code JCO" := Location."Country/Region Code";
+                    end;
+                    CustLedgerEntry.Modify();
+                    cnt += 1;
+                end;
+            until CustLedgerEntry.Next() = 0;
+        Message('%1 Customer Ledger Entries updated successfully', cnt);
+    end;
+
     [EventSubscriber(ObjectType::Table, Database::"Item", 'OnAfterValidateEvent', 'Item Category Code', false, false)]
     local procedure ItemCategoryCodeOnAfterValidateJCO(var Rec: Record Item; var xRec: Record Item; CurrFieldNo: Integer)
     var

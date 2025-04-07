@@ -212,6 +212,18 @@ page 50210 "Detailed Sales Report JCOARC"
                     Report.RunModal(report::"Detailed Sales Report ARCJCO");
                 end;
             }
+            action(UpdateShipToDetails)
+            {
+                Image = UpdateShipment;
+                Caption = 'Update Ship-to Details';
+                ApplicationArea = All;
+                trigger OnAction()
+                var
+                    InventoryMgmt: Codeunit "InventoryMgmt JCOARC";
+                begin
+                    InventoryMgmt.UpdateShipToValueEntry();
+                end;
+            }
         }
     }
     trigger OnAfterGetRecord()

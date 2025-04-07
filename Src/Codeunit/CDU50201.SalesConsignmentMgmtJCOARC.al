@@ -13,6 +13,7 @@ using Microsoft.Inventory.Ledger;
 using Microsoft.Inventory.Journal;
 using Microsoft.Inventory.Tracking;
 
+
 codeunit 50201 "SalesConsignmentMgmt JCOARC"
 {
     var

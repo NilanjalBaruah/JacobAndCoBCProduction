@@ -45,4 +45,21 @@ pageextension 50201 "LocationList Extn ARCJCO" extends "Location List"
             }
         }
     }
+    actions
+    {
+        addafter(AssignTaxArea)
+        {
+            action(UpdateLocGrp)
+            {
+                Caption = 'Update Location Group in Ledger Entry';
+                ApplicationArea = All;
+                trigger OnAction()
+                var
+                    InventoryMgmtJCOARC: Codeunit "InventoryMgmt JCOARC";
+                begin
+                    InventoryMgmtJCOARC.UpdateLedgerLocatiionGroup();
+                end;
+            }
+        }
+    }
 }
