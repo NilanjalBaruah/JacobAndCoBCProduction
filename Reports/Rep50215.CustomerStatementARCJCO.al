@@ -236,7 +236,7 @@ report 50215 "Customer Statement ARCJCO"
                             {
                             }
                             //JCO>>
-                            column(DocType_DtldCustLedgEntries; "Document Type")
+                            column(DocType_DtldCustLedgEntries; DetailedCLEDocType)
                             {
                             }
                             column(DebitAmt_DtldCustLedgEntries; "Debit Amount")
@@ -282,7 +282,9 @@ report 50215 "Customer Statement ARCJCO"
 
                             trigger OnAfterGetRecord()
                             var
+                                SubDocType: Record "Sub Doc. Type ARCJCO";
                                 Skip: Boolean;
+                                SubDocTypeStr: Label '%1', Comment = '%1= Sub Coc Type';
                             begin
                                 if SkipReversedUnapplied(DtldCustLedgEntries) or (Amount = 0) then
                                     CurrReport.Skip();
@@ -303,6 +305,11 @@ report 50215 "Customer Statement ARCJCO"
                                             CustLedgerEntry.SetRange("Date Filter", 0D, EndDate);
                                             CustLedgerEntry.CalcFields("Remaining Amount");
                                             RemainingAmount := CustLedgerEntry."Remaining Amount";
+                                            if CustLedgerEntry."Sub Document Type ARCJCO" <> '' then begin
+                                                SubDocType.Get(CustLedgerEntry."Sub Document Type ARCJCO");
+                                                DetailedCLEDocType := StrSubstNo(SubDocTypeStr, SubDocType.Description)
+                                            end else
+                                                DetailedCLEDocType := Format(CustLedgerEntry."Document Type");
                                             CustLedgerEntry.SetRange("Date Filter");
                                         end;
                                     "Entry Type"::Application:
@@ -1169,6 +1176,8 @@ report 50215 "Customer Statement ARCJCO"
         PrintEntriesDue: Boolean;
         PrintUnappliedEntries: Boolean;
         PrintReversedEntries: Boolean;
+        //JCO>>
+        DetailedCLEDocType: Text;
 
     local procedure GetDate(PostingDate: Date; DueDate: Date): Date
     begin

@@ -6,6 +6,15 @@ pageextension 50205 "CustLedgerEntries Extn ARCJCO" extends "Customer Ledger Ent
 {
     layout
     {
+        addafter("Document Type")
+        {
+            field("Sub Document Type ARCJCO"; Rec."Sub Document Type ARCJCO")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the Additional Type of the Transaction';
+            }
+        }
+
         addafter(Description)
         {
             field("Description 2"; Rec."Description 2 ARCJCO")
@@ -30,6 +39,23 @@ pageextension 50205 "CustLedgerEntries Extn ARCJCO" extends "Customer Ledger Ent
                 ToolTip = 'Show the Tax or VAT Amount in $';
                 ApplicationArea = All;
                 Editable = false;
+            }
+        }
+    }
+    actions
+    {
+        addafter("Detailed &Ledger Entries")
+        {
+            action(UpdateEntryType)
+            {
+                Caption = 'One off Update Entry Type (Addidional)';
+                ApplicationArea = All;
+                trigger OnAction()
+                var
+                    JCOSubscriptions: Codeunit "JCO Subscriptions";
+                begin
+                    JCOSubscriptions.OneOffMaintenanceCLEAddDocType();
+                end;
             }
         }
     }

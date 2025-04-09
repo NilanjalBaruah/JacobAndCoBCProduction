@@ -7,6 +7,14 @@ pageextension 50210 "PSalesInvoice Extn ARCJCO" extends "Posted Sales Invoice"
 {
     layout
     {
+        addafter("Sell-to Customer Name")
+        {
+            field("Sub Document Type ARCJCO"; Rec."Sub Document Type ARCJCO")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specify the Additional Type of the Transaction';
+            }
+        }
         modify("Sell-to Address")
         {
             Importance = Promoted;

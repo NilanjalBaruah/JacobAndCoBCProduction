@@ -13,6 +13,12 @@ tableextension 50105 "Jco Sales Cr.memo Head Ext" extends "Sales Cr.Memo Header"
             Caption = 'SWISS VAT';
             DataClassification = CustomerContent;
         }
+        field(50204; "Sub Document Type ARCJCO"; Code[20])
+        {
+            Caption = 'Entry Type';
+            DataClassification = CustomerContent;
+            TableRelation = "Sub Doc. Type ARCJCO";
+        }
     }
 
     keys

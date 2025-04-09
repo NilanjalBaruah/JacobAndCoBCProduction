@@ -63,6 +63,12 @@ tableextension 50101 "Jco Sales Header Ext" extends "Sales Header"
                     until SalesLine.Next() = 0;
             end;
         }
+        field(50204; "Sub Document Type ARCJCO"; Code[20])
+        {
+            Caption = 'Entry Type';
+            DataClassification = CustomerContent;
+            TableRelation = "Sub Doc. Type ARCJCO";
+        }
     }
 
     keys

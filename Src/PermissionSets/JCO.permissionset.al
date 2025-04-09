@@ -40,8 +40,12 @@ permissionset 50100 GeneratedPermission
         table "Location Group ARCJCO" = X,
         page "Location Groups ARCJCO" = X,
         report "Customer Statement ARCJCO" = X,
-        report "Packing List JCOARC" = X,
         page "Consignments To Invoice ARCJOC" = X,
         page "Consignmnts To Invoice. ARCJOC" = X,
-        page "Invoiced Consignments ARCJOC" = X;
+        page "Invoiced Consignments ARCJOC" = X,
+        report "Packing List JCOARC" = X,
+        report "Inventory Valuation JCO" = X,
+        tabledata "Sub Doc. Type ARCJCO" = RIMD,
+        table "Sub Doc. Type ARCJCO" = X,
+        page "Sub Document Type ARCJCO" = X;
 }

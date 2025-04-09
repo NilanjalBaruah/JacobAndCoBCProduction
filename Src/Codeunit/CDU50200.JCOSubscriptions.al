@@ -4,6 +4,11 @@ using Microsoft.Finance.GeneralLedger.Journal;
 using Microsoft.Sales.Receivables;
 using Microsoft.Purchases.Payables;
 using Microsoft.Sales.Customer;
+using Microsoft.Finance.VAT.Setup;
+using JCO_BC_Dev_.JCO_BC_Dev_;
+using Microsoft.Sales.History;
+using Microsoft.Sales.Document;
+using Microsoft.Purchases.Document;
 using Microsoft.Bank.BankAccount;
 using Microsoft.Foundation.Enums;
 using Microsoft.Inventory.Ledger;
@@ -14,6 +19,9 @@ using Microsoft.Finance.ReceivablesPayables;
 
 codeunit 50200 "JCO Subscriptions"
 {
+    Permissions = TableData "Cust. Ledger Entry" = rimd,
+                  TableData "Sales Invoice Header" = rimd,
+                  tabledata "Sales Cr.Memo Header" = rimd;
 
     //This event is used to flow custom field data from General Journal Line to GL Entries
     [EventSubscriber(ObjectType::Codeunit, 12, 'OnAfterInitGLEntry', '', false, false)]
@@ -108,6 +116,111 @@ codeunit 50200 "JCO Subscriptions"
         else
             CheckForOpenEntries(Rec, xRec, 2);
     end;
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnRecreatePurchLinesOnBeforeInsertPurchLine', '', false, false)]
+
+    local procedure OnRecreatePurchLinesOnBeforeInsertPurchLineJCO(var PurchaseLine: Record "Purchase Line"; var TempPurchaseLine: Record "Purchase Line" temporary; ChangedFieldName: Text[100])
+    begin
+        PurchaseLine.Validate("Direct Unit Cost", TempPurchaseLine."Direct Unit Cost");
+    end;
+
+    //Additional Document Type to CLE
+    [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromSalesHeader', '', false, false)]
+    local procedure OnAfterCopyGenJnlLineFromSalesHeaderJCO(SalesHeader: Record "Sales Header"; var GenJournalLine: Record "Gen. Journal Line")
+    begin
+        GenJournalLine."Sub Document Type ARCJCO" := SalesHeader."Sub Document Type ARCJCO";
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromSalesHeaderPrepmtPost', '', false, false)]
+    local procedure OnAfterCopyGenJnlLineFromSalesHeaderPrepmtPost(SalesHeader: Record "Sales Header"; var GenJournalLine: Record "Gen. Journal Line"; UsePmtDisc: Boolean)
+    var
+        SubDocTypeJCO: Record "Sub Doc. Type ARCJCO";
+    begin
+        SubDocTypeJCO.SetRange("Default to Document Type", SubDocTypeJCO."Default to Document Type"::Prepayment);
+        if SubDocTypeJCO.FindFirst() then
+            GenJournalLine."Sub Document Type ARCJCO" := SubDocTypeJCO.Code;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, 12, 'OnAfterInitCustLedgEntry', '', false, false)]
+    local procedure OnAfterInitCustLedgEntryJCO(var CustLedgerEntry: Record "Cust. Ledger Entry"; GenJournalLine: Record "Gen. Journal Line"; var GLRegister: Record "G/L Register")
+    begin
+        CustLedgerEntry."Sub Document Type ARCJCO" := GenJournalLine."Sub Document Type ARCJCO";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, 442, 'OnBeforeSalesInvHeaderInsert', '', false, false)]
+    local procedure OnBeforeSalesInvHeaderInsert(var SalesInvHeader: Record "Sales Invoice Header"; SalesHeader: Record "Sales Header"; CommitIsSuppressed: Boolean; GenJnlDocNo: Code[20])
+    var
+        SubDocTypeJCO: Record "Sub Doc. Type ARCJCO";
+    begin
+        SubDocTypeJCO.SetRange("Default to Document Type", SubDocTypeJCO."Default to Document Type"::Prepayment);
+        if SubDocTypeJCO.FindFirst() then
+            SalesInvHeader."Sub Document Type ARCJCO" := SubDocTypeJCO.Code;
+    end;
+
+    procedure OneOffMaintenanceCLEAddDocType()
+    var
+        CustLedgEntry: Record "Cust. Ledger Entry";
+        SalesInvoiceHeader: Record "Sales Invoice Header";
+        SalesCrMemoHeader: Record "Sales Cr.Memo Header";
+        SalesCrMemoLine: Record "Sales Cr.Memo Line";
+        SubDocType: Record "Sub Doc. Type ARCJCO";
+    begin
+        CustLedgEntry.SetCurrentKey("Document Type", "Posting Date");
+        if CustLedgEntry.FindSet() then
+            repeat
+                if CustLedgEntry."Document Type" = CustLedgEntry."Document Type"::"Credit Memo" then begin
+                    SalesCrMemoHeader.Reset();
+                    SalesCrMemoHeader.SetRange("No.", CustLedgEntry."Document No.");
+                    if SalesCrMemoHeader.FindFirst() then begin
+                        SalesCrMemoLine.Reset();
+                        SalesCrMemoLine.SetRange("Document No.", SalesCrMemoHeader."No.");
+                        SalesCrMemoLine.SetRange(Type, SalesCrMemoLine.Type::"G/L Account");
+                        SalesCrMemoLine.SetFilter(Amount, '<>%1', 0);
+                        if SalesCrMemoLine.FindFirst() then begin
+                            if SalesCrMemoLine."No." = '66000' then begin
+                                SalesCrMemoHeader."Sub Document Type ARCJCO" := 'CO-OP MARKETING';
+                                SalesCrMemoHeader.Modify();
+                                CustLedgEntry."Sub Document Type ARCJCO" := 'CO-OP MARKETING';
+                                CustLedgEntry.Modify();
+                            end else begin
+                                SalesCrMemoHeader."Sub Document Type ARCJCO" := '';
+                                SalesCrMemoHeader.Modify();
+                                CustLedgEntry."Sub Document Type ARCJCO" := '';
+                                CustLedgEntry.Modify();
+                            end;
+                        end else begin
+                            SalesCrMemoLine.Reset();
+                            SalesCrMemoLine.SetRange("Document No.", SalesCrMemoHeader."No.");
+                            SalesCrMemoLine.SetRange(Type, SalesCrMemoLine.Type::Item);
+                            SalesCrMemoLine.SetFilter(Amount, '<>%1', 0);
+                            if SalesCrMemoLine.FindFirst() then begin
+                                SalesCrMemoHeader."Sub Document Type ARCJCO" := 'RETURN';
+                                SalesCrMemoHeader.Modify();
+                                CustLedgEntry."Sub Document Type ARCJCO" := 'RETURN';
+                                CustLedgEntry.Modify();
+                            end;
+                        end;
+                    end;
+                end else if CustLedgEntry."Document Type" = CustLedgEntry."Document Type"::Invoice then begin
+                    if CustLedgEntry.Prepayment then begin
+                        SubDocType.Reset();
+                        SubDocType.SetRange("Default to Document Type", SubDocType."Default to Document Type"::Prepayment);
+                        if SubDocType.FindFirst() then begin
+                            SalesInvoiceHeader.Reset();
+                            SalesInvoiceHeader.SetRange("No.", CustLedgEntry."Document No.");
+                            if SalesInvoiceHeader.FindFirst() then begin
+                                SalesInvoiceHeader."Sub Document Type ARCJCO" := SubDocType.Code;
+                                SalesInvoiceHeader.Modify();
+
+                                CustLedgEntry."Sub Document Type ARCJCO" := SubDocType.Code;
+                                CustLedgEntry.Modify();
+                            end;
+                        end;
+                    end;
+                end;
+            until CustLedgEntry.Next() = 0;
+    end;
+    //Additional Document Type to CLE<<
+
     //CheckFor: 1: Consignment Custoner, 2: Consignment Vendor
     local procedure CheckForOpenEntries(Loc: Record Location; xLoc: Record Location; CheckFor: Integer)
     begin

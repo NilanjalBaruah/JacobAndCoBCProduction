@@ -6,6 +6,14 @@ pageextension 50209 "SalesCrMemo Extn ARCJCO" extends "Sales Credit Memo"
 {
     layout
     {
+        addafter("Sell-to Customer Name")
+        {
+            field("Sub Document Type ARCJCO"; Rec."Sub Document Type ARCJCO")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specify the Type of the Credit Transaction';
+            }
+        }
         modify("Sell-to Address")
         {
             Importance = Promoted;

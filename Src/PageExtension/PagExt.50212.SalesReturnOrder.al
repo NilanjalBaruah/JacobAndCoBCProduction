@@ -6,6 +6,14 @@ pageextension 50212 "SalesRetOrd Extn ARCJCO" extends "Sales Return Order"
 {
     layout
     {
+        addafter("Sell-to Customer Name")
+        {
+            field("Sub Document Type ARCJCO"; Rec."Sub Document Type ARCJCO")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specify the Type of the Credit Transaction';
+            }
+        }
         addafter(Status)
         {
             field("SWISS VAT ARCJCO"; Rec."SWISS VAT ARCJCO")

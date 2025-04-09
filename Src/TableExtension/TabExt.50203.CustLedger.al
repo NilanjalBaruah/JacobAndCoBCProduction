@@ -12,6 +12,12 @@ tableextension 50203 "CustLedgerEntry Extn ARCJCO" extends "Cust. Ledger Entry"
             Caption = 'Description 2';
             DataClassification = CustomerContent;
         }
+        field(50204; "Sub Document Type ARCJCO"; Code[20])
+        {
+            Caption = 'Entry Type';
+            DataClassification = CustomerContent;
+            TableRelation = "Sub Doc. Type ARCJCO";
+        }
         field(50207; "Ship-to Address JCO"; Text[100])
         {
             Caption = 'Ship-to Address';

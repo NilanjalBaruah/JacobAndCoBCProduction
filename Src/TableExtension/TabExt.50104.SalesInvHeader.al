@@ -20,6 +20,12 @@ tableextension 50104 "Jco Sales Inv Header Ext" extends "Sales Invoice Header"
             DataClassification = CustomerContent;
         }
         //JCO-91<<
+        field(50204; "Sub Document Type ARCJCO"; Code[20])
+        {
+            Caption = 'Entry Type';
+            DataClassification = CustomerContent;
+            TableRelation = "Sub Doc. Type ARCJCO";
+        }
     }
 
     keys

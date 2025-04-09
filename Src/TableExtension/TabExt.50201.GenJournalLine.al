@@ -12,6 +12,11 @@ tableextension 50201 "GenJournalLine Extn ARCJCO" extends "Gen. Journal Line"
             Caption = 'Description 2';
             DataClassification = CustomerContent;
         }
+        field(50204; "Sub Document Type ARCJCO"; Code[20])
+        {
+            DataClassification = CustomerContent;
+            TableRelation = "Sub Doc. Type ARCJCO";
+        }
         field(50207; "Ship-to Address JCO"; Text[100])
         {
             Caption = 'Ship-to Address';
